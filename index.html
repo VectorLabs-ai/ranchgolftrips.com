@@ -135,14 +135,18 @@
         }
         .btn-register-nav:hover { background: #d32f2f; color: white !important; }
 
-        /* --- HERO & BANNER --- */
-        .hero-section { text-align: center; background: #000; position: relative; }
+        /* --- HERO & BANNER (FIXED SPACING) --- */
+        .hero-section { 
+            text-align: center; 
+            background: #000; 
+            position: relative;
+            line-height: 0; /* Kills the white space gap below the image */
+        }
         
         .banner-img { 
             width: 100%; 
             height: auto; 
             display: block; 
-            /* Fixed: Removed max-height/object-fit to prevent white space */
             border-bottom: 5px solid var(--gold); 
         }
 
@@ -151,6 +155,7 @@
             background: #222; color: var(--gold); padding: 20px 0; text-align: center;
             border-bottom: 2px solid var(--wood); display: flex;
             justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px;
+            line-height: 1.5; /* Reset line-height for text */
         }
         
         .timer-unit {
