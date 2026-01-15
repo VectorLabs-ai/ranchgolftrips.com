@@ -8,14 +8,14 @@
     <style>
         /* --- THEME VARIABLES --- */
         :root {
-            --felt-green: #1a472a; /* Deep Poker Table Green */
+            --felt-green: #1a472a; 
             --bright-green: #2e7d32;
-            --gold: #f4c430;       /* Trophy Gold */
+            --gold: #f4c430;       
             --gold-gradient: linear-gradient(180deg, #f9e29a 0%, #d4af37 100%);
-            --wood: #5d4037;       /* Wood Border */
+            --wood: #5d4037;       
             --card-white: #fdfdfd;
             --text-dark: #222;
-            --red-accent: #b71c1c; /* Casino Red */
+            --red-accent: #b71c1c; 
         }
 
         /* --- RESET & BASIC SETUP --- */
@@ -43,7 +43,7 @@
             padding: 30px; max-width: 500px; width: 90%; text-align: center;
             border-radius: 10px; box-shadow: 0 0 50px rgba(244, 196, 48, 0.5);
             animation: dropIn 0.5s ease-out; position: relative;
-            max-height: 90vh; overflow-y: auto; /* Scroll if screen is small */
+            max-height: 90vh; overflow-y: auto; 
         }
 
         .modal-content::before { content: '♠'; position: absolute; top: 10px; left: 10px; font-size: 2rem; color: #ccc; }
@@ -135,47 +135,71 @@
         }
         .btn-register-nav:hover { background: #d32f2f; color: white !important; }
 
-        /* --- HERO & BANNER (FIXED SPACING & OVERLAY) --- */
+        /* --- HERO & BANNER STYLES --- */
         .hero-section { 
             text-align: center; 
             background: #000; 
-            position: relative; /* Essential for overlay positioning */
-            line-height: 0;     /* Fixes the white space gap below image */
+            position: relative; 
+            line-height: 0;     
+            border-bottom: 5px solid var(--gold);
         }
         
         .banner-img { 
             width: 100%; 
             height: auto; 
             display: block; 
-            border-bottom: 5px solid var(--gold); 
         }
 
-        /* TEXT OVERLAY STYLING */
-        .banner-text-overlay {
+        /* --- BANNER TEXT OVERLAYS --- */
+        .banner-overlay-container {
             position: absolute;
-            bottom: 25px; /* Adjusts how far up from bottom */
             left: 0;
             width: 100%;
             text-align: center;
             z-index: 10;
-            pointer-events: none;
+            pointer-events: none; /* Allows clicks to pass through */
+            padding: 0 20px;
         }
 
-        .banner-text-overlay h2 {
+        /* TOP TEXT */
+        .banner-top {
+            top: 8%; /* Positioning from top */
+        }
+
+        .banner-top h1 {
             font-family: 'Rye', serif;
             color: var(--gold);
-            font-size: 2rem; /* Adjusted for clarity */
+            font-size: 3.5vw; /* Responsive size based on viewport width */
             text-transform: uppercase;
-            /* Strong shadow to make text readable over any background */
-            text-shadow: 
-                3px 3px 0 #000, 
-                -1px -1px 0 #000,  
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000;
+            margin: 0;
+            line-height: 1.1;
+            /* Strong shadow for readability */
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+
+        .banner-top p {
+            font-family: 'Roboto', sans-serif;
+            color: #fff; /* White text */
+            font-size: 2vw; /* Responsive size */
+            font-weight: 700;
+            margin: 10px 0 0 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+
+        /* BOTTOM TEXT */
+        .banner-bottom {
+            bottom: 12%; /* Positioning from bottom */
+        }
+
+        .banner-bottom h2 {
+            font-family: 'Rye', serif;
+            color: var(--gold);
+            font-size: 2.5vw; /* Responsive size */
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
             letter-spacing: 1px;
             margin: 0;
-            padding: 0 15px;
         }
 
         /* --- COUNTDOWN TIMER --- */
@@ -357,7 +381,7 @@
         .committee-list { list-style: none; padding: 0; margin-top: 10px; }
         .committee-list li { display: inline-block; margin: 0 10px; color: #ddd; }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE TEXT SIZES FOR MOBILE --- */
         @media (max-width: 768px) {
             .nav-inner { flex-direction: column; gap: 10px; }
             .nav-links { justify-content: center; gap: 10px; }
@@ -367,12 +391,12 @@
             .section-title { font-size: 1.8rem; }
             .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
             
-            /* Stack teams on mobile despite the grid setting */
             .team-grid { grid-template-columns: 1fr; } 
 
-            /* Adjust banner text overlay for smaller screens */
-            .banner-text-overlay { bottom: 10px; }
-            .banner-text-overlay h2 { font-size: 1.1rem; padding: 0 5px; }
+            /* Adjust banner text sizes for smaller screens so they don't look too small */
+            .banner-top h1 { font-size: 1.6rem; }
+            .banner-top p { font-size: 0.9rem; }
+            .banner-bottom h2 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -426,12 +450,17 @@
         </div>
 
         <div class="hero-section">
-            <img src="Banner-SpringFling.png" 
+            <div class="banner-overlay-container banner-top">
+                <h1>2026 Robson Ranch Spring Invitational</h1>
+                <p>MARCH 22-25, 2026</p>
+            </div>
+
+            <img src="image_37.png" 
                  alt="2026 Robson Ranch Invitational Banner" 
                  class="banner-img"
-                 onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=2026+ROBSON+RANCH+INVITATIONAL'">
+                 onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=ROBSON+RANCH+INVITATIONAL'">
             
-            <div class="banner-text-overlay">
+            <div class="banner-overlay-container banner-bottom">
                 <h2>Ryder Cup Format: 4 Teams / 40 Players</h2>
             </div>
         </div>
