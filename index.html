@@ -167,6 +167,52 @@
         .timer-val { font-size: 1.8rem; font-weight: bold; font-family: 'Courier New', monospace; display: block; color: var(--gold); }
         .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
 
+        /* --- LEADERBOARD STYLES (NEW) --- */
+        .leaderboard-box {
+            background: var(--card-white); border: 4px solid var(--gold);
+            border-radius: 8px; overflow: hidden; margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .leaderboard-header {
+            background: #000; color: var(--gold); padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .live-badge {
+            background: var(--red-accent); color: white; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+            animation: pulse 2s infinite; border: 1px solid white;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .lb-table {
+            width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif;
+        }
+
+        .lb-table th {
+            background: var(--felt-green); color: white; padding: 15px;
+            text-align: center; font-family: 'Rye', serif; letter-spacing: 1px;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .lb-table td {
+            padding: 15px; text-align: center; border-bottom: 1px solid #ddd;
+            font-size: 1.1rem; font-weight: bold;
+        }
+
+        .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
+        .lb-table tr:hover { background-color: #e8f5e9; }
+
+        .team-name-cell { text-align: left !important; color: var(--text-dark); }
+        .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
+
         /* --- INFO SECTIONS --- */
         .letter-section {
             background-color: #fdfdfd; padding: 60px 40px; margin: 40px 20px;
@@ -339,7 +385,9 @@
             .section-title { font-size: 1.8rem; }
             .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
             
-            .team-grid { grid-template-columns: 1fr; } 
+            .team-grid { grid-template-columns: 1fr; }
+            
+            .lb-table th, .lb-table td { padding: 10px 5px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -379,6 +427,7 @@
             <div class="nav-inner">
                 <a class="nav-logo" href="#">RR INVITATIONAL '26</a>
                 <div class="nav-links">
+                    <span onclick="scrollToId('leaderboard')">Leaderboard</span>
                     <span onclick="scrollToId('info')">Info & Fees</span>
                     <span onclick="scrollToId('schedule')">Schedule</span>
                     <span onclick="scrollToId('courses')">Courses</span>
@@ -405,6 +454,62 @@
             <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
             <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
             <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+        </div>
+
+        <div class="container" id="leaderboard">
+            <h2 class="section-title" style="margin-top: 40px;">🏆 Team Standings 🏆</h2>
+            <div class="leaderboard-box">
+                <div class="leaderboard-header">
+                    <span style="font-family: 'Rye', serif; font-size: 1.2rem;">CURRENT POINTS</span>
+                    <span class="live-badge">● LIVE UPDATES</span>
+                </div>
+                <table class="lb-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">Pos</th>
+                            <th style="text-align: left;">Team</th>
+                            <th>Day 1</th>
+                            <th>Day 2</th>
+                            <th>Day 3</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">Back Nine Bandits</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">Bogey Brothers</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">Sand Trap Seniors</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">Slice Masters</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="container" id="info">
@@ -480,7 +585,11 @@
 
                 <div class="format-item">
                     <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
-                    <span class="format-sub">Format: Low Gross/Low Net (White Tees) & Low Gross/Low Net (Gold Tees)</span>
+                    <span class="format-sub">Format: Singles Matches</span>
+                    <p style="margin-bottom: 10px; font-weight: bold; color: #eee;">
+                        Low Net - White Tees<br>
+                        Low Net - Gold Tees
+                    </p>
                     <p>Travel to Gladewater (2 hrs). Arrive 9:30am.</p>
                     <p><strong>10:30 AM Tee Times</strong></p>
                     <p>Matchups: Team 1 vs Team 4 / Team 2 vs Team 3</p>
@@ -527,7 +636,11 @@
                     <div class="card-body">
                         <div class="detail-row"><span class="icon">📍</span> Gladewater, TX</div>
                         <div class="detail-row"><span class="icon">⏰</span> Wednesday, 10:30am</div>
-                        <p><strong>Format:</strong> Low Gross / Low Net</p>
+                        <p><strong>Format:</strong> Singles Matches</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">
+                            Low Net - White Tees<br>
+                            Low Net - Gold Tees
+                        </p>
                     </div>
                 </div>
 
