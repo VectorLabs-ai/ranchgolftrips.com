@@ -135,7 +135,7 @@
         }
         .btn-register-nav:hover { background: #d32f2f; color: white !important; }
 
-        /* --- HERO & BANNER STYLES --- */
+        /* --- HERO &  STYLES --- */
         .hero-section { 
             text-align: center; 
             background: #000; 
@@ -144,14 +144,14 @@
             border-bottom: 5px solid var(--gold);
         }
         
-        .banner-img { 
+        .-img { 
             width: 100%; 
             height: auto; 
             display: block; 
         }
 
-        /* --- BANNER TEXT OVERLAYS --- */
-        .banner-overlay-container {
+        /* ---  TEXT OVERLAYS --- */
+        .-overlay-container {
             position: absolute;
             left: 0;
             width: 100%;
@@ -162,11 +162,11 @@
         }
 
         /* TOP TEXT */
-        .banner-top {
+        .-top {
             top: 8%; /* Positioning from top */
         }
 
-        .banner-top h1 {
+        .-top h1 {
             font-family: 'Rye', serif;
             color: var(--gold);
             font-size: 3.5vw; /* Responsive size based on viewport width */
@@ -177,7 +177,7 @@
             text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
 
-        .banner-top p {
+        .-top p {
             font-family: 'Roboto', sans-serif;
             color: #fff; /* White text */
             font-size: 2vw; /* Responsive size */
@@ -188,11 +188,11 @@
         }
 
         /* BOTTOM TEXT */
-        .banner-bottom {
+        .-bottom {
             bottom: 12%; /* Positioning from bottom */
         }
 
-        .banner-bottom h2 {
+        .-bottom h2 {
             font-family: 'Rye', serif;
             color: var(--gold);
             font-size: 2.5vw; /* Responsive size */
@@ -393,10 +393,10 @@
             
             .team-grid { grid-template-columns: 1fr; } 
 
-            /* Adjust banner text sizes for smaller screens so they don't look too small */
-            .banner-top h1 { font-size: 1.6rem; }
-            .banner-top p { font-size: 0.9rem; }
-            .banner-bottom h2 { font-size: 1.1rem; }
+            /* Adjust  text sizes for smaller screens so they don't look too small */
+            .-top h1 { font-size: 1.6rem; }
+            .-top p { font-size: 0.9rem; }
+            .-bottom h2 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -450,12 +450,12 @@
         </div>
 
         <div class="hero-section">
-            <div class="banner-overlay-container banner-top">
+            <div class="-overlay-container -top">
                 <h1>2026 Robson Ranch Spring Invitational</h1>
                 <p>MARCH 22-25, 2026</p>
             </div>
 
-            <img src="https://Banner-SpringFling.png" 
+            <img src="Banner-SpringFling.png" 
                  alt="2026 Robson Ranch Invitational Banner" 
                  class="banner-img"
                  onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=ROBSON+RANCH+INVITATIONAL'">
