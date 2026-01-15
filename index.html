@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Robson Ranch Invitational</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --felt-green: #1a472a; /* Deep Poker Table Green */
+            --bright-green: #2e7d32;
+            --gold: #f4c430;       /* Trophy Gold */
+            --gold-gradient: linear-gradient(180deg, #f9e29a 0%, #d4af37 100%);
+            --wood: #5d4037;       /* Wood Border */
+            --card-white: #fdfdfd;
+            --text-dark: #222;
+            --red-accent: #b71c1c; /* Casino Red */
+        }
+
+        /* --- RESET & BASIC SETUP --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--wood); 
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* --- MODAL (POPUP ALERT) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--card-white); border: 5px solid var(--gold);
+            padding: 30px; max-width: 500px; width: 90%; text-align: center;
+            border-radius: 10px; box-shadow: 0 0 50px rgba(244, 196, 48, 0.5);
+            animation: dropIn 0.5s ease-out; position: relative;
+            max-height: 90vh; overflow-y: auto; /* Scroll if screen is small */
+        }
+
+        .modal-content::before { content: '♠'; position: absolute; top: 10px; left: 10px; font-size: 2rem; color: #ccc; }
+        .modal-content::after { content: '♠'; position: absolute; bottom: 10px; right: 10px; font-size: 2rem; color: #ccc; }
+
+        .modal-alert-box {
+            background: #ffebee; border: 2px dashed var(--red-accent);
+            padding: 10px; margin: 15px 0; border-radius: 5px;
+        }
+
+        .modal-good-news {
+            background: #e8f5e9; border: 2px solid var(--bright-green);
+            padding: 10px; margin: 15px 0; border-radius: 5px;
+        }
+
+        .modal-btn {
+            background: var(--red-accent); color: white; border: none;
+            padding: 15px 30px; font-size: 1.1rem; font-weight: bold;
+            margin-top: 10px; cursor: pointer; border-radius: 5px;
+            font-family: 'Rye', serif; letter-spacing: 1px; transition: background 0.3s;
+        }
+        .modal-btn:hover { background: #d32f2f; box-shadow: 0 0 15px var(--red-accent); }
+
+        @keyframes dropIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .wrapper {
+            max-width: 1200px; margin: 0 auto;
+            background-color: var(--felt-green); 
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            min-height: 100vh;
+            border-left: 15px solid #3e2723; border-right: 15px solid #3e2723;
+        }
+
+        .container { padding: 0 20px; max-width: 1100px; margin: 0 auto; }
+
+        h1, h2, h3 { font-family: 'Rye', serif; text-transform: uppercase; letter-spacing: 1px; }
+
+        .section-padding { padding: 60px 0; }
+        .text-center { text-align: center; }
+
+        /* --- ALERT BAR --- */
+        .alert-bar {
+            background-color: var(--red-accent); color: #fff; text-align: center;
+            padding: 12px; font-family: 'Rye', serif; letter-spacing: 1px;
+            border-bottom: 2px solid var(--gold); cursor: pointer;
+            text-decoration: none; display: block; transition: background 0.3s;
+            animation: glow 2s infinite alternate; position: relative; z-index: 900;
+        }
+        .alert-bar:hover { background-color: #d32f2f; }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #b71c1c; }
+            to { box-shadow: 0 0 20px #ff5252; }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: #111; border-bottom: 4px solid var(--gold);
+            position: sticky; top: 0; z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .nav-inner {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: var(--gold); font-family: 'Rye', serif; font-size: 1.1rem; text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none; display: flex; align-items: center; flex-wrap: wrap;
+        }
+
+        .nav-links span {
+            color: #fff; margin-left: 20px; font-weight: bold; font-size: 0.9rem;
+            transition: color 0.3s; cursor: pointer;
+        }
+        .nav-links span:hover { color: var(--gold); }
+        
+        .btn-register-nav {
+            background: var(--red-accent); padding: 8px 15px; border-radius: 4px; border: 1px solid #ff5252;
+            color: white; text-decoration: none; margin-left: 20px; font-weight: bold; font-size: 0.9rem;
+        }
+        .btn-register-nav:hover { background: #d32f2f; color: white !important; }
+
+        /* --- HERO & BANNER --- */
+        .hero-section { text-align: center; background: #000; position: relative; }
+        .banner-img { width: 100%; height: auto; display: block; max-height: 80vh; object-fit: contain; border-bottom: 5px solid var(--gold); }
+
+        /* --- COUNTDOWN TIMER --- */
+        .countdown-bar {
+            background: #222; color: var(--gold); padding: 20px 0; text-align: center;
+            border-bottom: 2px solid var(--wood); display: flex;
+            justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        
+        .timer-unit {
+            background: #000; border: 2px solid var(--gold); padding: 10px 20px;
+            border-radius: 8px; min-width: 90px;
+            box-shadow: 0 0 10px rgba(244, 196, 48, 0.2);
+        }
+        
+        .timer-val { font-size: 1.8rem; font-weight: bold; font-family: 'Courier New', monospace; display: block; color: var(--gold); }
+        .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+
+        /* --- INFO SECTIONS --- */
+        .letter-section {
+            background-color: #fdfdfd; padding: 60px 40px; margin: 40px 20px;
+            border: 1px solid #ccc; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); position: relative;
+        }
+        
+        .letter-section::before {
+            content: "TOURNAMENT INFO"; position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%); background: var(--red-accent); color: white;
+            padding: 5px 20px; font-weight: bold; font-family: 'Rye', serif;
+            border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .letter-content { font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+        
+        .payment-box {
+            background: #fff3cd; border: 2px dashed var(--gold); padding: 20px;
+            margin-top: 20px; text-align: center;
+        }
+
+        /* --- PARTY MAP BOX --- */
+        .party-box {
+            margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;
+        }
+        .map-frame {
+            width: 100%; height: 350px; border: 4px solid var(--wood);
+            border-radius: 4px; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* --- CARDS --- */
+        .section-title {
+            text-align: center; color: var(--gold); text-shadow: 2px 2px 4px #000;
+            font-size: 2.5rem; margin-bottom: 40px; background: rgba(0,0,0,0.4);
+            padding: 15px; border-radius: 10px; border: 1px solid var(--gold);
+        }
+
+        .card-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px; padding-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-white); border-radius: 8px; overflow: hidden;
+            border: 4px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s; display: flex; flex-direction: column; position: relative;
+        }
+        .card::after {
+            content: '♠'; position: absolute; bottom: -20px; right: 0px;
+            font-size: 8rem; color: rgba(0,0,0,0.05); pointer-events: none; font-family: serif;
+        }
+        .card:nth-child(2)::after { content: '♣'; }
+        .card:nth-child(3)::after { content: '♦'; }
+        .card:hover { transform: translateY(-5px); }
+
+        .card-header {
+            background: var(--felt-green); color: white; padding: 15px;
+            text-align: center; border-bottom: 4px solid var(--gold); z-index: 2;
+        }
+        .card-body { padding: 20px; flex-grow: 1; z-index: 2; }
+        .card-img-top {
+            width: 100%; height: 220px; object-fit: cover;
+            filter: contrast(1.1) saturate(1.3) sepia(0.1);
+        }
+
+        .detail-row { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem; color: #444; }
+        .icon { margin-right: 10px; color: var(--red-accent); font-size: 1.2em; min-width: 20px; }
+
+        /* --- FORMAT --- */
+        .format-box {
+            background: rgba(0,0,0,0.6); color: white; border: 2px dashed var(--gold);
+            padding: 30px; margin-bottom: 20px; border-radius: 10px;
+        }
+        .format-item { margin-bottom: 25px; border-bottom: 1px solid #555; padding-bottom: 20px; }
+        .format-item:last-child { border-bottom: none; }
+        .format-item h3 { color: var(--gold); margin-bottom: 5px; font-size: 1.4rem; }
+        .format-sub { font-weight: bold; color: #ccc; margin-bottom: 10px; display: block; }
+
+        /* --- SELECTION --- */
+        .selection-box {
+            background: var(--card-white); padding: 30px;
+            border-left: 10px solid var(--gold); margin-top: 40px;
+        }
+
+        /* --- APP --- */
+        .app-bg {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1512428559087-560fa5ce7d02?q=80&w=1000');
+            background-size: cover; background-position: center; padding: 80px 20px;
+            text-align: center; color: white; border-top: 5px solid var(--gold);
+            border-bottom: 5px solid var(--gold); margin-top: 60px;
+        }
+
+        .code-display {
+            display: inline-block; background: #fff; color: #000; font-size: 3rem;
+            font-weight: bold; padding: 15px 50px; border-radius: 10px; margin: 30px 0;
+            font-family: 'Courier New', monospace; border: 4px solid var(--red-accent);
+            box-shadow: 0 0 20px var(--gold); letter-spacing: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #111; color: #888; text-align: center;
+            padding: 40px 0; border-top: 10px solid var(--wood);
+        }
+        .committee-list { list-style: none; padding: 0; margin-top: 10px; }
+        .committee-list li { display: inline-block; margin: 0 10px; color: #ddd; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-inner { flex-direction: column; gap: 10px; }
+            .nav-links { justify-content: center; gap: 10px; }
+            .nav-links span { margin: 5px; }
+            .letter-section { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.8rem; }
+            .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="partyModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="color: var(--red-accent); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 10px;">
+                ⚠️ IMPORTANT ALERTS
+            </h2>
+            
+            <div class="modal-alert-box">
+                <h3 style="color: var(--red-accent); font-size: 1.3rem;">$200 PAYMENT DUE</h3>
+                <p style="font-weight: bold; margin-top: 5px;">FEBRUARY 15th</p>
+                <p style="font-size: 0.9rem;">Cash Preferred. Checks to Tim or Jeff.</p>
+            </div>
+
+            <div class="modal-good-news">
+                 <h3 style="color: var(--bright-green); font-size: 1.3rem;">LODGING NEWS</h3>
+                 <p style="font-weight: bold; color: #1a472a;">BALLY'S IS 100% COMPED!</p>
+                 <p style="font-size: 0.9rem;">Both nights (Sun & Mon) are free.</p>
+            </div>
+
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <h3 style="color: var(--felt-green); font-size: 1.4rem;">Pre-Tournament Party</h3>
+            <p style="font-size: 1.1rem; margin: 10px 0; font-weight: bold;">Monday, March 16th @ 5:00 PM</p>
+            <p style="color: #555;">Team Draft & Briefing at <strong>House of Carts</strong></p>
+            
+            <button class="modal-btn" onclick="closeModal()">I ACKNOWLEDGE</button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <nav>
+            <div class="nav-inner">
+                <a class="nav-logo" href="#">RR INVITATIONAL '26</a>
+                <div class="nav-links">
+                    <span onclick="scrollToId('info')">Info & Fees</span>
+                    <span onclick="scrollToId('schedule')">Schedule</span>
+                    <span onclick="scrollToId('courses')">Courses</span>
+                    <span onclick="scrollToId('lodging')">Lodging</span>
+                    <a href="https://app.squabbitgolf.com/tournament?inviteCode=TLRKNF" target="_blank" class="btn-register-nav">REGISTER APP</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="alert-bar" onclick="scrollToId('info')">
+            🚨 $200 DUE FEB 15 • PARTY MON, MAR 16 @ HOUSE OF CARTS 🚨
+        </div>
+
+        <div class="hero-section">
+            <img src="https://i.imgur.com/Yq60Cbk.jpeg" 
+                 alt="2026 Robson Ranch Invitational Banner" 
+                 class="banner-img"
+                 onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=2026+ROBSON+RANCH+INVITATIONAL'">
+        </div>
+
+        <div class="countdown-bar">
+            <div class="timer-text" style="width: 100%; font-size: 1.2rem; margin-bottom: 10px;">TOURNAMENT COUNTDOWN:</div>
+            <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
+            <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
+            <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
+            <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+        </div>
+
+        <div class="container" id="info">
+            <div class="letter-section">
+                <div class="letter-content text-center">
+                    <h2 style="color: var(--felt-green);">2026 Robson Ranch Invitational</h2>
+                    <h3 style="color: #666; margin-bottom: 20px;">Three Day Tournament • March 22-25, 2026</h3>
+                    
+                    <p><strong>Ryder Cup Format:</strong> 4 Teams (Approx 40 players)</p>
+                    <p>Winning Team Awards • Low Gross & Low Net Champion Awards • Daily Tee Gifts</p>
+
+                    <div class="payment-box">
+                        <h3 style="color: var(--red-accent); font-size: 2rem; margin-bottom: 5px;">$200 FEE DUE FEB 15th</h3>
+                        <p style="font-weight: bold; font-size: 1.2rem; color: #333;">CASH IS THE PREFERRED METHOD</p>
+                        <hr style="margin: 15px auto; border-color: #d4af37; width: 50%;">
+                        <p style="text-align: center;">
+                            If paying by check, make payable to:<br>
+                            <strong>TIM HUGHES</strong> or <strong>JEFF WATTS</strong>
+                        </p>
+                        <p style="font-size: 0.9rem; margin-top: 15px; color: #666;">
+                            *Courses will be paid as they require. The Tempest has a deposit to hold tee times.
+                        </p>
+                    </div>
+
+                    <div id="party-info" class="party-box">
+                        <h3 style="color: var(--felt-green); font-size: 1.6rem;">♣ Pre-Tournament Party ♣</h3>
+                        <p style="margin-top: 10px; font-size: 1.2rem;"><strong>Monday, March 16th @ 5:00 PM</strong></p>
+                        <p style="font-style: italic; color: #555;">Mandatory Meeting & Team Draft</p>
+                        
+                        <div style="margin: 20px 0;">
+                            <h4 style="color: var(--wood); font-family: 'Rye', serif;">LOCATION: HOUSE OF CARTS</h4>
+                            <p>7400 FM 2449, Ponder, TX 76259</p>
+                        </div>
+
+                        <iframe class="map-frame" 
+                                src="https://maps.google.com/maps?q=House+of+Carts+7400+FM+2449+Ponder+TX&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                loading="lazy"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container section-padding" id="schedule">
+            <h2 class="section-title">♠ The Schedule & Format ♠</h2>
+            <div class="format-box">
+                
+                <div class="format-item">
+                    <h3>Day 0: Sunday, March 22 (Travel)</h3>
+                    <span class="format-sub">Destination: Shreveport, LA</span>
+                    <p>Leave RR at 10:00am. Arrive Bally's Resort at 2:30pm.</p>
+                    <p><strong>5:00 PM:</strong> Mandatory Welcome Party at Bally's. Drinks & Appetizers provided.</p>
+                </div>
+
+                <div class="format-item">
+                    <h3>Day 1: Monday, March 23 (Stonebridge)</h3>
+                    <span class="format-sub">Format: Scramble / Alternate Shot</span>
+                    <p><strong>10:00 AM Shotgun Start</strong></p>
+                    <p>Matchups: Team 1 vs Team 2 / Team 3 vs Team 4</p>
+                    <p>Lodging: Bally's Resort & Casino</p>
+                </div>
+
+                <div class="format-item">
+                    <h3>Day 2: Tuesday, March 24 (Cypress Bend)</h3>
+                    <span class="format-sub">Format: Best Ball</span>
+                    <p>Depart Shreveport 9:00am (78 miles). Arrive Cypress Bend 11:00am.</p>
+                    <p><strong>1:00 PM Tee Times</strong></p>
+                    <p>Matchups: Team 1 vs Team 3 / Team 2 vs Team 4</p>
+                    <p>Lodging: Wyndham Hotel at Cypress Bend</p>
+                </div>
+
+                <div class="format-item">
+                    <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
+                    <span class="format-sub">Format: Singles Play + Low Gross/Net</span>
+                    <p>Travel to Gladewater (2 hrs). Arrive 9:30am.</p>
+                    <p><strong>10:30 AM Tee Times</strong></p>
+                    <p>Matchups: Team 1 vs Team 4 / Team 2 vs Team 3</p>
+                    <p><strong>3:00 PM:</strong> Awards & Lunch immediately following round.</p>
+                    <p>Depart by 6:00pm. Arrive Robson Ranch approx 8:30pm.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" id="courses">
+            <h2 class="section-title">♣ The Battlegrounds ♣</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <img src="https://i.imgur.com/lvfrTnv.png" alt="Stonebridge Golf" class="card-img-top">
+                    <div class="card-header">
+                        <h3>Stonebridge Golf Club</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Bossier City, LA</div>
+                        <div class="detail-row"><span class="icon">⛳</span> Monday, 10am Shotgun</div>
+                        <p><strong>Format:</strong> Scramble / Alt Shot</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.imgur.com/nKbWyoo.png" alt="Cypress Bend" class="card-img-top">
+                    <div class="card-header">
+                        <h3>Cypress Bend Golf</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Many, LA (Toledo Bend)</div>
+                        <div class="detail-row"><span class="icon">⏰</span> Tuesday, 1pm Tee Times</div>
+                        <p><strong>Format:</strong> Best Ball</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://i.imgur.com/ZC4Qy74.png" alt="The Tempest" class="card-img-top">
+                    <div class="card-header">
+                        <h3>The Tempest</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Gladewater, TX</div>
+                        <div class="detail-row"><span class="icon">⏰</span> Wednesday, 10:30am</div>
+                        <p><strong>Format:</strong> Singles Play</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container section-padding" id="lodging">
+            <h2 class="section-title">♦ Lodging ♦</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <div class="card-header" style="background: var(--red-accent);">
+                        <h3>Bally's Resort & Casino</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📅</span> <strong>TWO NIGHTS:</strong> Mar 22 & 23</div>
+                        <p style="font-weight: bold; color: var(--bright-green); font-size: 1.1rem; border: 2px dashed var(--bright-green); padding: 10px; margin: 10px 0; background: #e8f5e9;">
+                            GREAT NEWS:<br>BOTH nights at Bally's are 100% COMPED!
+                        </p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Includes mandatory welcome party Sunday at 5pm.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" style="background: var(--bright-green);">
+                        <h3>Wyndham @ Cypress Bend</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📅</span> <strong>ONE NIGHT:</strong> Mar 24</div>
+                        <p>Stay right on the property at the lake.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" id="selection">
+            <div class="selection-box">
+                <h2 style="color: var(--felt-green); margin-bottom: 20px;">Player Selection & Teams</h2>
+                <p><strong>Categories:</strong> All players will be placed in LOW, MID, or HIGH categories based on handicap.</p>
+                <br>
+                <p><strong>The Draft (Pre-Party):</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>Captains chosen by Commissioner Watts.</li>
+                    <li>Round 1: Captains select from LOW category.</li>
+                    <li>Round 2: Captains select from MID category.</li>
+                    <li>Round 3: Captains select from HIGH category.</li>
+                </ul>
+                <p><em>Only Captains and the Commissioner present during selection. Teams announced at the Kickoff Party.</em></p>
+            </div>
+        </div>
+
+        <div class="app-bg" id="app">
+            <div class="container">
+                <h1 style="text-shadow: 2px 2px 0 #000;">REQUIRED: Squabbit App</h1>
+                <p style="font-size: 1.2rem; margin: 20px 0;">Do NOT use your computer. Use your phone.</p>
+                
+                <div class="code-display">TLRKNF</div>
+                
+                <p>Download <strong>SQUABBIT</strong> on your phone.<br>Enter the code above to access Courses, Teams, and Travel info.</p>
+                
+                <div style="margin-top: 30px; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; display: inline-block;">
+                    <p style="color: var(--gold);">Having Issues?</p>
+                    <p>Ask a friend or contact <strong>Rich Jedlowski</strong>.</p>
+                </div>
+                <br>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p><strong>RR Invitational Committee</strong></p>
+                <ul class="committee-list">
+                    <li>Jeff Watts</li>
+                    <li>Llynal Carey</li>
+                    <li>Tim Hughes</li>
+                    <li>Dale Valentine</li>
+                </ul>
+                <br>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- SCROLL FUNCTION ---
+        function scrollToId(id) {
+            var element = document.getElementById(id);
+            if (element) {
+                const headerOffset = 130; 
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // --- COUNTDOWN TIMER ---
+        var countDownDate = new Date("Mar 22, 2026 12:00:00").getTime();
+
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = (days < 10 ? "0" : "") + days;
+            document.getElementById("hours").innerHTML = (hours < 10 ? "0" : "") + hours;
+            document.getElementById("mins").innerHTML = (minutes < 10 ? "0" : "") + minutes;
+            document.getElementById("secs").innerHTML = (seconds < 10 ? "0" : "") + seconds;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".countdown-bar").innerHTML = "<h2 style='color:var(--gold)'>TOURNAMENT STARTED!</h2>";
+            }
+        }, 1000);
+
+        // --- MODAL ALERT LOGIC ---
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('partyModal').style.display = 'flex';
+            }, 1000); 
+        };
+
+        function closeModal() {
+            document.getElementById('partyModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
