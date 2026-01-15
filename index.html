@@ -135,12 +135,12 @@
         }
         .btn-register-nav:hover { background: #d32f2f; color: white !important; }
 
-        /* --- HERO & BANNER (FIXED SPACING) --- */
+        /* --- HERO & BANNER (FIXED SPACING & OVERLAY) --- */
         .hero-section { 
             text-align: center; 
             background: #000; 
-            position: relative;
-            line-height: 0; /* Kills the white space gap below the image */
+            position: relative; /* Essential for overlay positioning */
+            line-height: 0;     /* Fixes the white space gap below image */
         }
         
         .banner-img { 
@@ -148,6 +148,34 @@
             height: auto; 
             display: block; 
             border-bottom: 5px solid var(--gold); 
+        }
+
+        /* TEXT OVERLAY STYLING */
+        .banner-text-overlay {
+            position: absolute;
+            bottom: 25px; /* Adjusts how far up from bottom */
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .banner-text-overlay h2 {
+            font-family: 'Rye', serif;
+            color: var(--gold);
+            font-size: 2rem; /* Adjusted for clarity */
+            text-transform: uppercase;
+            /* Strong shadow to make text readable over any background */
+            text-shadow: 
+                3px 3px 0 #000, 
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            letter-spacing: 1px;
+            margin: 0;
+            padding: 0 15px;
         }
 
         /* --- COUNTDOWN TIMER --- */
@@ -341,6 +369,10 @@
             
             /* Stack teams on mobile despite the grid setting */
             .team-grid { grid-template-columns: 1fr; } 
+
+            /* Adjust banner text overlay for smaller screens */
+            .banner-text-overlay { bottom: 10px; }
+            .banner-text-overlay h2 { font-size: 1.1rem; padding: 0 5px; }
         }
     </style>
 </head>
@@ -398,6 +430,10 @@
                  alt="2026 Robson Ranch Invitational Banner" 
                  class="banner-img"
                  onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=2026+ROBSON+RANCH+INVITATIONAL'">
+            
+            <div class="banner-text-overlay">
+                <h2>Ryder Cup Format: 4 Teams / 40 Players</h2>
+            </div>
         </div>
 
         <div class="countdown-bar">
