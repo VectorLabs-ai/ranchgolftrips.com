@@ -8,14 +8,14 @@
     <style>
         /* --- THEME VARIABLES --- */
         :root {
-            --felt-green: #1a472a; 
+            --felt-green: #1a472a; /* Deep Poker Table Green */
             --bright-green: #2e7d32;
-            --gold: #f4c430;       
+            --gold: #f4c430;       /* Trophy Gold */
             --gold-gradient: linear-gradient(180deg, #f9e29a 0%, #d4af37 100%);
-            --wood: #5d4037;       
+            --wood: #5d4037;       /* Wood Border */
             --card-white: #fdfdfd;
             --text-dark: #222;
-            --red-accent: #b71c1c; 
+            --red-accent: #b71c1c; /* Casino Red */
         }
 
         /* --- RESET & BASIC SETUP --- */
@@ -135,71 +135,19 @@
         }
         .btn-register-nav:hover { background: #d32f2f; color: white !important; }
 
-        /* --- HERO &  STYLES --- */
+        /* --- HERO & BANNER --- */
         .hero-section { 
             text-align: center; 
             background: #000; 
             position: relative; 
-            line-height: 0;     
+            line-height: 0; /* Prevents white space under image */
             border-bottom: 5px solid var(--gold);
         }
         
-        .-img { 
+        .banner-img { 
             width: 100%; 
             height: auto; 
             display: block; 
-        }
-
-        /* ---  TEXT OVERLAYS --- */
-        .-overlay-container {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            z-index: 10;
-            pointer-events: none; /* Allows clicks to pass through */
-            padding: 0 20px;
-        }
-
-        /* TOP TEXT */
-        .-top {
-            top: 8%; /* Positioning from top */
-        }
-
-        .-top h1 {
-            font-family: 'Rye', serif;
-            color: var(--gold);
-            font-size: 3.5vw; /* Responsive size based on viewport width */
-            text-transform: uppercase;
-            margin: 0;
-            line-height: 1.1;
-            /* Strong shadow for readability */
-            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        }
-
-        .-top p {
-            font-family: 'Roboto', sans-serif;
-            color: #fff; /* White text */
-            font-size: 2vw; /* Responsive size */
-            font-weight: 700;
-            margin: 10px 0 0 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-        }
-
-        /* BOTTOM TEXT */
-        .-bottom {
-            bottom: 12%; /* Positioning from bottom */
-        }
-
-        .-bottom h2 {
-            font-family: 'Rye', serif;
-            color: var(--gold);
-            font-size: 2.5vw; /* Responsive size */
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            letter-spacing: 1px;
-            margin: 0;
         }
 
         /* --- COUNTDOWN TIMER --- */
@@ -207,7 +155,7 @@
             background: #222; color: var(--gold); padding: 20px 0; text-align: center;
             border-bottom: 2px solid var(--wood); display: flex;
             justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px;
-            line-height: 1.5; /* Reset line-height for text */
+            line-height: 1.5; 
         }
         
         .timer-unit {
@@ -381,7 +329,7 @@
         .committee-list { list-style: none; padding: 0; margin-top: 10px; }
         .committee-list li { display: inline-block; margin: 0 10px; color: #ddd; }
 
-        /* --- RESPONSIVE TEXT SIZES FOR MOBILE --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .nav-inner { flex-direction: column; gap: 10px; }
             .nav-links { justify-content: center; gap: 10px; }
@@ -391,12 +339,8 @@
             .section-title { font-size: 1.8rem; }
             .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
             
+            /* Stack teams on mobile despite the grid setting */
             .team-grid { grid-template-columns: 1fr; } 
-
-            /* Adjust  text sizes for smaller screens so they don't look too small */
-            .-top h1 { font-size: 1.6rem; }
-            .-top p { font-size: 0.9rem; }
-            .-bottom h2 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -450,19 +394,10 @@
         </div>
 
         <div class="hero-section">
-            <div class="-overlay-container -top">
-                <h1>2026 Robson Ranch Spring Invitational</h1>
-                <p>MARCH 22-25, 2026</p>
-            </div>
-
-            <img src="Banner-SpringFling.png" 
+            <img src="Banner-Final.png" 
                  alt="2026 Robson Ranch Invitational Banner" 
                  class="banner-img"
-                 onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=ROBSON+RANCH+INVITATIONAL'">
-            
-            <div class="banner-overlay-container banner-bottom">
-                <h2>Ryder Cup Format: 4 Teams / 40 Players</h2>
-            </div>
+                 onerror="this.src='https://dummyimage.com/1200x600/1a472a/f4c430.png&text=2026+ROBSON+RANCH+INVITATIONAL'">
         </div>
 
         <div class="countdown-bar">
