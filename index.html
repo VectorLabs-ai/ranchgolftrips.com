@@ -213,7 +213,27 @@
         .team-name-cell { text-align: left !important; color: var(--text-dark); }
         .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
 
-        /* --- ROSTER GRID STYLES (NEW) --- */
+        /* --- ROSTER STYLES (UPDATED) --- */
+        .roster-header-container {
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 20px; margin-top: 40px; padding: 10px;
+            background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid var(--gold);
+        }
+
+        .roster-title {
+            color: var(--gold); font-family: 'Rye', serif; font-size: 2rem; 
+            text-shadow: 2px 2px 4px #000; margin: 0;
+        }
+
+        .btn-edit-roster {
+            background: var(--gold); color: #000; padding: 8px 15px;
+            border-radius: 4px; text-decoration: none; font-weight: bold;
+            font-size: 0.9rem; border: 1px solid #d4af37;
+            display: inline-flex; align-items: center; gap: 5px;
+            transition: all 0.2s;
+        }
+        .btn-edit-roster:hover { background: #fff; }
+
         .roster-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -411,6 +431,7 @@
             .letter-section { padding: 30px 20px; }
             h1 { font-size: 1.8rem; }
             .section-title { font-size: 1.8rem; }
+            .roster-title { font-size: 1.5rem; }
             .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
             
             .team-grid { grid-template-columns: 1fr; }
@@ -542,7 +563,14 @@
         </div>
 
         <div class="container" id="roster">
-            <h2 class="section-title">♣ The Field (2026 Roster) ♣</h2>
+            <div class="roster-header-container">
+                <h2 class="roster-title">♣ The Field (2026 Roster) ♣</h2>
+                
+                <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
+                    <span>✏️</span> Edit Roster
+                </a>
+            </div>
+
             <div class="roster-grid">
                 <div class="roster-item">Bent, Bruce</div>
                 <div class="roster-item">Berryhill, Joshua</div>
@@ -554,36 +582,32 @@
                 <div class="roster-item">Donehue, Pat</div>
                 <div class="roster-item">Eason, Johnny</div>
                 <div class="roster-item">Emerton, Dave</div>
-                <div class="roster-item">Finnell, Harley</div>
-                <div class="roster-item">Gathier, John</div>
-                <div class="roster-item">Gibson, Kenneth</div>
-                <div class="roster-item">Hajdyla, Greg</div>
-                <div class="roster-item">Hicks, Doyle</div>
-                <div class="roster-item">Hughes, Tim</div>
-                <div class="roster-item">Hull, Larry</div>
-                <div class="roster-item">Jedlowski, Rich</div>
-                <div class="roster-item">Klessig, Corey</div>
-                <div class="roster-item">Knowles, Jim</div>
-                <div class="roster-item">Lackey, Dean</div>
-                <div class="roster-item">Liske, John</div>
-                <div class="roster-item">Miloser, Mike</div>
-                <div class="roster-item">Moen, Dave</div>
-                <div class="roster-item">Murphy, Kevin</div>
-                <div class="roster-item">Paugh, Sam</div>
-                <div class="roster-item">Reed, Donny</div>
-                <div class="roster-item">Shaffer, Mark</div>
-                <div class="roster-item">Shoff, Randy</div>
+                <div class="roster-item">Finnell, Dave</div>
+                <div class="roster-item">Gathier, Harley</div>
+                <div class="roster-item">Gibson, John</div>
+                <div class="roster-item">Hajdyla, Kenneth</div>
+                <div class="roster-item">Hicks, Greg</div>
+                <div class="roster-item">Hughes, Doyle</div>
+                <div class="roster-item">Hull, Tim</div>
+                <div class="roster-item">Jedlowski, Larry</div>
+                <div class="roster-item">Klessig, Rich</div>
+                <div class="roster-item">Knowles, Corey</div>
+                <div class="roster-item">Lackey, Jim</div>
+                <div class="roster-item">Liske, Dean</div>
+                <div class="roster-item">Miloser, John</div>
+                <div class="roster-item">Moen, Mike</div>
+                <div class="roster-item">Murphy, Dave</div>
+                <div class="roster-item">Paugh, Kevin</div>
+                <div class="roster-item">Reed, Sam</div>
+                <div class="roster-item">Shaffer, Donny</div>
+                <div class="roster-item">Shoff, Mark</div>
+                <div class="roster-item">Smith, Randy</div>
                 <div class="roster-item">Smith, Carl</div>
-                <div class="roster-item">Smith, Gary</div>
-                <div class="roster-item">Stewart, Dennis</div>
-                <div class="roster-item">Tefft, Scott</div>
-                <div class="roster-item">Thompson, Virgil</div>
-                <div class="roster-item">Watts, Jeff</div>
-                <div class="roster-item">Williams, Ron</div>
-                <div class="roster-item" style="color: #888;">TBD</div>
-                <div class="roster-item" style="color: #888;">TBD</div>
-                <div class="roster-item" style="color: #888;">TBD</div>
-                <div class="roster-item" style="color: #888;">TBD</div>
+                <div class="roster-item">Stewart, Gary</div>
+                <div class="roster-item">Tefft, Dennis</div>
+                <div class="roster-item">Thompson, Scott</div>
+                <div class="roster-item">Watts, Virgil</div>
+                <div class="roster-item">Williams, Jeff</div>
             </div>
         </div>
 
