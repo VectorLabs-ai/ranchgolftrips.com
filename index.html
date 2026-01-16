@@ -204,16 +204,23 @@
 
         .lb-table td {
             padding: 15px; text-align: center; border-bottom: 1px solid #ddd;
-            font-size: 1.1rem; font-weight: bold;
+            font-size: 1.1rem; font-weight: bold; vertical-align: middle;
         }
 
         .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
         .lb-table tr:hover { background-color: #e8f5e9; }
 
-        .team-name-cell { text-align: left !important; color: var(--text-dark); }
+        .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
+        
+        /* NEW: Leaderboard Logo Style */
+        .lb-logo {
+            width: 40px; height: 40px; object-fit: contain;
+            border-radius: 50%; border: 2px solid var(--gold);
+            background: #fff;
+        }
 
-        /* --- ROSTER STYLES (UPDATED) --- */
+        /* --- ROSTER STYLES --- */
         .roster-header-container {
             display: flex; justify-content: space-between; align-items: center; 
             margin-bottom: 20px; margin-top: 40px; padding: 10px;
@@ -236,7 +243,7 @@
 
         .roster-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly wider for avatar */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 15px;
             text-align: left;
             background: rgba(0,0,0,0.2);
@@ -245,7 +252,6 @@
             border-radius: 8px;
         }
         
-        /* Updated Roster Item for Avatar */
         .roster-item {
             background: #fff;
             padding: 10px;
@@ -254,8 +260,8 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.2s;
             display: flex;
-            align-items: center; /* Vertically center */
-            gap: 15px; /* Space between avatar and text */
+            align-items: center; 
+            gap: 15px; 
             cursor: pointer;
             position: relative;
         }
@@ -266,7 +272,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Small Avatar in List */
         .roster-thumb {
             width: 50px; height: 50px;
             border-radius: 50%;
@@ -278,10 +283,7 @@
             flex-shrink: 0;
         }
 
-        .roster-text {
-            display: flex; flex-direction: column;
-        }
-
+        .roster-text { display: flex; flex-direction: column; }
         .r-name { font-size: 1rem; color: #222; text-transform: uppercase; font-weight: bold; }
         .r-meta { font-size: 0.8rem; color: #555; margin-top: 2px; }
         .r-loading { color: #fff; font-size: 1.2rem; text-align: center; grid-column: 1 / -1; }
@@ -313,15 +315,12 @@
             display: flex; align-items: center; justify-content: center;
             border: 4px solid var(--gold); 
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            overflow: hidden; /* Ensures photo stays circular */
+            overflow: hidden; 
             font-size: 2.5rem; font-weight: bold; color: var(--felt-green);
             text-transform: uppercase;
         }
 
-        .bio-avatar img {
-            width: 100%; height: 100%; 
-            object-fit: cover;
-        }
+        .bio-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
         .bio-badges { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
         .badge-idx { background: #fff; color: #1a472a; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; border: 1px solid var(--gold); }
@@ -549,7 +548,7 @@
 
     <div id="bioModal" class="modal-overlay" onclick="closeBio()">
         <div class="modal-content bio-card" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeBio()">&times;</span>
+            <span class="close-btn" onclick="closeBio()">×</span>
             
             <div class="bio-header">
                 <div class="bio-avatar" id="bioAvatar">⛳</div>
@@ -627,7 +626,10 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td class="team-name-cell">Back Nine Bandits</td>
+                            <td class="team-name-cell">
+                                <img src="Logo-BackNineBandits.jpeg" class="lb-logo">
+                                Back Nine Bandits
+                            </td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -635,7 +637,10 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td class="team-name-cell">Bogey Brothers</td>
+                            <td class="team-name-cell">
+                                <img src="Logo-BogeyBrothers.jpeg" class="lb-logo">
+                                Bogey Brothers
+                            </td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -643,7 +648,10 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td class="team-name-cell">Sand Trap Seniors</td>
+                            <td class="team-name-cell">
+                                <img src="Logo-SandTrapSeniors.jpeg" class="lb-logo">
+                                Sand Trap Seniors
+                            </td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -651,7 +659,10 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td class="team-name-cell">Slice Masters</td>
+                            <td class="team-name-cell">
+                                <img src="Logo-SliceMasters.jpeg" class="lb-logo">
+                                Slice Masters
+                            </td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>
@@ -1052,18 +1063,19 @@
                     const row = rows[i];
                     if (row.length < 1) continue;
                     
-                    // DATA MAPPING
+                    // CORRECTED DATA MAPPING (Matches your sheet columns)
                     const p = {
-                        name: toTitleCase(row[0] || "Unknown"),
-                        index: row[2] || "-",
-                        tees: row[3] || "TBD",
-                        bio: row[4] || "No bio available.", // Column E (BIO)
-                        avatar: row[5] || ""                // Column F (Avatar Link)
+                        name: toTitleCase(row[0] || "Unknown"), // Col A: Name
+                        index: row[1] || "-",               // Col B: Index
+                        tees: row[2] || "TBD",              // Col C: Tees
+                        // SKIPPING COLS D, E, F
+                        bio: row[6] || "No bio available.", // Col G: BIO (Index 6)
+                        avatar: row[7] || ""                // Col H: Avatar (Index 7)
                     };
 
-                    // PREPARE AVATAR HTML (For the list view)
+                    // PREPARE AVATAR HTML
                     let avatarHtml = '';
-                    if (p.avatar && p.avatar.startsWith('http')) {
+                    if (p.avatar && p.avatar.toLowerCase().startsWith('http')) {
                         avatarHtml = `<img src="${p.avatar}" alt="${p.name}" class="roster-thumb">`;
                     } else {
                         const initials = p.name.split(" ").map((n)=>n[0]).join("").substring(0,2);
@@ -1104,7 +1116,7 @@
             const avatarEl = document.getElementById('bioAvatar');
             
             // CHECK: Does the player have a custom photo URL?
-            if (player.avatar && player.avatar.startsWith('http')) {
+            if (player.avatar && player.avatar.toLowerCase().startsWith('http')) {
                 avatarEl.innerHTML = `<img src="${player.avatar}" alt="${player.name}">`;
             } else {
                 // Generate Initials (e.g. "Jeff Watts" -> "JW")
