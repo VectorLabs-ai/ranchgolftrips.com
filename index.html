@@ -210,14 +210,14 @@
         .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
         .lb-table tr:hover { background-color: #e8f5e9; }
 
-        .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 15px; }
         .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
         
-        /* NEW: Leaderboard Logo Style */
+        /* NEW: Leaderboard Logo Style - UPDATED SIZE */
         .lb-logo {
-            width: 40px; height: 40px; object-fit: contain;
-            border-radius: 50%; border: 2px solid var(--gold);
-            background: #fff;
+            width: 70px; height: 70px; object-fit: contain;
+            border-radius: 50%; border: 3px solid var(--gold);
+            background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         /* --- ROSTER STYLES --- */
@@ -627,7 +627,7 @@
                         <tr>
                             <td>1</td>
                             <td class="team-name-cell">
-                                <img src="Logo-BackNineBandits.jpeg" class="lb-logo">
+                                <img src="Logo-BackNineBandits.jpeg" class="lb-logo" onerror="this.style.display='none'">
                                 Back Nine Bandits
                             </td>
                             <td>-</td>
@@ -638,7 +638,7 @@
                         <tr>
                             <td>1</td>
                             <td class="team-name-cell">
-                                <img src="Logo-BogeyBrothers.jpeg" class="lb-logo">
+                                <img src="Logo-BogeyBrothers.jpeg" class="lb-logo" onerror="this.style.display='none'">
                                 Bogey Brothers
                             </td>
                             <td>-</td>
@@ -649,7 +649,7 @@
                         <tr>
                             <td>1</td>
                             <td class="team-name-cell">
-                                <img src="Logo-SandTrapSeniors.jpeg" class="lb-logo">
+                                <img src="Logo-SandTrapSeniors.jpeg" class="lb-logo" onerror="this.style.display='none'">
                                 Sand Trap Seniors
                             </td>
                             <td>-</td>
@@ -660,7 +660,7 @@
                         <tr>
                             <td>1</td>
                             <td class="team-name-cell">
-                                <img src="Logo-SliceMasters.jpeg" class="lb-logo">
+                                <img src="Logo-SliceMasters.jpeg" class="lb-logo" onerror="this.style.display='none'">
                                 Slice Masters
                             </td>
                             <td>-</td>
@@ -1063,21 +1063,33 @@
                     const row = rows[i];
                     if (row.length < 1) continue;
                     
-                    // CORRECTED DATA MAPPING (Matches your sheet columns)
+                    // CORRECTED DATA MAPPING BASED ON YOUR SHEET
+                    // A=0, B=1, C=2, D=3, E=4, F=5, G=6(Bio), H=7(Avatar)
                     const p = {
                         name: toTitleCase(row[0] || "Unknown"), // Col A: Name
                         index: row[1] || "-",               // Col B: Index
-                        tees: row[2] || "TBD",              // Col C: Tees
-                        // SKIPPING COLS D, E, F
+                        tees: row[2] || "TBD",              // Col C: Tee Box
                         bio: row[6] || "No bio available.", // Col G: BIO (Index 6)
-                        avatar: row[7] || ""                // Col H: Avatar (Index 7)
+                        avatar: row[7] || ""                // Col H: Avatar Link (Index 7)
                     };
 
                     // PREPARE AVATAR HTML
                     let avatarHtml = '';
-                    if (p.avatar && p.avatar.toLowerCase().startsWith('http')) {
-                        avatarHtml = `<img src="${p.avatar}" alt="${p.name}" class="roster-thumb">`;
+                    let rawAvatar = p.avatar.trim();
+                    
+                    // SMART CHECK: If they just put 'corey.png', fix it
+                    if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) {
+                         rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
+                    }
+
+                    // Now check if valid link
+                    if (rawAvatar.toLowerCase().startsWith('http')) {
+                        // Pass the FIXED url to the image tag
+                        avatarHtml = `<img src="${rawAvatar}" alt="${p.name}" class="roster-thumb">`;
+                        // Also update p.avatar for the popup
+                        p.avatar = rawAvatar; 
                     } else {
+                        // Fallback to Initials
                         const initials = p.name.split(" ").map((n)=>n[0]).join("").substring(0,2);
                         avatarHtml = `<div class="roster-thumb">${initials}</div>`;
                     }
@@ -1119,7 +1131,7 @@
             if (player.avatar && player.avatar.toLowerCase().startsWith('http')) {
                 avatarEl.innerHTML = `<img src="${player.avatar}" alt="${player.name}">`;
             } else {
-                // Generate Initials (e.g. "Jeff Watts" -> "JW")
+                // Generate Initials
                 const initials = player.name.split(" ").map((n)=>n[0]).join("").substring(0,2);
                 avatarEl.innerHTML = initials;
             }
