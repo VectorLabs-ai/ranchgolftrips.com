@@ -213,11 +213,11 @@
         .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 15px; }
         .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
         
-        /* NEW: Leaderboard Logo Style - UPDATED TO 100PX */
+        /* NEW: Leaderboard Logo Style - UPDATED TO 120PX, NO CIRCLE */
         .lb-logo {
-            width: 100px; height: 100px; object-fit: contain;
-            border-radius: 50%; border: 3px solid var(--gold);
-            background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 120px; height: auto; object-fit: contain;
+            border-radius: 0; border: none;
+            display: block; margin-right: 15px;
         }
 
         /* --- ROSTER STYLES --- */
@@ -1064,13 +1064,13 @@
                     if (row.length < 1) continue;
                     
                     // CORRECTED DATA MAPPING BASED ON YOUR SHEET
-                    // A=0, B=1, C=2, D=3, E=4, F=5, G=6(Bio), H=7(Avatar)
+                    // A=0, B=1, C=2, D=3, E=4, F=5, G=6(Bio), H=7(Empty), I=8(Avatar)
                     const p = {
                         name: toTitleCase(row[0] || "Unknown"), // Col A: Name
                         index: row[1] || "-",               // Col B: Index
                         tees: row[2] || "TBD",              // Col C: Tee Box
                         bio: row[6] || "No bio available.", // Col G: BIO (Index 6)
-                        avatar: row[7] || ""                // Col H: Avatar Link (Index 7)
+                        avatar: row[8] || ""                // Col I: Avatar Link (Index 8)
                     };
 
                     // PREPARE AVATAR HTML
