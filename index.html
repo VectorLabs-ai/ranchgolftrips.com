@@ -1064,12 +1064,12 @@
                     if (row.length < 1) continue;
                     
                     // CORRECTED DATA MAPPING BASED ON YOUR SHEET
-                    // A=0, B=1, C=2, D=3, E=4, F=5, G=6(Bio), H=7(Empty), I=8(Avatar)
+                    // A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7(Bio), I=8(Avatar)
                     const p = {
                         name: toTitleCase(row[0] || "Unknown"), // Col A: Name
                         index: row[1] || "-",               // Col B: Index
                         tees: row[2] || "TBD",              // Col C: Tee Box
-                        bio: row[6] || "No bio available.", // Col G: BIO (Index 6)
+                        bio: row[7] || "No bio available.", // Col H: BIO (Index 7)
                         avatar: row[8] || ""                // Col I: Avatar Link (Index 8)
                     };
 
