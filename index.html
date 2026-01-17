@@ -161,14 +161,14 @@
             display: block; 
         }
 
-        /* --- SOLD OUT BADGE (UPDATED: 2 Lines & Square) --- */
+        /* --- SOLD OUT BADGE (UPDATED: Tighter Padding) --- */
         .sold-out-badge {
             position: absolute;
             top: 40px; 
             left: 30px; 
             background: rgba(183, 28, 28, 0.90); 
             color: #fff;
-            padding: 10px 20px; 
+            padding: 5px 10px; /* REDUCED PADDING */
             font-family: 'Rye', serif;
             font-size: 2.2rem; 
             border: 6px dashed #fff; 
@@ -178,7 +178,7 @@
             text-transform: uppercase;
             text-align: center;
             line-height: 1.1; 
-            min-width: 220px; 
+            min-width: 160px; /* REDUCED WIDTH to fit tighter */
             aspect-ratio: 3/2; 
             display: flex;
             align-items: center;
@@ -637,7 +637,7 @@
             /* ADJUST SOLD OUT BADGE FOR MOBILE */
             .sold-out-badge {
                 font-size: 1.2rem;
-                padding: 10px 20px;
+                padding: 5px 10px;
                 top: 20px;
                 left: 10px;
                 min-width: auto;
