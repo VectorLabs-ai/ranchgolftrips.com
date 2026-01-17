@@ -67,6 +67,15 @@
         }
         .modal-btn:hover { background: #d32f2f; box-shadow: 0 0 15px var(--red-accent); }
 
+        /* GOLPHER ALERT ICON STYLE */
+        .gopher-alert-icon {
+            width: 80px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto; /* Centers it above text */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
         @keyframes dropIn {
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -504,8 +513,8 @@
         .committee-list { list-style: none; padding: 0; margin-top: 10px; }
         .committee-list li { display: inline-block; margin: 0 10px; color: #ddd; }
 
-        /* --- GOLPHER STYLE --- */
-        .GOLPHER-icon {
+        /* --- GOPHER STYLE --- */
+        .gopher-icon {
             position: absolute;
             top: -85px;
             right: 18px;
@@ -516,7 +525,7 @@
             transform-origin: 80% 80%;
             transition: transform 0.25s ease, filter 0.25s ease;
         }
-        .GOLPHER-icon:hover {
+        .gopher-icon:hover {
             transform: rotate(4deg) scale(1.05);
             filter: drop-shadow(0 14px 22px rgba(0,0,0,0.7));
         }
@@ -558,7 +567,7 @@
             .roster-grid { grid-template-columns: 1fr 1fr; }
 
             .suggestions-box { padding-top: 20px; }
-            .GOLPHER-icon {
+            .gopher-icon {
                 position: relative;
                 top: 0; right: 0;
                 display: block;
@@ -572,6 +581,7 @@
 
     <div id="partyModal" class="modal-overlay">
         <div class="modal-content">
+            <img src="GolpherAlert.png" alt="Golpher Alert" class="gopher-alert-icon">
             <h2 style="color: var(--red-accent); border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 10px;">
                 ⚠️ GOLPHER ALERT ⚠️
             </h2>
@@ -891,9 +901,6 @@
                         <p style="font-style: italic; color: #fff; margin-bottom: 10px;">
                             "If a player’s ball is lost and the group agrees it is not Out of Bounds, the player may opt to treat the lost ball as an <strong>Unplayable Lie</strong> rather than taking Stroke and Distance."
                         </p>
-                        <p style="color: var(--gold); font-weight: bold; margin-bottom: 10px;">
-                            ("Unplayable" meaning you can't find the damn ball so you can't play it!)
-                        </p>
                         <ul style="list-style: none; margin-left: 10px;">
                             <li style="margin-bottom: 8px;"><strong>Agreement:</strong> The group must agree on the estimated vicinity where the ball was lost.</li>
                             <li style="margin-bottom: 8px; color: var(--red-accent); font-size: 1.2rem;"><strong>Penalty:</strong> One (1) Stroke.</li>
@@ -921,10 +928,6 @@
                         <div class="detail-row"><span class="icon">📍</span> Bossier City, LA</div>
                         <div class="detail-row"><span class="icon">⛳</span> Monday, 10am Shotgun</div>
                         <p><strong>Format:</strong> 2-Man Scramble / Alt Shot</p>
-                        
-                        <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                            <a class="weatherwidget-io" href="https://forecast7.com/en/32d52n93d73/bossier-city/" data-label_1="BOSSIER CITY" data-label_2="WEATHER" data-theme="original" data-units="us" >BOSSIER CITY WEATHER</a>
-                        </div>
                     </div>
                 </div>
 
@@ -937,10 +940,6 @@
                         <div class="detail-row"><span class="icon">📍</span> Many, LA (Toledo Bend)</div>
                         <div class="detail-row"><span class="icon">⏰</span> Tuesday, 1pm Tee Times</div>
                         <p><strong>Format:</strong> 2-Man Best Ball</p>
-
-                        <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                            <a class="weatherwidget-io" href="https://forecast7.com/en/31d57n93d48/many/" data-label_1="MANY, LA" data-label_2="WEATHER" data-theme="original" data-units="us" >MANY, LA WEATHER</a>
-                        </div>
                     </div>
                 </div>
 
@@ -957,10 +956,6 @@
                             Low Net - White Tees<br>
                             Low Net - Gold Tees
                         </p>
-
-                        <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
-                            <a class="weatherwidget-io" href="https://forecast7.com/en/32d54n94d94/gladewater/" data-label_1="GLADEWATER" data-label_2="WEATHER" data-theme="original" data-units="us" >GLADEWATER WEATHER</a>
-                        </div>
                     </div>
                 </div>
 
@@ -1002,7 +997,7 @@
 
           <div class="format-box" style="max-width: 900px; margin: 0 auto; background: rgba(20, 20, 20, 0.95); position:relative;">
             
-            <img src="GolpherListening.png" alt="Listening GOLPHER" class="GOLPHER-icon">
+            <img src="Gopher-Listening.png" alt="Listening Gopher" class="gopher-icon">
 
             <div id="suggestionInputArea">
                 <p style="font-size: 1.1rem; margin-bottom: 15px;">
@@ -1065,10 +1060,6 @@
         </footer>
 
     </div>
-
-    <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script>
 
     <script>
         // --- SCROLL FUNCTION ---
