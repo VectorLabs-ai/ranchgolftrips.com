@@ -152,7 +152,7 @@
             position: relative; 
             line-height: 0;      
             border-bottom: 5px solid var(--gold);
-            overflow: hidden; /* For the Sold Out ribbon */
+            overflow: hidden; 
         }
         
         .banner-img { 
@@ -161,23 +161,24 @@
             display: block; 
         }
 
-        /* --- SOLD OUT BADGE (UPDATED: BIGGER & PROMINENT) --- */
+        /* --- SOLD OUT STAMP (LEFT SIDE) --- */
         .sold-out-badge {
             position: absolute;
-            top: 50px; /* Adjusted for larger size */
-            right: -70px; /* Adjusted for larger size */
-            background: var(--red-accent);
+            top: 40px; 
+            left: 30px; 
+            background: rgba(183, 28, 28, 0.95); /* Red with slight transparency */
             color: #fff;
-            padding: 15px 100px; /* Much larger padding */
+            padding: 20px 40px;
             font-family: 'Rye', serif;
-            font-size: 3rem; /* Much larger font */
-            border: 6px solid #fff; /* Thicker border */
-            transform: rotate(45deg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); /* Deeper shadow */
+            font-size: 2.2rem; 
+            border: 6px dashed #fff; /* STAMP LOOK */
+            transform: rotate(-10deg); /* Tilted Stamp */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
             z-index: 100;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 3px 3px 0 #000; /* Stronger text shadow */
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 #000;
+            line-height: 1.2;
         }
 
         /* --- COUNTDOWN TIMER --- */
@@ -598,10 +599,11 @@
             
             /* ADJUST SOLD OUT BADGE FOR MOBILE */
             .sold-out-badge {
-                font-size: 1.5rem;
-                padding: 10px 60px;
-                top: 30px;
-                right: -50px;
+                font-size: 1.2rem;
+                padding: 10px 30px;
+                top: 20px;
+                left: 10px;
+                max-width: 280px;
             }
         }
     </style>
@@ -683,7 +685,27 @@
         </div>
 
         <div class="hero-section">
-            <div class="sold-out-badge">SOLD OUT</div>
+            <div class="sold-out-badge" style="
+                position: absolute;
+                top: 40px; 
+                left: 30px; 
+                background: rgba(183, 28, 28, 0.95); 
+                color: #fff;
+                padding: 20px 40px;
+                font-family: 'Rye', serif;
+                font-size: 2.2rem; 
+                border: 6px dashed #fff; 
+                transform: rotate(-10deg); 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
+                z-index: 100;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                text-shadow: 3px 3px 0 #000;
+                line-height: 1.2;
+                max-width: 500px;
+            ">
+                REGISTRATION CLOSED!<br>SOLD OUT!
+            </div>
             
             <img src="Banner-Final.png" 
                  alt="2026 Robson Ranch Invitational Banner" 
