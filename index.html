@@ -489,8 +489,13 @@
             text-align: center; border-bottom: 4px solid var(--gold); z-index: 2;
         }
         .card-body { padding: 20px; flex-grow: 1; z-index: 2; }
+        
+        /* --- UPDATED CARD IMAGE STYLE FOR FULL VISIBILITY --- */
         .card-img-top {
-            width: 100%; height: 220px; object-fit: cover;
+            width: 100%; 
+            height: auto; /* Allow image to scale naturally */
+            display: block;
+            border-bottom: 2px solid var(--gold);
             filter: contrast(1.1) saturate(1.3) sepia(0.1);
         }
 
@@ -1018,7 +1023,7 @@
                 </div>
 
                 <div class="card">
-                    <img src="Cypressbend.png" alt="Cypress Bend" class="card-img-top">
+                    <img src="Vypressbend.png" alt="Cypress Bend" class="card-img-top">
                     <div class="card-header">
                         <h3>Cypress Bend Golf</h3>
                     </div>
