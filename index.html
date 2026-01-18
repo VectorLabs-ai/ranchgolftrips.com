@@ -498,70 +498,43 @@
             border-bottom: 2px solid var(--gold);
             filter: contrast(1.1) saturate(1.3) sepia(0.1);
         }
-
-        /* --- TEAM LOGO SPECIFIC STYLES --- */
-        .team-logo {
-            width: 100%;
-            height: 250px;          
-            object-fit: contain;    
-            padding: 15px;          
-            background-color: #fff; 
-            border-bottom: 2px solid var(--gold);
-        }
-
-        /* --- ROSTER STYLES --- */
-        .roster-info {
-            background: #fafafa;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        .captain-row {
-            color: var(--red-accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-
-        .captain-badge {
-            background: var(--gold);
-            color: #000;
-            font-size: 0.8rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
-        /* 2-Column Player List */
-        .player-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 Columns */
-            gap: 8px 15px;
-        }
-
-        .player-item {
-            border-bottom: 1px dotted #ccc;
-            padding-bottom: 2px;
-            color: #444;
-        }
-
-        .detail-row { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 0.95rem; color: #444; }
-        .icon { margin-right: 10px; color: var(--red-accent); font-size: 1.2em; min-width: 20px; }
-
-        /* --- FORMAT --- */
+        
+        /* --- FORMAT ITEM STYLES (NEW SIDE-BY-SIDE) --- */
         .format-box {
             background: rgba(0,0,0,0.6); color: white; border: 2px dashed var(--gold);
             padding: 30px; margin-bottom: 20px; border-radius: 10px;
         }
-        .format-item { margin-bottom: 25px; border-bottom: 1px solid #555; padding-bottom: 20px; }
+        .format-item { 
+            display: flex; /* Flexbox for side-by-side */
+            justify-content: space-between;
+            align-items: center; /* Vertically center */
+            gap: 25px; /* Space between text and image */
+            margin-bottom: 25px; 
+            border-bottom: 1px solid #555; 
+            padding-bottom: 20px; 
+        }
         .format-item:last-child { border-bottom: none; }
-        .format-item h3 { color: var(--gold); margin-bottom: 5px; font-size: 1.4rem; }
+        
+        .format-text {
+            flex: 1; /* Take up remaining space */
+        }
+        .format-text h3 { color: var(--gold); margin-bottom: 5px; font-size: 1.4rem; }
         .format-sub { font-weight: bold; color: #ccc; margin-bottom: 10px; display: block; }
+
+        /* IMAGE CONTAINER ON THE RIGHT */
+        .format-img-container {
+            flex-shrink: 0; /* Prevent squishing */
+            width: 320px; /* Fixed width for consistency */
+        }
+        
+        .format-img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: block;
+        }
 
         /* --- SELECTION --- */
         .selection-box {
@@ -661,6 +634,15 @@
                 top: 20px;
                 left: 10px;
                 min-width: auto;
+            }
+
+            /* ADJUST FORMAT ITEMS FOR MOBILE (STACK THEM) */
+            .format-item {
+                flex-direction: column; 
+            }
+            .format-img-container {
+                width: 100%;
+                margin-top: 15px;
             }
         }
     </style>
@@ -890,46 +872,64 @@
             <div class="format-box">
                 
                 <div class="format-item">
-                    <img src="TravelDay.png" alt="Travel Day" style="width:100%; height:auto; border-radius: 5px; border: 2px solid var(--gold); margin-bottom: 15px;">
-                    <h3>Day 0: Sunday, March 22 (Travel)</h3>
-                    <span class="format-sub">Destination: Shreveport, LA</span>
-                    <p>Leave RR at 10:00am. Arrive Bally's Resort at 2:30pm.</p>
-                    <p><strong>5:00 PM:</strong> Mandatory Welcome Party at Bally's. Drinks & Appetizers provided.</p>
+                    <div class="format-text">
+                        <h3>Day 0: Sunday, March 22 (Travel)</h3>
+                        <span class="format-sub">Destination: Shreveport, LA</span>
+                        <p>Leave RR at 10:00am. Arrive Bally's Resort at 2:30pm.</p>
+                        <p><strong>5:00 PM:</strong> Mandatory Welcome Party at Bally's. Drinks & Appetizers provided.</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="TravelDay.png" alt="Travel Day" class="format-img">
+                    </div>
                 </div>
 
                 <div class="format-item">
-                    <h3>Day 1: Monday, March 23 (Stonebridge)</h3>
-                    <span class="format-sub">Format: 2-Man Scramble (9 Holes) / Alternate Shot (9-Holes)</span>
-                    <p><strong>10:00 AM Shotgun Start</strong></p>
-                    <p>Matchups: Team 1 vs Team 2 / Team 3 vs Team 4</p>
-                    <p>Lodging: Bally's Resort & Casino</p>
+                    <div class="format-text">
+                        <h3>Day 1: Monday, March 23 (Stonebridge)</h3>
+                        <span class="format-sub">Format: 2-Man Scramble (9 Holes) / Alternate Shot (9-Holes)</span>
+                        <p><strong>10:00 AM Shotgun Start</strong></p>
+                        <p>Matchups: Team 1 vs Team 2 / Team 3 vs Team 4</p>
+                        <p>Lodging: Bally's Resort & Casino</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 1 Image" class="format-img">
+                    </div>
                 </div>
 
                 <div class="format-item">
-                    <h3>Day 2: Tuesday, March 24 (Cypress Bend)</h3>
-                    <span class="format-sub">Format: 2-Man Best Ball</span>
-                    <p>Depart Shreveport 9:00am (78 miles). Arrive Cypress Bend 11:00am.</p>
-                    <p><strong>1:00 PM Tee Times</strong></p>
-                    <p>Matchups: Team 1 vs Team 3 / Team 2 vs Team 4</p>
-                    <p>Lodging: Wyndham Hotel at Cypress Bend</p>
+                    <div class="format-text">
+                        <h3>Day 2: Tuesday, March 24 (Cypress Bend)</h3>
+                        <span class="format-sub">Format: 2-Man Best Ball</span>
+                        <p>Depart Shreveport 9:00am (78 miles). Arrive Cypress Bend 11:00am.</p>
+                        <p><strong>1:00 PM Tee Times</strong></p>
+                        <p>Matchups: Team 1 vs Team 3 / Team 2 vs Team 4</p>
+                        <p>Lodging: Wyndham Hotel at Cypress Bend</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 2 Image" class="format-img">
+                    </div>
                 </div>
 
                 <div class="format-item">
-                    <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
-                    <span class="format-sub">Format: Singles Matches</span>
-                    <p style="margin-bottom: 10px; font-weight: bold; color: #eee;">
-                        Low Net - White Tees<br>
-                        Low Net - Gold Tees
-                    </p>
-                    <p>Travel to Gladewater (2 hrs). Arrive 9:30am.</p>
-                    <p><strong>10:30 AM Tee Times</strong></p>
-                    <p>Matchups: Team 1 vs Team 4 / Team 2 vs Team 3</p>
-                    <p><strong>3:00 PM:</strong> Awards & Lunch immediately following round.</p>
-                    <p>Depart by 6:00pm. Arrive Robson Ranch approx 8:30pm.</p>
-                    
-                    <p style="margin-top: 20px; font-size: 1rem; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;">
-                        <strong>**Tiebreaker:</strong> In the event of a tie for <strong>Best Net Gold</strong> or <strong>Best Net White</strong>, the winner will be decided by a <strong>Scorecard Playoff</strong>.
-                    </p>
+                    <div class="format-text">
+                        <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
+                        <span class="format-sub">Format: Singles Matches</span>
+                        <p style="margin-bottom: 10px; font-weight: bold; color: #eee;">
+                            Low Net - White Tees<br>
+                            Low Net - Gold Tees
+                        </p>
+                        <p>Travel to Gladewater (2 hrs). Arrive 9:30am.</p>
+                        <p><strong>10:30 AM Tee Times</strong></p>
+                        <p>Matchups: Team 1 vs Team 4 / Team 2 vs Team 3</p>
+                        <p><strong>3:00 PM:</strong> Awards & Lunch immediately following round.</p>
+                        <p>Depart by 6:00pm. Arrive Robson Ranch approx 8:30pm.</p>
+                        <p style="margin-top: 20px; font-size: 1rem; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;">
+                            <strong>**Tiebreaker:</strong> In the event of a tie for <strong>Best Net Gold</strong> or <strong>Best Net White</strong>, the winner will be decided by a <strong>Scorecard Playoff</strong>.
+                        </p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 3 Image" class="format-img">
+                    </div>
                 </div>
 
             </div>
@@ -939,73 +939,93 @@
             <h2 class="section-title">📜 Rules & Regulations 📜</h2>
             <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
                 
-                <img src="Rules.png" alt="Rules of Golf" style="width:100%; height:auto; border-radius: 5px; border: 2px solid var(--gold); margin-bottom: 20px;">
-
                 <div class="format-item">
-                    <h3 style="color: var(--bright-green);">General Play: Preferred Lies</h3>
-                    <p style="margin-bottom: 15px; font-size: 1.1rem;">
-                        <strong>BUMPING IS IN EFFECT.</strong>
-                    </p>
-                    <p style="margin-bottom: 10px;">Players are permitted to bump the ball <strong>less than one grip length</strong> with the clubhead.</p>
-                    
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
-                        <span class="format-sub" style="color: var(--red-accent);">RESTRICTIONS:</span>
-                        <ul style="list-style: none; margin-left: 5px;">
-                            <li style="margin-bottom: 8px;">❌ You <strong>cannot improve your lie</strong> (e.g., you cannot bump the ball from the rough into the fairway).</li>
-                            <li style="margin-bottom: 8px;">❌ You <strong>cannot bump the ball</strong> if it is in a hazard or penalty area.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="format-item">
-                    <h3>Day 1 & 2: Team Match Play</h3>
-                    <p>Standard Match Play rules apply. Gimmies are allowed and encouraged to maintain pace of play.</p>
-                    
-                    <p style="margin-top: 15px; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;">
-                        <strong>Scoring Requirement:</strong> Players must maintain their full <strong>Gross/Net scores</strong> for all 18 holes. If a match is closed out early (e.g., 3&2), players <strong>MUST continue to play</strong> the remaining holes and record their scores.
-                    </p>
-                </div>
-
-                <div class="format-item">
-                    <h3>Day 3: Singles Matches (Hybrid Format)</h3>
-                    <p><strong>Format:</strong> Singles Match Play AND Individual Low Net Stroke Play.</p>
-                    <p style="border: 1px solid var(--red-accent); padding: 10px; margin-top: 10px; background: rgba(183, 28, 28, 0.2); font-weight: bold; color: #ff8a80;">
-                        ⚠️ CRITICAL: You MUST putt everything out on Day 3. No concessions allowed. We need a valid 18-hole score for the Net Tournament.
-                    </p>
-                </div>
-
-                <div class="format-item">
-                    <h3>Robson Ranch OB Rule</h3>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
-                        <span class="format-sub" style="color: var(--red-accent);">Out of Bounds (OB)</span>
-                        <p style="margin-bottom: 10px; font-weight: bold;">Goal: Avoid "The Walk of Shame" and speed up play.</p>
-                        <p><strong>Penalty:</strong> 2 Strokes.</p>
-                        <p><strong>Procedure:</strong> If you hit your ball Out of Bounds, you do NOT need to return to the tee. Instead, place your ball in the fairway adjacent to where it went out of bounds.</p>
-                        <p><em>(This simulates hitting a 3rd shot from the tee and landing it in the fairway. You are now lying 3, hitting your 4th shot).</em></p>
-                    </div>
-                </div>
-
-                <div class="format-item">
-                    <h3>Local Rule: The "Lost but Found" Option</h3>
-                    <span class="format-sub" style="color: var(--gold); margin-bottom:10px;">To be used when a ball is lost but agreed by the group NOT to be Out of Bounds.</span>
-                    
-                    <p style="margin-bottom: 10px;"><strong>Purpose:</strong> To speed up play when a ball is clearly in play but cannot be located (e.g., buried in deep rough or leaves).</p>
-                    
-                    <img src="LostBall.png" alt="Lost Ball Rule" style="width:100%; height:auto; border-radius: 5px; border: 2px solid var(--gold); margin-bottom: 15px;">
-
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
-                        <p style="font-style: italic; color: #fff; margin-bottom: 10px;">
-                            "If a player’s ball is lost and the group agrees it is not Out of Bounds, the player may opt to treat the lost ball as an <strong>Unplayable Lie</strong> rather than taking Stroke and Distance."
+                    <div class="format-text">
+                        <h3 style="color: var(--bright-green);">General Play: Preferred Lies</h3>
+                        <p style="margin-bottom: 15px; font-size: 1.1rem;">
+                            <strong>BUMPING IS IN EFFECT.</strong>
                         </p>
-                        <ul style="list-style: none; margin-left: 10px;">
-                            <li style="margin-bottom: 8px;"><strong>Agreement:</strong> The group must agree on the estimated vicinity where the ball was lost.</li>
-                            <li style="margin-bottom: 8px; color: var(--red-accent); font-size: 1.2rem;"><strong>Penalty:</strong> One (1) Stroke.</li>
-                            <li style="margin-bottom: 8px;"><strong>Procedure:</strong> Drop within two club-lengths of the estimated spot (no closer to the hole).</li>
-                            <li><strong>Result:</strong> You lie 2 (shot + penalty) and are hitting your 3rd shot.</li>
-                        </ul>
+                        <p style="margin-bottom: 10px;">Players are permitted to bump the ball <strong>less than one grip length</strong> with the clubhead.</p>
+                        
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <span class="format-sub" style="color: var(--red-accent);">RESTRICTIONS:</span>
+                            <ul style="list-style: none; margin-left: 5px;">
+                                <li style="margin-bottom: 8px;">❌ You <strong>cannot improve your lie</strong> (e.g., you cannot bump the ball from the rough into the fairway).</li>
+                                <li style="margin-bottom: 8px;">❌ You <strong>cannot bump the ball</strong> if it is in a hazard or penalty area.</li>
+                            </ul>
+                        </div>
                     </div>
-                    
-                    <p style="font-size: 0.9rem; color: #aaa;"><em>Note: If the group believes the ball may be Out of Bounds, this rule does NOT apply. You must proceed under standard OB rules (2 stroke penalty, drop in fairway).</em></p>
+                    <div class="format-img-container">
+                        <img src="Rules.png" alt="Rules of Golf" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 1 & 2: Team Match Play</h3>
+                        <p>Standard Match Play rules apply. Gimmies are allowed and encouraged to maintain pace of play.</p>
+                        <p style="margin-top: 15px; color: var(--gold); border-left: 3px solid var(--gold); padding-left: 10px;">
+                            <strong>Scoring Requirement:</strong> Players must maintain their full <strong>Gross/Net scores</strong> for all 18 holes. If a match is closed out early (e.g., 3&2), players <strong>MUST continue to play</strong> the remaining holes and record their scores.
+                        </p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Match Play Image" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 3: Singles Matches (Hybrid Format)</h3>
+                        <p><strong>Format:</strong> Singles Match Play AND Individual Low Net Stroke Play.</p>
+                        <p style="border: 1px solid var(--red-accent); padding: 10px; margin-top: 10px; background: rgba(183, 28, 28, 0.2); font-weight: bold; color: #ff8a80;">
+                            ⚠️ CRITICAL: You MUST putt everything out on Day 3. No concessions allowed. We need a valid 18-hole score for the Net Tournament.
+                        </p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Singles Image" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Robson Ranch OB Rule</h3>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <span class="format-sub" style="color: var(--red-accent);">Out of Bounds (OB)</span>
+                            <p style="margin-bottom: 10px; font-weight: bold;">Goal: Avoid "The Walk of Shame" and speed up play.</p>
+                            <p><strong>Penalty:</strong> 2 Strokes.</p>
+                            <p><strong>Procedure:</strong> If you hit your ball Out of Bounds, you do NOT need to return to the tee. Instead, place your ball in the fairway adjacent to where it went out of bounds.</p>
+                            <p><em>(This simulates hitting a 3rd shot from the tee and landing it in the fairway. You are now lying 3, hitting your 4th shot).</em></p>
+                        </div>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with OB Image" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Local Rule: The "Lost but Found" Option</h3>
+                        <span class="format-sub" style="color: var(--gold); margin-bottom:10px;">To be used when a ball is lost but agreed by the group NOT to be Out of Bounds.</span>
+                        
+                        <p style="margin-bottom: 10px;"><strong>Purpose:</strong> To speed up play when a ball is clearly in play but cannot be located (e.g., buried in deep rough or leaves).</p>
+                        
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <p style="font-style: italic; color: #fff; margin-bottom: 10px;">
+                                "If a player’s ball is lost and the group agrees it is not Out of Bounds, the player may opt to treat the lost ball as an <strong>Unplayable Lie</strong> rather than taking Stroke and Distance."
+                            </p>
+                            <ul style="list-style: none; margin-left: 10px;">
+                                <li style="margin-bottom: 8px;"><strong>Agreement:</strong> The group must agree on the estimated vicinity where the ball was lost.</li>
+                                <li style="margin-bottom: 8px; color: var(--red-accent); font-size: 1.2rem;"><strong>Penalty:</strong> One (1) Stroke.</li>
+                                <li style="margin-bottom: 8px;"><strong>Procedure:</strong> Drop within two club-lengths of the estimated spot (no closer to the hole).</li>
+                                <li><strong>Result:</strong> You lie 2 (shot + penalty) and are hitting your 3rd shot.</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="font-size: 0.9rem; color: #aaa;"><em>Note: If the group believes the ball may be Out of Bounds, this rule does NOT apply. You must proceed under standard OB rules (2 stroke penalty, drop in fairway).</em></p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="LostBall.png" alt="Lost Ball Rule" class="format-img">
+                    </div>
                 </div>
 
             </div>
