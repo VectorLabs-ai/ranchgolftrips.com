@@ -499,6 +499,18 @@
             filter: contrast(1.1) saturate(1.3) sepia(0.1);
         }
         
+        /* --- NEW CLASS FOR INSET IMAGES (Rules, Travel, etc) --- */
+        .content-inset-img {
+            width: 100%;
+            max-width: 400px; /* Constrain width to match card sizes roughy */
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto; /* Center horizontally */
+            border-radius: 5px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
         /* --- FORMAT ITEM STYLES (NEW SIDE-BY-SIDE) --- */
         .format-box {
             background: rgba(0,0,0,0.6); color: white; border: 2px dashed var(--gold);
@@ -879,7 +891,7 @@
                         <p><strong>5:00 PM:</strong> Mandatory Welcome Party at Bally's. Drinks & Appetizers provided.</p>
                     </div>
                     <div class="format-img-container">
-                        <img src="TravelDay.png" alt="Travel Day" class="format-img">
+                        <img src="Day1.png" alt="Travel Day" class="format-img">
                     </div>
                 </div>
 
@@ -892,7 +904,7 @@
                         <p>Lodging: Bally's Resort & Casino</p>
                     </div>
                     <div class="format-img-container">
-                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 1 Image" class="format-img">
+                        <img src="Day2.png" alt="Day 1 Stonebridge" class="format-img">
                     </div>
                 </div>
 
@@ -906,7 +918,7 @@
                         <p>Lodging: Wyndham Hotel at Cypress Bend</p>
                     </div>
                     <div class="format-img-container">
-                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 2 Image" class="format-img">
+                        <img src="Day3.png" alt="Day 2 Cypress Bend" class="format-img">
                     </div>
                 </div>
 
@@ -928,7 +940,7 @@
                         </p>
                     </div>
                     <div class="format-img-container">
-                        <img src="https://dummyimage.com/300x200/222/f4c430.png&text=Placeholder" alt="Replace with Day 3 Image" class="format-img">
+                        <img src="Day4.png" alt="Day 3 Tempest" class="format-img">
                     </div>
                 </div>
 
