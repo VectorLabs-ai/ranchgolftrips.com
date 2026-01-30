@@ -361,6 +361,35 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
+        /* --- PAID STAMP (ROSTER) --- */
+        .paid-stamp {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: 'Rye', serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            color: #0b2e13;
+            background: rgba(46, 125, 50, 0.18);
+            border: 2px solid var(--bright-green);
+
+            transform: rotate(8deg);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+        }
+
+        .paid-stamp::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px dashed rgba(46, 125, 50, 0.55);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
         .roster-thumb {
             width: 50px; height: 50px;
             border-radius: 50%;
@@ -705,13 +734,6 @@
                 margin: 0 auto 10px auto;
                 width: 180px;
             }
-
-            /* --- DIGITAL PAYMENTS RESPONSIVE FIX --- */
-            @media (max-width: 900px) {
-                .digital-payment-grid {
-                grid-template-columns: 1fr;
-                }
-            }
             
             /* ADJUST SOLD OUT BADGE FOR MOBILE */
             .sold-out-badge {
@@ -731,6 +753,13 @@
                 margin-top: 15px;
             }
         }
+
+        /* --- DIGITAL PAYMENTS RESPONSIVE FIX --- */
+            @media (max-width: 900px) {
+                .digital-payment-grid {
+                grid-template-columns: 1fr;
+                }
+            }
     </style>
 </head>
 <body>
@@ -948,7 +977,7 @@
             <li>Open your bank app.</li>
             <li>Send Money with Zelle.</li>
             <li>Send to: <div class="copy-box">8172336462</div></li>
-            <li>Confirm recipient: <strong>Jeff Watts</strong></li>
+            <li>Confirm recipient: <strong>Marbel Properties, Inc (Jeff Watts)</strong></li>
         </ol>
     </div>
 
@@ -972,7 +1001,7 @@
         <ol style="margin: 0; padding-left: 18px; line-height: 1.6;">
             <li>Open Venmo.</li>
             <li>Search: <div class="copy-box">8172336462</div></li>
-            <li>Recipient: <strong>Jeff Watts</strong></li>
+            <li>Recipient: <strong>Marbel Properties, Inc (Jeff Watts)</strong></li>
         </ol>
     </div>
 
@@ -1475,79 +1504,112 @@
         }
 
         // --- GOOGLE SHEET FETCH LOGIC ---
-        async function loadRoster() {
-            const sheetId = '14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo';
-            const gid = '0';
-            const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
+async function loadRoster() {
+  const sheetId = '14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo';
+  const gid = '0';
+  const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
 
-            try {
-                const response = await fetch(csvUrl);
-                const text = await response.text();
-                const rows = parseCSV(text);
-                
-                const grid = document.getElementById('roster-grid');
-                grid.innerHTML = ''; 
+  const grid = document.getElementById('roster-grid');
+  grid.innerHTML = '<div class="r-loading">Loading Roster from Sheet...</div>';
 
-                for (let i = 1; i < rows.length; i++) {
-                    const row = rows[i];
-                    if (row.length < 1) continue;
-                    
-                    const p = {
-                        name: toTitleCase(row[0] || "Unknown"),
-                        index: row[3] || "-",
-                        tees: row[4] || "TBD",
-                        bio: row[8] || "No bio available.",
-                        avatar: row[9] || "",
-                        winner: row[10] || "",
-                        commish: row[11] || ""
-                    };
+  try {
+    const response = await fetch(csvUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const text = await response.text();
+    const rows = parseCSV(text);
 
-                    let avatarHtml = '';
-                    let rawAvatar = p.avatar.trim();
-                    
-                    if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) {
-                         rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
-                    }
+    grid.innerHTML = '';
 
-                    if (rawAvatar.toLowerCase().startsWith('http')) {
-                        avatarHtml = `<img src="${rawAvatar}" alt="${p.name}" class="roster-thumb">`;
-                        p.avatar = rawAvatar; 
-                    } else {
-                        const initials = p.name.split(" ").map((n)=>n[0]).join("").substring(0,2);
-                        avatarHtml = `<div class="roster-thumb">${initials}</div>`;
-                    }
+    // 1) headers map
+    const headerRow = rows[0] || [];
+    const headers = {};
+    headerRow.forEach((h, idx) => {
+      if (h) headers[h.trim().toLowerCase()] = idx;
+    });
 
-                    const item = document.createElement('div');
-                    item.className = 'roster-item';
-                    
-                    let badgeHtml = '';
-                    if (p.commish.toLowerCase() === 'yes') {
-                        item.classList.add('commissioner');
-                        badgeHtml = ' <span class="commish-badge">COMMISSIONER</span>';
-                    } else if (p.winner.toLowerCase() === 'yes') {
-                        item.classList.add('previous-winner');
-                        badgeHtml = ' <span class="trophy-icon" title="Previous Winner">🏆</span>';
-                    }
-                    
-                    item.innerHTML = `
-                        ${avatarHtml}
-                        <div class="roster-text">
-                            <span class="r-name">${p.name} ${badgeHtml}</span>
-                            <span class="r-meta">
-                                <strong>Index:</strong> ${p.index}  •  <strong>Tees:</strong> ${p.tees}
-                            </span>
-                        </div>
-                    `;
-                    
-                    item.onclick = function() { openBio(p); };
-                    grid.appendChild(item);
-                }
-
-            } catch (error) {
-                console.error("Error fetching roster:", error);
-                document.getElementById('roster-grid').innerHTML = '<div style="color:white;">Failed to load roster.</div>';
-            }
+    function getCell(rowArr, nameList, fallback = "") {
+      for (const name of nameList) {
+        const idx = headers[name.toLowerCase()];
+        if (idx !== undefined && rowArr[idx] !== undefined) {
+          const val = String(rowArr[idx]).trim();
+          if (val.length) return val;
         }
+      }
+      return fallback;
+    }
+
+    // 2) loop players
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (!row || row.length === 0) continue;
+
+      const p = {
+        name: toTitleCase(getCell(row, ["name", "player", "player name"], "Unknown")),
+        index: getCell(row, ["index", "handicap", "hcp"], "-"),
+        tees: getCell(row, ["tees", "tee", "tee box"], "TBD"),
+        bio: getCell(row, ["bio", "player bio"], "No bio available."),
+        avatar: getCell(row, ["avatar", "photo", "image"], ""),
+        winner: getCell(row, ["winner", "previous winner"], ""),
+        commish: getCell(row, ["commish", "commissioner"], ""),
+        paid: getCell(row, ["paid"], "")
+      };
+
+      const isPaid = String(p.paid).trim().toLowerCase() === "yes";
+      const paidHtml = isPaid ? `<span class="paid-stamp">PAID</span>` : "";
+
+      // avatar
+      let rawAvatar = (p.avatar || "").trim();
+      if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) {
+        rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
+      }
+
+      let avatarHtml = '';
+      if (rawAvatar.toLowerCase().startsWith('http')) {
+        avatarHtml = `<img src="${rawAvatar}" alt="${p.name}" class="roster-thumb">`;
+        p.avatar = rawAvatar;
+      } else {
+        const initials = p.name.split(" ").map(n => n[0]).join("").substring(0,2);
+        avatarHtml = `<div class="roster-thumb">${initials}</div>`;
+      }
+
+      // badges
+      const item = document.createElement('div');
+      item.className = 'roster-item';
+
+      let badgeHtml = '';
+      if (String(p.commish).toLowerCase() === 'yes') {
+        item.classList.add('commissioner');
+        badgeHtml = ' <span class="commish-badge">COMMISSIONER</span>';
+      } else if (String(p.winner).toLowerCase() === 'yes') {
+        item.classList.add('previous-winner');
+        badgeHtml = ' <span class="trophy-icon">🏆</span>';
+      }
+
+      item.innerHTML = `
+        ${paidHtml}
+        ${avatarHtml}
+        <div class="roster-text">
+          <span class="r-name">${p.name} ${badgeHtml}</span>
+          <span class="r-meta">
+            <strong>Index:</strong> ${p.index} • <strong>Tees:</strong> ${p.tees}
+          </span>
+        </div>
+      `;
+
+      item.onclick = function () { openBio(p); };
+      grid.appendChild(item);
+    }
+
+    if (grid.innerHTML.trim() === '') {
+      grid.innerHTML = '<div class="r-loading">No roster rows found.</div>';
+    }
+
+  } catch (error) {
+    console.error("Error fetching roster:", error);
+    grid.innerHTML = '<div style="color:white;">Failed to load roster.</div>';
+  }
+}
+
 
         function openBio(player) {
             document.getElementById('bioName').innerText = player.name;
