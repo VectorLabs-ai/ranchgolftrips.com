@@ -451,7 +451,7 @@
         /* --- DIGITAL PAYMENTS (ADD-ON) --- */
 .digital-payment-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
     margin-top: 20px;
 }
@@ -705,6 +705,13 @@
                 margin: 0 auto 10px auto;
                 width: 180px;
             }
+
+            /* --- DIGITAL PAYMENTS RESPONSIVE FIX --- */
+            @media (max-width: 900px) {
+                .digital-payment-grid {
+                grid-template-columns: 1fr;
+                }
+            }
             
             /* ADJUST SOLD OUT BADGE FOR MOBILE */
             .sold-out-badge {
@@ -750,7 +757,7 @@
                 <h3 style="color: var(--felt-green); font-size: 1.4rem;">Pre-Tournament Party</h3>
                 <p style="font-size: 1.1rem; margin: 10px 0; font-weight: bold;">Monday, March 16th @ 5:00 PM</p>
                 <p style="color: #555;">Team Draft & Briefing at <strong>House of Carts</strong></p>
-                <p style="font-size: 1.0rem; margin-top: 10px; font-weight: bold; color: #222;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.”</p>
+                <p style="font-size: 1.0rem; margin-top: 10px; font-weight: bold; color: #222;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.</p>
                 
                 <button class="modal-btn" onclick="closeModal()">CLOSE</button>
             </div>
@@ -980,7 +987,7 @@
                         <h3 style="color: var(--felt-green); font-size: 1.6rem;">♣ Pre-Tournament Party ♣</h3>
                         <p style="margin-top: 10px; font-size: 1.2rem;"><strong>Monday, March 16th @ 5:00 PM</strong></p>
                         <p style="font-style: italic; color: #555;">Mandatory Meeting & Team Draft</p>
-                        <p style="margin-top: 10px; font-size: 1.05rem; font-weight: bold; color: #333;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.”</p>
+                        <p style="margin-top: 10px; font-size: 1.05rem; font-weight: bold; color: #333;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.</p>
                         
                         <div style="margin: 20px 0;">
                             <h4 style="color: var(--wood); font-family: 'Rye', serif;">LOCATION: HOUSE OF CARTS</h4>
