@@ -1556,7 +1556,7 @@
                     <li>Jeff Watts</li>
                     <li>Llynal Carey</li>
                     <li>Tim Hughes</li>
-                    <li>Dale Valentine</li>
+                    <li>Corey Klessig</li>
                 </ul>
                 <br>
                 <br>
@@ -1677,7 +1677,8 @@ async function loadRoster() {
 
       const p = {
         name: toTitleCase(getCell(row, ["name", "player", "player name"], "Unknown")),
-        index: getCell(row, ["index", "handicap", "hcp"], "-"),
+        // UPDATE: CHECKING MORE COLUMN NAMES FOR INDEX
+        index: getCell(row, ["index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
         tees: getCell(row, ["tees", "tee", "tee box"], "TBD"),
         bio: getCell(row, ["bio", "player bio"], "No bio available."),
         avatar: getCell(row, ["avatar", "photo", "image"], ""),
