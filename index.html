@@ -1677,8 +1677,8 @@ async function loadRoster() {
 
       const p = {
         name: toTitleCase(getCell(row, ["name", "player", "player name"], "Unknown")),
-        // UPDATE: CHECKING MORE COLUMN NAMES FOR INDEX
-        index: getCell(row, ["index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
+        // UPDATE: CHECKING MORE COLUMN NAMES FOR INDEX including GHIN
+        index: getCell(row, ["index", "handicap", "hcp", "current index", "hi", "indx", "ghin"], "-"),
         tees: getCell(row, ["tees", "tee", "tee box"], "TBD"),
         bio: getCell(row, ["bio", "player bio"], "No bio available."),
         avatar: getCell(row, ["avatar", "photo", "image"], ""),
