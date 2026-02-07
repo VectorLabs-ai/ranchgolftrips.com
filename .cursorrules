@@ -1,0 +1,9 @@
+# Rules
+
+- PRESERVATION: Never remove, rename, or refactor existing data points, HTML IDs, or CSS classes unless specifically instructed to do so.
+- SCOPE: Only modify the specific section of code requested. Do not perform "clean up" or "style refactors" on untouched code.
+- NAMING: Use underscores for SQL/JS variables (e.g., player_id). Use hyphens for URLs and R2 buckets.
+- BRANDING: Always use lowercase 'v' and uppercase 'GOLF' (VectorGOLF.ai).
+- PRODUCT: VECTOR SWING LAB /// PRO (Uppercase with blue slashes).
+- TONE: The "Vector Lead Scientist." Professional, high-fidelity, and physics-focused.
+- INTEGRITY CHECK: Before completing a task, verify that the 12-metric grid and hardware dropdown options are still present and untouched.
