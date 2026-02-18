@@ -48,8 +48,6 @@
             max-height: 90vh; overflow-y: auto; 
             overflow-x: hidden;
         }
-        .modal-content.gopher-alert-modal { max-width: 620px; }
-
         .modal-content::before { content: '♠'; position: absolute; top: 10px; left: 10px; font-size: 2rem; color: rgba(255,255,255,0.8); z-index: 5; }
         .modal-content::after { content: '♠'; position: absolute; top: 10px; right: 10px; font-size: 2rem; color: rgba(255,255,255,0.8); z-index: 5; }
 
@@ -73,12 +71,6 @@
         }
         .modal-btn:hover { background: #d32f2f; box-shadow: 0 0 15px var(--red-accent); }
 
-        /* Banner Style for Golpher Alert */
-        .gopher-alert-banner {
-            width: 100%; height: auto; display: block;
-            margin-bottom: 20px; border-bottom: 4px solid var(--gold);
-        }
-
         @keyframes dropIn {
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -101,15 +93,60 @@
         .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
 
-        /* --- ALERT BAR --- */
-        .alert-bar {
-            background-color: var(--red-accent); color: #fff; text-align: center;
-            padding: 12px; font-family: 'Rye', serif; letter-spacing: 1px;
-            border-bottom: 2px solid var(--gold); cursor: pointer;
-            text-decoration: none; display: block; transition: background 0.3s;
-            animation: glow 2s infinite alternate; position: relative; z-index: 900;
+        /* --- ALERT BARS (full-width red bars, gold borders) --- */
+        .alerts-section {
+            background: transparent;
+            padding: 0;
+            position: relative;
+            z-index: 10;
         }
-        .alert-bar:hover { background-color: #d32f2f; }
+        .alert-bar-item {
+            width: 100%;
+            background-color: var(--red-accent);
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+            font-family: 'Rye', serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        .alert-bar-item a.vector-link-box {
+            display: inline-block;
+            text-decoration: none;
+            background: #fff;
+            color: #000;
+            padding: 6px 14px;
+            margin: 0 4px;
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .alert-bar-item a.vector-link-box:hover {
+            background: var(--gold);
+            transform: scale(1.05);
+        }
+        .alert-bar-item a.vector-link-box .vga-ai { color: #2563eb; font-weight: bold; }
+        .alert-bar-item .free-stamp {
+            display: inline-block;
+            background: rgba(183, 28, 28, 0.95);
+            color: #fff;
+            font-family: 'Rye', serif;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 6px 14px;
+            margin-left: 12px;
+            border: 4px dashed #fff;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
 
         @keyframes glow {
             from { box-shadow: 0 0 5px #b71c1c; }
@@ -261,6 +298,20 @@
 
         .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
         .lb-table tr:hover { background-color: #e8f5e9; }
+
+        .driver-rider-avatar-cell { width: 60px; padding: 8px 12px !important; vertical-align: middle; }
+        .driver-rider-avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #eee;
+        }
+        .driver-rider-avatar.driver-rider-initials {
+            font-size: 0.9rem; font-weight: bold; color: #555;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Roboto', sans-serif;
+        }
 
         .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 15px; }
         .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
@@ -890,35 +941,6 @@
 </head>
 <body>
 
-    <div id="partyModal" class="modal-overlay">
-        <div class="modal-content gopher-alert-modal">
-            <img src="https://ranchgolftrips.com/GolpherAlert.png" alt="Golpher Alert" class="gopher-alert-banner">
-            
-            <div class="modal-inner-padding">
-                <div class="modal-alert-box">
-                    <h3 style="color: var(--red-accent); font-size: 1.3rem;">$200 TOURNAMENT FEE DUE</h3>
-                    <p style="font-weight: bold; margin-top: 5px;">FEBRUARY 15th</p>
-                    <p style="font-size: 0.9rem;">Cash Preferred. Checks to Tim or Jeff.</p>
-                </div>
-
-                <div class="modal-alert-box" style="margin-top: 12px;">
-                    <h3 style="color: var(--gold); font-size: 1.2rem;">CYPRESS BEND — CALL TO RESERVE</h3>
-                    <p style="font-weight: bold; margin-top: 6px; font-size: 1rem;">📞 318-590-1500 · $146.41/night (Mar 24–25)</p>
-                    <p style="font-size: 0.9rem; margin-top: 4px;">Say <strong>Robson Ranch Invitational</strong>; give card, get confirmation #.</p>
-                </div>
-
-                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
-
-                <h3 style="color: var(--felt-green); font-size: 1.4rem;">Pre-Tournament Party</h3>
-                <p style="font-size: 1.1rem; margin: 10px 0; font-weight: bold;">Monday, March 16th @ 5:00 PM</p>
-                <p style="color: #555;">Team Draft & Briefing at <strong>House of Carts</strong></p>
-                <p style="font-size: 1.0rem; margin-top: 10px; font-weight: bold; color: #222;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.</p>
-                
-                <button class="modal-btn" onclick="closeModal()">CLOSE</button>
-            </div>
-        </div>
-    </div>
-
     <div id="bioModal" class="modal-overlay" onclick="closeBio()">
         <div class="modal-content bio-card" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeBio()">×</span>
@@ -955,14 +977,15 @@
                     <span onclick="scrollToId('rules')">Rules</span>
                     <span onclick="scrollToId('courses')">Courses</span>
                     <span onclick="scrollToId('lodging')">Lodging</span>
-                    <span onclick="scrollToId('suggestions')" style="color:var(--gold);">Suggestions</span>
+                    <span onclick="scrollToId('driver-rider-details')" style="cursor:pointer;">Driver/Rider</span>
                     <a href="gallery.html" class="btn-gallery-nav">📷 PHOTO GALLERY</a>
                 </div>
             </div>
         </nav>
 
-        <div class="alert-bar" onclick="scrollToId('info')">
-            🚨 $200 TOURNAMENT FEE DUE FEB 15 • PARTY MON, MAR 16 @ HOUSE OF CARTS 🚨
+        <div class="alerts-section" id="alerts">
+            <div class="alert-bar-item">PRE-TOURNAMENT PARTY MONDAY, MARCH 16TH @ 5:00 PM • TEAM DRAFT & BRIEFING AT HOUSE OF CARTS • BBQ, CHIPS & DRINKS PROVIDED</div>
+            <div class="alert-bar-item"><span id="alerts-days">--</span> DAYS TO TIGHTEN UP YOUR GAME USING <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer" class="vector-link-box"><strong>Vector</strong><strong>GOLF</strong><span class="vga-ai">.ai</span></a> SCORECARD AI INSIGHTS <span class="free-stamp">FREE</span></div>
         </div>
 
         <div class="hero-section">
@@ -1073,77 +1096,6 @@
                     
                     <p><strong>RYDER CUP FORMAT:</strong> 4 Teams</p>
                     <p>Winning Team Awards • Low Gross & Low Net Champion Awards • Daily Tee Gifts</p>
-
-                    <div class="payment-box">
-                        <h3 style="color: var(--red-accent); font-size: 2rem; margin-bottom: 5px;">$200 TOURNAMENT FEE DUE FEB 15th</h3>
-                        <p style="font-weight: bold; font-size: 1.2rem; color: #333;">CASH IS THE PREFERRED METHOD</p>
-                        <hr style="margin: 15px auto; border-color: #d4af37; width: 50%;">
-                        <p style="text-align: center;">
-                            If paying by check, make payable to:<br>
-                            <strong>TIM HUGHES</strong>
-                        </p>
-                        <hr style="margin: 20px auto; border-color: #d4af37; width: 60%;">
-
-<h3 style="color: var(--felt-green); font-size: 1.4rem; margin-bottom: 10px;">
-    DIGITAL PAYMENT OPTIONS
-</h3>
-<p style="font-size: 0.95rem; color: #444; margin-bottom: 5px;">
-    If you’d rather not do cash/check, you can send digitally to the number below.
-</p>
-
-<div class="digital-payment-grid">
-
-    <div class="pay-method preferred">
-        <span class="preferred-tag">PREFERRED</span>
-        <div class="pay-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Zelle_logo.jpg" class="pay-logo" alt="Zelle">
-            <h4 style="margin:0;">Zelle</h4>
-        </div>
-        <ol style="margin: 0; padding-left: 18px; line-height: 1.6;">
-            <li>Open your bank app.</li>
-            <li>Send Money with Zelle.</li>
-            <li>Send to: <span class="copy-box">8172336462</span></li>
-            <li>Confirm recipient: <strong>Marbel Properties, Inc (Jeff Watts)</strong></li>
-        </ol>
-    </div>
-
-    <div class="pay-method">
-        <div class="pay-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg" class="pay-logo" alt="Apple Pay">
-            <h4 style="margin:0;">Apple Pay</h4>
-        </div>
-        <ol style="margin: 0; padding-left: 18px; line-height: 1.6;">
-            <li>Open Messages.</li>
-            <li>Text: <div class="copy-box">8172336462</div></li>
-            <li>Tap Apple Cash, enter amount, and send.</li>
-        </ol>
-    </div>
-
-    <div class="pay-method atm-card">
-  <div class="pay-header">
-  </div>
-
-  <img
-    src="https://ranchgolftrips.com/atm.png"
-    class="atm-img"
-  >
-</div>
-
-</div>
-
-                        <p style="font-size: 0.9rem; margin-top: 15px; color: #666;">
-                            *Tournament fee covers trophies, gifts, and party operations. Cypress Bend Green Fees and Hotel are separate.
-                        </p>
-                    </div>
-
-                    <div class="payment-note">
-  <div class="payment-note-title">IMPORTANT (DIGITAL PAYMENTS)</div>
-  <p>
-    Please include a note/memo so we know who you are.
-    Use this format:
-    <span class="memo-pill">Old-Fart's-Your Name</span>
-  </p>
-</div>
 
                     <div id="party-info" class="party-box">
                         <h3 style="color: var(--felt-green); font-size: 1.6rem;">♣ Pre-Tournament Party ♣</h3>
@@ -1472,63 +1424,18 @@
             </div>
         </div>
 
-        <div class="container section-padding" id="suggestions">
-          <h2 class="section-title">💡 Suggestions & Comments 💡</h2>
-
-          <div class="format-box" style="max-width: 900px; margin: 0 auto; background: rgba(20, 20, 20, 0.95); position:relative;">
-            
-            <img src="https://ranchgolftrips.com/GolpherListening.png" alt="Listening Gopher" class="gopher-icon">
-
-            <div id="suggestionInputArea">
-                <p style="font-size: 1.1rem; margin-bottom: 15px;">
-                  Have an idea that would improve the next trip? Course picks, formats, side games, trophies, rules, chaos—submit it here.
-                  <span style="color:#ccc; font-size:0.95rem;">Submissions are completely anonymous unless you type your name in the box.</span>
-                </p>
-
-                <div style="display:flex; flex-wrap:wrap; gap:10px; margin: 15px 0 20px;">
-                  <button class="modal-btn" style="background: var(--gold); color:#000; font-size: 0.9rem; padding: 10px 15px;" type="button"
-                    onclick="prefillSuggestion('Format idea: ')">Format Idea</button>
-
-                  <button class="modal-btn" style="background: var(--gold); color:#000; font-size: 0.9rem; padding: 10px 15px;" type="button"
-                    onclick="prefillSuggestion('Course / location idea: ')">Course / Location</button>
-
-                  <button class="modal-btn" style="background: var(--gold); color:#000; font-size: 0.9rem; padding: 10px 15px;" type="button"
-                    onclick="prefillSuggestion('Side game / betting idea: ')">Side Games</button>
-
-                  <button class="modal-btn" style="background: #444; font-size: 0.9rem; padding: 10px 15px;" type="button"
-                    onclick="prefillSuggestion('Bad idea but hear me out: ')">Bad Idea</button>
-                </div>
-
-                <form action="https://docs.google.com/forms/d/e/1FAIpQLSenYPzixEsjqwnNjYzfas37wtPaUDi3YyqI_C3i1zpnLtX20A/formResponse" 
-                      method="POST" 
-                      target="hidden_iframe" 
-                      id="gopherForm"
-                      onsubmit="handleFormSubmit()">
-                    
-                    <label for="suggestionText" style="display:block; margin-bottom:8px; font-weight:bold; color:#fff;">
-                      Your suggestion:
-                    </label>
-                    
-                    <textarea id="suggestionText" name="entry.205094115" rows="5" placeholder="Type your brilliant idea here..."
-                      style="width:100%; padding:12px; border-radius:8px; border:2px solid var(--gold); font-size:1rem; font-family: 'Roboto', sans-serif;" required></textarea>
-
-                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:15px;">
-                      <button class="modal-btn" type="submit">
-                        SUBMIT
-                      </button>
-                    </div>
-                </form>
+        <div class="container section-padding" id="driver-rider-details">
+            <h2 class="section-title">♣ Driver/Rider Details ♣</h2>
+            <div class="leaderboard-box">
+                <table class="lb-table">
+                    <thead>
+                        <tr><th style="text-align: left; width: 60px;"></th><th style="text-align: left;">Player</th><th style="text-align: left;">Drivers</th></tr>
+                    </thead>
+                    <tbody id="driver-rider-tbody">
+                        <tr><td colspan="3" class="r-loading">Loading from roster...</td></tr>
+                    </tbody>
+                </table>
             </div>
-
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-            <div id="thankYouMessage" style="display:none; text-align:center; padding: 40px 20px;">
-                <h3 style="color: var(--gold); font-size: 2rem; margin-bottom: 20px;">✅ Message Received!</h3>
-                <p style="font-size: 1.2rem; color: #ccc;">Thanks for the feedback.</p>
-                <button class="modal-btn" style="background:#444; border:1px solid #666; margin-top:20px;" onclick="resetForm()">Send Another</button>
-            </div>
-
-          </div>
         </div>
 
         <footer>
@@ -1586,6 +1493,12 @@
 
         // --- COUNTDOWN TIMER ---
         var countDownDate = new Date("Mar 22, 2026 12:00:00").getTime();
+        (function setAlertsDays() {
+            var distance = countDownDate - new Date().getTime();
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var alertsDaysEl = document.getElementById("alerts-days");
+            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
+        })();
         var x = setInterval(function() {
             var now = new Date().getTime();
             var distance = countDownDate - now;
@@ -1598,6 +1511,8 @@
             document.getElementById("hours").innerHTML = (hours < 10 ? "0" : "") + hours;
             document.getElementById("mins").innerHTML = (minutes < 10 ? "0" : "") + minutes;
             document.getElementById("secs").innerHTML = (seconds < 10 ? "0" : "") + seconds;
+            var alertsDaysEl = document.getElementById("alerts-days");
+            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
 
             if (distance < 0) {
                 clearInterval(x);
@@ -1607,15 +1522,8 @@
 
         // --- MODAL ALERT LOGIC ---
         window.onload = function() {
-            setTimeout(function() {
-                document.getElementById('partyModal').style.display = 'flex';
-            }, 1000); 
-            loadRoster(); 
+            loadRoster();
         };
-
-        function closeModal() {
-            document.getElementById('partyModal').style.display = 'none';
-        }
 
         // --- GOOGLE SHEET FETCH LOGIC ---
 async function loadRoster() {
@@ -1633,6 +1541,7 @@ async function loadRoster() {
     const rows = parseCSV(text);
 
     grid.innerHTML = '';
+    const driverRiderList = [];
 
     // 1) headers map
     const headerRow = rows[0] || [];
@@ -1666,7 +1575,8 @@ async function loadRoster() {
         avatar: getCell(row, ["avatar", "photo", "image"], ""),
         winner: getCell(row, ["winner", "previous winner"], ""),
         commish: getCell(row, ["commish", "commissioner"], ""),
-        paid: getCell(row, ["paid"], "")
+        paid: getCell(row, ["paid"], ""),
+        drivers: getCell(row, ["drivers", "driver"], "—")
       };
 
       const isPaid = String(p.paid).trim().toLowerCase() === "yes";
@@ -1713,15 +1623,35 @@ async function loadRoster() {
 
       item.onclick = function () { openBio(p); };
       grid.appendChild(item);
+
+      // Collect for Driver/Rider Details section (avatar URL or empty for initials)
+      var avatarUrl = (rawAvatar && rawAvatar.toLowerCase().startsWith('http')) ? rawAvatar : '';
+      var initials = p.name.split(" ").map(function(n) { return n[0]; }).join("").substring(0, 2);
+      driverRiderList.push({ name: p.name, drivers: p.drivers, avatarUrl: avatarUrl, initials: initials });
     }
 
     if (grid.innerHTML.trim() === '') {
       grid.innerHTML = '<div class="r-loading">No roster rows found.</div>';
     }
 
+    // Fill Driver/Rider Details table (with avatar)
+    const tbody = document.getElementById('driver-rider-tbody');
+    if (tbody && driverRiderList.length) {
+      tbody.innerHTML = driverRiderList.map(function(r) {
+        var avatarCell = r.avatarUrl
+          ? '<img src="' + escapeHtml(r.avatarUrl) + '" alt="" class="driver-rider-avatar">'
+          : '<div class="driver-rider-avatar driver-rider-initials">' + escapeHtml(r.initials) + '</div>';
+        return '<tr><td class="driver-rider-avatar-cell">' + avatarCell + '</td><td style="text-align:left;">' + escapeHtml(r.name) + '</td><td style="text-align:left;">' + escapeHtml(r.drivers) + '</td></tr>';
+      }).join('');
+    } else if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="3" class="r-loading">No roster rows found.</td></tr>';
+    }
+
   } catch (error) {
     console.error("Error fetching roster:", error);
     grid.innerHTML = '<div style="color:white;">Failed to load roster.</div>';
+    const tbody = document.getElementById('driver-rider-tbody');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="color:var(--red-accent);">Failed to load roster.</td></tr>';
   }
 }
 
@@ -1787,6 +1717,13 @@ async function loadRoster() {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
                 }
             );
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
         }
     </script>
 </body>
