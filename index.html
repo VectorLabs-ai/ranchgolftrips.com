@@ -156,12 +156,27 @@
             border-top: 3px solid var(--gold);
             border-bottom: 3px solid var(--gold);
         }
+        .sponsor-title {
+            font-family: 'Rye', serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
         .sponsor-logos {
             display: flex;
             flex-wrap: nowrap;
             justify-content: center;
             align-items: center;
             gap: 32px;
+        }
+        .sponsor-logos a {
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+        .sponsor-logos a:hover {
+            opacity: 0.85;
         }
         .sponsor-logos img {
             height: 48px;
@@ -1021,12 +1036,13 @@
         </div>
 
         <div class="sponsor-bar">
+            <div class="sponsor-title">TOURNAMENT SPONSORS</div>
             <div class="sponsor-logos">
-                <img src="https://ranchgolftrips.com/Ballys-Logo.png" alt="Bally's Shreveport">
-                <img src="https://ranchgolftrips.com/Wildhorse-logo.webp" alt="Wildhorse">
-                <img src="https://ranchgolftrips.com/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf">
-                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai">
-                <img src="https://ranchgolftrips.com/HouseOfCarts-Logo.webp" alt="House of Carts">
+                <a href="https://casinos.ballys.com/shreveport/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Ballys-Logo.png" alt="Bally's Shreveport"></a>
+                <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Wildhorse-logo.webp" alt="Wildhorse"></a>
+                <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf"></a>
+                <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai"></a>
+                <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/HouseOfCarts-Logo.webp" alt="House of Carts"></a>
             </div>
         </div>
 
