@@ -147,6 +147,29 @@
             vertical-align: middle;
             text-transform: uppercase;
         }
+        .sponsor-bar {
+            width: 100%;
+            background-color: var(--felt-green);
+            color: var(--gold);
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+        }
+        .sponsor-logos {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+        }
+        .sponsor-logos img {
+            height: 48px;
+            width: auto;
+            max-width: 140px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
 
         @keyframes glow {
             from { box-shadow: 0 0 5px #b71c1c; }
@@ -995,6 +1018,16 @@
             <img src="https://ranchgolftrips.com/Banner-Final.png" 
                  alt="2026 Robson Ranch Invitational Banner" 
                  class="banner-img">
+        </div>
+
+        <div class="sponsor-bar">
+            <div class="sponsor-logos">
+                <img src="https://ranchgolftrips.com/Ballys-Logo.png" alt="Bally's Shreveport">
+                <img src="https://ranchgolftrips.com/Wildhorse-logo.webp" alt="Wildhorse">
+                <img src="https://ranchgolftrips.com/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf">
+                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai">
+                <img src="https://ranchgolftrips.com/HouseOfCarts-Logo.webp" alt="House of Carts">
+            </div>
         </div>
 
         <div class="alert-bar-item"><span id="alerts-days">--</span> DAYS TO TIGHTEN UP YOUR GAME USING <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer" class="vector-link-box"><strong>Vector</strong><strong>GOLF</strong><span class="vga-ai">.ai</span></a> SCORECARD AI INSIGHTS <span class="free-stamp">FREE</span></div>
