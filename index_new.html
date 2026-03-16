@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Robson Ranch Invitational</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --felt-green: #1a472a; 
+            --bright-green: #2e7d32;
+            --gold: #f4c430;        
+            --gold-gradient: linear-gradient(180deg, #f9e29a 0%, #d4af37 100%);
+            --wood: #5d4037;        
+            --card-white: #fdfdfd;
+            --text-dark: #222;
+            --red-accent: #b71c1c; 
+            --zelle-purple: #6d1ed1;
+        }
+
+        /* --- RESET & BASIC SETUP --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--wood); 
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* --- MODAL (POPUP ALERT) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--card-white); border: 5px solid var(--gold);
+            padding: 0 0 30px 0; 
+            max-width: 500px; width: 90%; text-align: center;
+            border-radius: 10px; box-shadow: 0 0 50px rgba(244, 196, 48, 0.5);
+            animation: dropIn 0.5s ease-out; position: relative;
+            max-height: 90vh; overflow-y: auto; 
+            overflow-x: hidden;
+        }
+        .modal-content::before { content: '♠'; position: absolute; top: 10px; left: 10px; font-size: 2rem; color: rgba(255,255,255,0.8); z-index: 5; }
+        .modal-content::after { content: '♠'; position: absolute; top: 10px; right: 10px; font-size: 2rem; color: rgba(255,255,255,0.8); z-index: 5; }
+
+        .modal-inner-padding { padding: 0 30px; }
+
+        .modal-alert-box {
+            background: #ffebee; border: 2px dashed var(--red-accent);
+            padding: 10px; margin: 15px 0; border-radius: 5px;
+        }
+
+        .modal-good-news {
+            background: #e8f5e9; border: 2px solid var(--bright-green);
+            padding: 10px; margin: 15px 0; border-radius: 5px;
+        }
+
+        .modal-btn {
+            background: var(--red-accent); color: white; border: none;
+            padding: 15px 30px; font-size: 1.1rem; font-weight: bold;
+            margin-top: 10px; cursor: pointer; border-radius: 5px;
+            font-family: 'Rye', serif; letter-spacing: 1px; transition: background 0.3s;
+        }
+        .modal-btn:hover { background: #d32f2f; box-shadow: 0 0 15px var(--red-accent); }
+
+        @keyframes dropIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .wrapper {
+            max-width: 1200px; margin: 0 auto;
+            background-color: var(--felt-green); 
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            min-height: 100vh;
+            border-left: 15px solid #3e2723; border-right: 15px solid #3e2723;
+        }
+
+        .container { padding: 0 20px; max-width: 1100px; margin: 0 auto; }
+
+        h1, h2, h3 { font-family: 'Rye', serif; text-transform: uppercase; letter-spacing: 1px; }
+
+        .section-padding { padding: 60px 0; }
+        .text-center { text-align: center; }
+        .section-header-row {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 16px; margin-bottom: 20px;
+        }
+        .section-header-row .section-title { margin-bottom: 0; }
+
+        .play-format-callout {
+            background: rgba(0,0,0,0.4); color: #fff; padding: 18px 24px;
+            border: 2px solid var(--gold); border-radius: 8px;
+            margin-bottom: 24px; line-height: 1.5;
+        }
+        .play-format-callout .play-format-title {
+            font-family: 'Rye', serif; font-size: 1.1rem; font-weight: bold;
+            margin-bottom: 8px; color: var(--gold);
+        }
+        .play-format-callout p { margin: 0; font-size: 0.98rem; }
+        .how-to-play-box {
+            background: rgba(255,255,255,0.06); padding: 12px 16px;
+            border-radius: 6px; border-left: 3px solid var(--gold);
+            font-size: 0.95rem; color: #e8e8e8;
+        }
+        .how-to-play-box ul { padding-left: 4px; }
+        .how-to-play-box li { margin-bottom: 4px; }
+        .btn-print-rules {
+            background: var(--gold); color: #000; border: 2px solid #000;
+            padding: 12px 24px; border-radius: 8px; font-weight: bold;
+            font-size: 1rem; cursor: pointer; white-space: nowrap;
+        }
+        .btn-print-rules:hover { opacity: 0.9; }
+
+        /* --- ALERT BARS (full-width red bars, gold borders) --- */
+        .alerts-section {
+            background: transparent;
+            padding: 0;
+            position: relative;
+            z-index: 10;
+        }
+        .alert-bar-item {
+            width: 100%;
+            background-color: var(--red-accent);
+            color: #fff;
+            text-align: center;
+            padding: 14px 20px;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+            font-family: 'Rye', serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+        .alert-bar-item a.vector-link-box {
+            display: inline-block;
+            text-decoration: none;
+            background: #fff;
+            color: #000;
+            padding: 6px 14px;
+            margin: 0 4px;
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .alert-bar-item a.vector-link-box:hover {
+            background: var(--gold);
+            transform: scale(1.05);
+        }
+        .alert-bar-item a.vector-link-box .vga-ai { color: #2563eb; font-weight: bold; }
+        .alert-bar-item .free-stamp {
+            display: inline-block;
+            background: rgba(183, 28, 28, 0.95);
+            color: #fff;
+            font-family: 'Rye', serif;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding: 6px 14px;
+            margin-left: 12px;
+            border: 4px dashed #fff;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+        .sponsor-bar {
+            width: 100%;
+            background-color: var(--felt-green);
+            color: var(--gold);
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+        }
+        .sponsor-title {
+            font-family: 'Rye', serif;
+            font-size: 1rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .sponsor-logos {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+        }
+        .sponsor-logos a {
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+        .sponsor-logos a:hover {
+            opacity: 0.85;
+        }
+        .sponsor-logos img {
+            height: 48px;
+            width: auto;
+            max-width: 140px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #b71c1c; }
+            to { box-shadow: 0 0 20px #ff5252; }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background: #111; border-bottom: 4px solid var(--gold);
+            position: sticky; top: 0; z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .nav-inner {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
+        }
+
+        .nav-logo {
+            color: var(--gold); font-family: 'Rye', serif; font-size: 1.1rem; text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none; display: flex; align-items: center; flex-wrap: wrap;
+        }
+
+        .nav-links span {
+            color: #fff; margin-left: 20px; font-weight: bold; font-size: 0.9rem;
+            transition: color 0.3s; cursor: pointer;
+        }
+        .nav-links span:hover { color: var(--gold); }
+        
+        /* Updated Button Style for Gallery Link (RED) */
+        .btn-gallery-nav {
+            background: var(--red-accent); 
+            padding: 8px 15px; 
+            border-radius: 4px; 
+            border: 1px solid #ff5252;
+            color: white !important; 
+            text-decoration: none; 
+            margin-left: 20px; 
+            font-weight: bold; 
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px; /* Spacing between camera and text */
+        }
+        .btn-gallery-nav:hover { 
+            background: #d32f2f; 
+            color: white !important; 
+            box-shadow: 0 0 10px rgba(255, 82, 82, 0.5);
+        }
+
+        /* --- HERO & BANNER STYLES --- */
+        .hero-section { 
+            text-align: center; 
+            background: #000; 
+            position: relative; 
+            line-height: 0;         
+            border-bottom: 5px solid var(--gold);
+            overflow: hidden; 
+        }
+        
+        .banner-img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
+
+        /* --- SOLD OUT BADGE (UPDATED: Compact Stamp) --- */
+        .sold-out-badge {
+            position: absolute;
+            top: 40px; 
+            left: 30px; 
+            background: rgba(183, 28, 28, 0.90); 
+            color: #fff;
+            padding: 5px 10px; /* REDUCED PADDING */
+            font-family: 'Rye', serif;
+            font-size: 2.2rem; 
+            border: 6px dashed #fff; 
+            transform: rotate(-8deg); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8); 
+            z-index: 100;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.1; 
+            min-width: 160px; /* REDUCED WIDTH */
+            aspect-ratio: 3/2; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- COUNTDOWN TIMER --- */
+        .countdown-bar {
+            background: #222; color: var(--gold); padding: 20px 0; text-align: center;
+            border-bottom: 2px solid var(--wood); display: flex;
+            justify-content: center; align-items: center; flex-wrap: wrap; gap: 20px;
+            line-height: 1.5; 
+        }
+        
+        .timer-unit {
+            background: #000; border: 2px solid var(--gold); padding: 10px 20px;
+            border-radius: 8px; min-width: 90px;
+            box-shadow: 0 0 10px rgba(244, 196, 48, 0.2);
+        }
+        
+        .timer-val { font-size: 1.8rem; font-weight: bold; font-family: 'Courier New', monospace; display: block; color: var(--gold); }
+        .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
+
+        /* --- LEADERBOARD STYLES --- */
+        .leaderboard-box {
+            background: var(--card-white); border: 4px solid var(--gold);
+            border-radius: 8px; overflow: hidden; margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .leaderboard-header {
+            background: #000; color: var(--gold); padding: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .live-badge {
+            background: var(--red-accent); color: white; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+            animation: pulse 2s infinite; border: 1px solid white;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .lb-table {
+            width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif;
+        }
+
+        .lb-table th {
+            background: var(--felt-green); color: white; padding: 15px;
+            text-align: center; font-family: 'Rye', serif; letter-spacing: 1px;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .lb-table td {
+            padding: 15px; text-align: center; border-bottom: 1px solid #ddd;
+            font-size: 1.1rem; font-weight: bold; vertical-align: middle;
+        }
+
+        .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
+        .lb-table tr:hover { background-color: #e8f5e9; }
+
+        .tangent-promo-box {
+            background: linear-gradient(180deg, #1a2a1a 0%, #0d1a0d 100%);
+            border: 3px solid var(--gold);
+            border-radius: 12px;
+            padding: 18px 24px 20px;
+            margin: 20px 20px 24px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .tangent-promo-box .promo-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(244, 196, 48, 0.35);
+        }
+        .tangent-promo-box .tangent-logo { height: 40px; width: auto; max-width: 120px; object-fit: contain; }
+        .tangent-promo-box .vga-logo { height: 36px; width: auto; max-width: 110px; object-fit: contain; }
+        .tangent-promo-box .promo-logos .logo-sep { color: rgba(244,196,48,0.5); font-size: 1rem; font-weight: 300; }
+        .tangent-promo-box h3 { color: #fff; font-size: 1.05rem; margin-bottom: 10px; font-weight: 600; line-height: 1.35; }
+        .tangent-promo-box h3 .h3-gold { color: var(--gold); }
+        .tangent-promo-box p { margin-bottom: 8px; line-height: 1.5; font-size: 0.95rem; color: #e8e8e8; }
+        .tangent-promo-box .vga-text { color: #fff; font-weight: normal; }
+        .tangent-promo-box .vga-text strong { color: #fff; font-weight: bold; }
+        .tangent-promo-box .vga-text .vga-ai,
+        .tangent-promo-box .vga-ai { color: #60a5fa; font-weight: bold; }
+        .tangent-promo-box .promo-code { display: inline-block; background: var(--gold); color: #000; padding: 8px 20px; font-weight: bold; font-size: 1.1rem; border-radius: 6px; margin: 4px 0; letter-spacing: 2px; }
+        .tangent-promo-box .app-download-btn { display: inline-block; background: var(--gold); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; margin-top: 8px; transition: opacity 0.2s; }
+        .tangent-promo-box .app-download-btn:hover { opacity: 0.9; }
+        .tangent-promo-box .see-in-action-link { color: var(--gold); font-weight: 600; text-decoration: none; }
+        .tangent-promo-box .see-in-action-link:hover { text-decoration: underline; color: #fff; }
+        .tangent-promo-box .tangent-site-link { color: var(--gold); font-size: 0.9rem; }
+        .tangent-promo-box .tangent-info-box {
+            margin-top: 14px; padding: 12px 16px; text-align: center;
+            border: 1px solid rgba(244, 196, 48, 0.4); border-radius: 8px;
+            background: rgba(0,0,0,0.25); font-size: 0.9rem; line-height: 1.5; color: #e8e8e8;
+        }
+
+        .driver-rider-avatar-cell { width: 60px; padding: 8px 12px !important; vertical-align: middle; }
+        .driver-rider-avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #eee;
+        }
+        .driver-rider-avatar.driver-rider-initials {
+            font-size: 0.9rem; font-weight: bold; color: #555;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 15px; }
+        .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
+        
+        /* NEW: Leaderboard Logo Style - UPDATED SIZE */
+        .lb-logo {
+            width: 150px; /* INCREASED SIZE */
+            height: 150px; /* INCREASED SIZE */
+            object-fit: cover; 
+            border-radius: 50%; 
+            border: 4px solid var(--gold); 
+            display: block; margin-right: 15px;
+            background: #fff;
+            flex-shrink: 0; /* Prevents squishing */
+        }
+
+        /* --- ROSTER STYLES --- */
+        .roster-header-container {
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 20px; margin-top: 40px; padding: 10px;
+            background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid var(--gold);
+        }
+
+        .roster-title {
+            color: var(--gold); font-family: 'Rye', serif; font-size: 2rem; 
+            text-shadow: 2px 2px 4px #000; margin: 0;
+        }
+
+        .btn-edit-roster {
+            display: none;
+            background: var(--gold); color: #000; padding: 8px 15px;
+            border-radius: 4px; text-decoration: none; font-weight: bold;
+            font-size: 0.9rem; border: 1px solid #d4af37;
+            display: inline-flex; align-items: center; gap: 5px;
+            transition: all 0.2s;
+        }
+        .btn-edit-roster:hover { background: #fff; }
+
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 15px;
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+        }
+        
+        .roster-item {
+            background: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 5px solid var(--felt-green);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center; 
+            gap: 15px; 
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .roster-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--gold);
+            background-color: #f9f9f9;
+        }
+
+        /* --- SPECIAL ROSTER STYLES --- */
+        
+        /* Previous Winner */
+        .roster-item.previous-winner {
+            border: 4px solid var(--gold) !important;
+            border-left: 10px solid var(--gold) !important;
+            background: #fff9c4 !important; 
+            box-shadow: 0 0 15px rgba(244, 196, 48, 0.6);
+        }
+
+        .trophy-icon {
+            font-size: 1.4em;
+            margin-left: 5px;
+            vertical-align: middle;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* Commissioner */
+        .roster-item.commissioner {
+            border: 2px solid var(--red-accent) !important;
+            border-left: 8px solid var(--red-accent) !important;
+            background: #ffebee !important;
+        }
+
+        /* Commish Text Badge */
+        .commish-badge {
+            background: var(--red-accent); color: white;
+            font-size: 0.7rem; font-weight: bold; padding: 3px 8px;
+            border-radius: 4px; margin-left: 8px; vertical-align: middle;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* --- PAID STAMP (ROSTER) --- */
+        .paid-stamp {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-family: 'Rye', serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            color: #0b2e13;
+            background: rgba(46, 125, 50, 0.18);
+            border: 2px solid var(--bright-green);
+
+            transform: rotate(8deg);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+        }
+
+        .paid-stamp::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px dashed rgba(46, 125, 50, 0.55);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .roster-thumb {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: #eee;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: var(--felt-green); font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .roster-text { display: flex; flex-direction: column; }
+        .r-name { font-size: 1rem; color: #222; text-transform: uppercase; font-weight: bold; display: flex; align-items: center;}
+        .r-meta { font-size: 0.8rem; color: #555; margin-top: 2px; }
+        .r-loading { color: #fff; font-size: 1.2rem; text-align: center; grid-column: 1 / -1; }
+
+        /* --- ROSTER BY TEAMS (index_new) --- */
+        .roster-teams-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 20px 24px;
+        }
+        .roster-team-block {
+            background: rgba(0,0,0,0.35);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 16px;
+            overflow: hidden;
+        }
+        .roster-team-block h3 {
+            color: var(--gold);
+            font-family: 'Rye', serif;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .roster-team-captain {
+            font-size: 0.8rem;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .roster-team-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .roster-team-table th {
+            text-align: left;
+            padding: 6px 8px;
+            color: var(--gold);
+            border-bottom: 1px solid rgba(244,196,48,0.5);
+            font-size: 0.75rem;
+        }
+        .roster-team-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            vertical-align: middle;
+        }
+        .roster-team-table tr:hover td { background: rgba(255,255,255,0.06); }
+        .roster-team-avatar-cell {
+            width: 44px;
+            padding: 6px 8px !important;
+        }
+        .roster-team-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            display: block;
+        }
+        .roster-team-avatar-initials {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(244,196,48,0.2);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+        .roster-team-role-tag { font-size: 0.7rem; color: var(--gold); font-weight: normal; }
+        @media (max-width: 768px) {
+            .roster-teams-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- PLAYER BIO MODAL STYLES --- */
+        .bio-card {
+            background: #fff; padding: 0 !important; overflow: hidden;
+            border: 4px solid var(--gold); max-width: 450px; width: 90%;
+            text-align: center; border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .close-btn {
+            position: absolute; top: 10px; right: 15px; font-size: 2rem; 
+            cursor: pointer; color: white; z-index: 10; transition: transform 0.2s;
+        }
+        .close-btn:hover { transform: scale(1.2); }
+
+        .bio-header {
+            background: var(--felt-green); 
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+            color: white; padding: 40px 20px 20px;
+            position: relative; border-bottom: 4px solid var(--gold);
+        }
+
+        /* UPDATED AVATAR SIZE */
+        .bio-avatar {
+            margin-bottom: 10px;
+            background: #fff; 
+            width: 150px; height: 150px; /* INCREASED SIZE */
+            margin: 0 auto 15px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            border: 4px solid var(--gold); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            overflow: hidden; 
+            font-size: 3.5rem; font-weight: bold; color: var(--felt-green);
+            text-transform: uppercase;
+        }
+
+        .bio-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .bio-badges { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .badge-idx { background: #fff; color: #1a472a; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; border: 1px solid var(--gold); }
+        .badge-tee { background: var(--gold); color: #000; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; border: 1px solid #fff; }
+
+        .bio-body {
+            padding: 30px; font-size: 1.2rem; line-height: 1.6;
+            color: #444; font-family: 'Playfair Display', serif; font-style: italic;
+            min-height: 100px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .bio-footer {
+            background: #eee; color: #888; font-size: 0.8rem; padding: 20px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* --- INFO SECTIONS --- */
+        .letter-section {
+            background-color: #fdfdfd; padding: 60px 40px; margin: 40px 20px;
+            border: 1px solid #ccc; box-shadow: 5px 5px 15px rgba(0,0,0,0.3); position: relative;
+        }
+        
+        .letter-section::before {
+            content: "TOURNAMENT INFO"; position: absolute; top: -15px; left: 50%;
+            transform: translateX(-50%); background: var(--red-accent); color: white;
+            padding: 5px 20px; font-weight: bold; font-family: 'Rye', serif;
+            border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .letter-content { font-size: 1.1rem; line-height: 1.8; max-width: 800px; margin: 0 auto; }
+        
+        .payment-box {
+            background: #fff3cd; border: 2px dashed var(--gold); padding: 20px;
+            margin-top: 20px; text-align: center;
+        }
+
+        /* --- DIGITAL PAYMENTS (ADD-ON) --- */
+.digital-payment-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+
+.pay-method{
+  background:#fff;
+  border:1px solid #e0e0e0;
+  padding:16px;
+  border-radius:12px;
+  text-align:left;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:transform .2s, box-shadow .2s;
+  overflow:hidden;
+}
+
+.pay-method:hover{
+  transform: translateY(-3px);
+  box-shadow:0 8px 18px rgba(0,0,0,0.12);
+}
+
+.pay-method.preferred{
+  border:2px solid var(--zelle-purple);
+  background:#f9f5ff;
+  position:relative;
+}
+
+.preferred-tag{
+  background:var(--zelle-purple);
+  color:#fff;
+  font-size:.72rem;
+  padding:4px 10px;
+  border-radius:999px;
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+
+.pay-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+
+.pay-header h4{
+  margin:0;
+  font-size:1.05rem;
+  line-height:1.1;
+}
+
+.pay-logo{
+  height:22px;
+  width:auto;
+  object-fit:contain;
+}
+
+/* Tighter list typography to avoid awkward wraps */
+.pay-method ol{
+  margin:0;
+  padding-left:18px;
+  line-height:1.35;
+  font-size:.9rem;
+}
+
+.pay-method li{
+  margin: 0 0 8px 0;
+}
+
+/* Make the phone number a neat inline pill that doesn't force line breaks */
+.copy-box{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:2px 8px;
+  border-radius:6px;
+  font-family:'Courier New', monospace;
+  font-weight:800;
+  font-size:.9rem;
+  color:#b71c1c;
+  background:#f3f3f3;
+  border:1px dashed #bbb;
+  margin-left:6px;
+  white-space:nowrap;
+  vertical-align:middle;
+}
+
+/* Make long recipient names wrap gracefully without blowing up the line */
+.pay-method strong{
+  font-weight:800;
+}
+
+.pay-method li strong{
+  word-break: break-word;
+}
+        /* Slightly better behavior if someone views this at in-between widths */
+@media (max-width: 1100px){
+  .digital-payment-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px){
+  .digital-payment-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+        .payment-note{
+  margin: 18px auto 0 auto;
+  padding: 16px 20px;
+  max-width: 720px; /* keeps it elegant, not full width */
+  background: rgba(26, 71, 42, 0.10);
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+  text-align: center; /* CENTERED */
+}
+
+.payment-note p{
+  margin: 6px 0 0 0;
+  color: #222;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.payment-note-title{
+  display: inline-block;
+  background: var(--red-accent);
+  color: #fff;
+  font-family: 'Rye', serif;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.35);
+  margin-bottom: 10px;
+}
+
+        /* --- ATM CARD (3RD PAYMENT SLOT) --- */
+.atm-card{
+  text-align: center;
+  background: #fdfdfd;
+}
+
+.atm-card .pay-header{
+  justify-content: center;
+  border-bottom: none;
+  margin-bottom: 6px;
+}
+
+.atm-img{
+  width: 100%;
+  max-width: 180px;
+  margin: 10px auto 12px auto;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+}
+
+.atm-text{
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1.4;
+}
+
+
+.memo-pill{
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  margin-left: 8px;
+  border-radius: 999px;
+  background: #111;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+        /* --- PARTY MAP BOX --- */
+        .party-box {
+            margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;
+        }
+        .map-frame {
+            width: 100%; height: 350px; border: 4px solid var(--wood);
+            border-radius: 4px; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* --- CARDS --- */
+        .section-title {
+            text-align: center; color: var(--gold); text-shadow: 2px 2px 4px #000;
+            font-size: 2.5rem; margin-bottom: 40px; background: rgba(0,0,0,0.4);
+            padding: 15px; border-radius: 10px; border: 1px solid var(--gold);
+        }
+
+        .card-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px; padding-bottom: 40px;
+        }
+
+        /* SPECIFIC 2-COLUMN GRID FOR TEAMS */
+        .team-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .card {
+            background: var(--card-white); border-radius: 8px; overflow: hidden;
+            border: 4px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s; display: flex; flex-direction: column; position: relative;
+        }
+        .card::after {
+            content: '♠'; position: absolute; bottom: -20px; right: 0px;
+            font-size: 8rem; color: rgba(0,0,0,0.05); pointer-events: none; font-family: serif;
+        }
+        .card:nth-child(2)::after { content: '♣'; }
+        .card:nth-child(3)::after { content: '♦'; }
+        .card:hover { transform: translateY(-5px); }
+
+        .card-header {
+            background: var(--felt-green); color: white; padding: 15px;
+            text-align: center; border-bottom: 4px solid var(--gold); z-index: 2;
+        }
+        .card-body { padding: 20px; flex-grow: 1; z-index: 2; }
+        
+        /* --- UPDATED CARD IMAGE STYLE FOR FULL VISIBILITY --- */
+        .card-img-top {
+            width: 100%; 
+            height: auto; /* Allow image to scale naturally */
+            display: block;
+            border-bottom: 2px solid var(--gold);
+            filter: contrast(1.1) saturate(1.3) sepia(0.1);
+        }
+        
+        /* --- NEW CLASS FOR INSET IMAGES (Rules, Travel, etc) --- */
+        .content-inset-img {
+            width: 100%;
+            max-width: 400px; /* Constrain width to match card sizes roughy */
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto; /* Center horizontally */
+            border-radius: 5px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* --- FORMAT ITEM STYLES (NEW SIDE-BY-SIDE) --- */
+        .format-box {
+            background: rgba(0,0,0,0.6); color: white; border: 2px dashed var(--gold);
+            padding: 30px; margin-bottom: 20px; border-radius: 10px;
+        }
+        .format-item { 
+            display: flex; /* Flexbox for side-by-side */
+            justify-content: space-between;
+            align-items: center; /* Vertically center */
+            gap: 25px; /* Space between text and image */
+            margin-bottom: 25px; 
+            border-bottom: 1px solid #555; 
+            padding-bottom: 20px; 
+        }
+        .format-item:last-child { border-bottom: none; }
+        
+        .format-text {
+            flex: 1; /* Take up remaining space */
+        }
+        .format-text h3 { color: var(--gold); margin-bottom: 5px; font-size: 1.4rem; }
+        .format-sub { font-weight: bold; color: #ccc; margin-bottom: 10px; display: block; }
+        .drive-link {
+            display: inline-block;
+            background: var(--gold);
+            color: #000;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 8px 0;
+            border: 2px solid #fff;
+        }
+        .drive-link:hover { background: #fff; color: #000; }
+
+        /* IMAGE CONTAINER ON THE RIGHT */
+        .format-img-container {
+            flex-shrink: 0; /* Prevent squishing */
+            width: 320px; /* Fixed width for consistency */
+        }
+        
+        .format-img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: block;
+        }
+
+        /* --- SELECTION --- */
+        .selection-box {
+            background: var(--card-white); padding: 30px;
+            border-left: 10px solid var(--gold); margin-top: 40px;
+        }
+
+        /* --- APP --- */
+        .app-bg {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1512428559087-560fa5ce7d02?q=80&w=1000');
+            background-size: cover; background-position: center; padding: 80px 20px;
+            text-align: center; color: white; border-top: 5px solid var(--gold);
+            border-bottom: 5px solid var(--gold); margin-top: 60px;
+        }
+
+        .code-display {
+            display: inline-block; background: #fff; color: #000; font-size: 3rem;
+            font-weight: bold; padding: 15px 50px; border-radius: 10px; margin: 30px 0;
+            font-family: 'Courier New', monospace; border: 4px solid var(--red-accent);
+            box-shadow: 0 0 20px var(--gold); letter-spacing: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #111; color: #888; text-align: center;
+            padding: 40px 0; border-top: 10px solid var(--wood);
+        }
+        .committee-list { list-style: none; padding: 0; margin-top: 10px; }
+        .committee-list li { display: inline-block; margin: 0 10px; color: #ddd; }
+
+        /* --- GOPHER STYLE --- */
+        .gopher-icon {
+            position: absolute;
+            top: -85px;
+            right: 18px;
+            width: 210px;
+            height: auto;
+            z-index: 20;
+            filter: drop-shadow(0 10px 16px rgba(0,0,0,0.55));
+            transform-origin: 80% 80%;
+            transition: transform 0.25s ease, filter 0.25s ease;
+        }
+        .gopher-icon:hover {
+            transform: rotate(4deg) scale(1.05);
+            filter: drop-shadow(0 14px 22px rgba(0,0,0,0.7));
+        }
+
+        .suggestions-box {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(20, 20, 20, 0.95);
+            position: relative;
+            overflow: visible;
+            padding-top: 70px;
+        }
+
+        .suggestion-pill {
+            background: var(--gold) !important;
+            color: #000 !important;
+            font-size: 0.9rem !important;
+            padding: 10px 15px !important;
+        }
+
+        .suggestion-pill.bad-idea {
+            background: #444 !important;
+            color: #fff !important;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-inner { flex-direction: column; gap: 10px; }
+            .nav-links { justify-content: center; gap: 10px; }
+            .nav-links span { margin: 5px; }
+            .letter-section { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.8rem; }
+            .roster-title { font-size: 1.5rem; }
+            .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
+            
+            .team-grid { grid-template-columns: 1fr; }
+            .lb-table th, .lb-table td { padding: 10px 5px; font-size: 0.9rem; }
+            .roster-grid { grid-template-columns: 1fr 1fr; }
+
+            .suggestions-box { padding-top: 20px; }
+            .gopher-icon {
+                position: relative;
+                top: 0; right: 0;
+                display: block;
+                margin: 0 auto 10px auto;
+                width: 180px;
+            }
+            
+            /* ADJUST SOLD OUT BADGE FOR MOBILE */
+            .sold-out-badge {
+                font-size: 1.2rem;
+                padding: 5px 10px;
+                top: 20px;
+                left: 10px;
+                min-width: auto;
+            }
+
+            /* ADJUST FORMAT ITEMS FOR MOBILE (STACK THEM) */
+            .format-item {
+                flex-direction: column; 
+            }
+            .format-img-container {
+                width: 100%;
+                margin-top: 15px;
+            }
+        }
+
+        /* --- DIGITAL PAYMENTS RESPONSIVE FIX --- */
+            @media (max-width: 900px) {
+                .digital-payment-grid {
+                grid-template-columns: 1fr;
+                }
+            }
+    </style>
+</head>
+<body>
+
+    <div id="bioModal" class="modal-overlay" onclick="closeBio()">
+        <div class="modal-content bio-card" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeBio()">×</span>
+            
+            <div class="bio-header">
+                <div class="bio-avatar" id="bioAvatar">⛳</div>
+                <h2 id="bioName" style="margin-bottom: 5px; font-size: 1.8rem;">PLAYER NAME</h2>
+                <div class="bio-badges">
+                    <span id="bioIndex" class="badge-idx">Index: -</span>
+                    <span id="bioTees" class="badge-tee">Tees: -</span>
+                </div>
+            </div>
+
+            <div class="bio-body">
+                <p id="bioText">Loading bio...</p>
+            </div>
+            
+            <div class="bio-footer">
+                <button class="modal-btn" style="padding: 10px 20px; font-size: 0.9rem; margin: 0 auto; display: block;" onclick="closeBio()">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <nav>
+            <div class="nav-inner">
+                <a class="nav-logo" href="#">RR INVITATIONAL '26</a>
+                <div class="nav-links">
+                    <span onclick="scrollToId('leaderboard')">Leaderboard</span>
+                    <span onclick="scrollToId('roster')">Roster</span>
+                    <span onclick="scrollToId('info')">Info & Fees</span>
+                    <span onclick="scrollToId('schedule')">Schedule</span>
+                    <span onclick="scrollToId('rules')">Rules</span>
+                    <span onclick="scrollToId('courses')">Courses</span>
+                    <span onclick="scrollToId('lodging')">Lodging</span>
+                    <span onclick="scrollToId('driver-rider-details')" style="cursor:pointer;">Driver/Rider</span>
+                    <a href="gallery.html" class="btn-gallery-nav">📷 PHOTO GALLERY</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="alerts-section" id="alerts">
+            <div class="alert-bar-item">PRE-TOURNAMENT PARTY MONDAY, MARCH 16TH @ 5:00 PM • TEAM DRAFT & BRIEFING AT HOUSE OF CARTS • BBQ, CHIPS & DRINKS PROVIDED</div>
+        </div>
+
+        <div class="hero-section">
+            <div class="sold-out-badge">
+                SOLD<br>OUT!
+            </div>
+            
+            <img src="https://ranchgolftrips.com/Banner-Final.png" 
+                 alt="2026 Robson Ranch Invitational Banner" 
+                 class="banner-img">
+        </div>
+
+        <div class="sponsor-bar">
+            <div class="sponsor-title">TOURNAMENT SPONSORS</div>
+            <div class="sponsor-logos">
+                <a href="https://casinos.ballys.com/shreveport/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Ballys-Logo.png" alt="Bally's Shreveport"></a>
+                <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Wildhorse-logo.webp" alt="Wildhorse"></a>
+                <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf"></a>
+                <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai"></a>
+                <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/HouseOfCarts-Logo.webp" alt="House of Carts"></a>
+            </div>
+        </div>
+
+        <div class="alert-bar-item"><span id="alerts-days">--</span> DAYS TO TIGHTEN UP YOUR GAME USING <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer" class="vector-link-box"><strong>Vector</strong><strong>GOLF</strong><span class="vga-ai">.ai</span></a> SCORECARD AI INSIGHTS <span class="free-stamp">FREE</span></div>
+
+        <div class="countdown-bar">
+            <div class="timer-text" style="width: 100%; font-size: 1.2rem; margin-bottom: 10px;">TOURNAMENT COUNTDOWN:</div>
+            <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
+            <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
+            <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
+            <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+        </div>
+
+        <div class="tangent-promo-box">
+            <div class="promo-logos">
+                <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
+                <span class="logo-sep">×</span>
+                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
+            </div>
+            <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
+            <p style="margin-bottom: 12px;"><a href="https://apps.apple.com/us/app/tangent-golf-ai-caddie-drills/id1626743725" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
+            <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
+            <div class="tangent-info-box">The Golpher uses this app to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>.</div>
+        </div>
+
+        <div class="container" id="leaderboard">
+            <h2 class="section-title" style="margin-top: 40px;">🏆 Team Standings 🏆</h2>
+            <div class="leaderboard-box">
+                <div class="leaderboard-header">
+                    <span style="font-family: 'Rye', serif; font-size: 1.2rem;">CURRENT POINTS</span>
+                    <span class="live-badge">● LIVE UPDATES</span>
+                </div>
+                <table class="lb-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">Pos</th>
+                            <th style="text-align: left;">Team</th>
+                            <th>Day 1</th>
+                            <th>Day 2</th>
+                            <th>Day 3</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">
+                                <img src="https://ranchgolftrips.com/Logo-BackNineBandits.jpeg" class="lb-logo">
+                                Back Nine Bandits
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">
+                                <img src="https://ranchgolftrips.com/Logo-BogeyBrothers.jpeg" class="lb-logo">
+                                Bogey Brothers
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">
+                                <img src="https://ranchgolftrips.com/Logo-SliceMasters.jpeg" class="lb-logo">
+                                Slice Masters
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td class="team-name-cell">
+                                <img src="https://ranchgolftrips.com/Logo-SandTrapSeniors.jpeg" class="lb-logo">
+                                Sand Trap Seniors
+                            </td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="container" id="roster">
+            <div class="roster-header-container">
+                <h2 class="roster-title">♣ The Field (2026 Roster) ♣</h2>
+                
+                <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
+                    <span>✏️</span> Edit Roster
+                </a>
+            </div>
+
+            <div class="roster-grid" id="roster-grid">
+                <div class="r-loading">Loading Roster from Sheet...</div>
+            </div>
+        </div>
+
+        <div class="container" id="info">
+            <div class="letter-section">
+                <div class="letter-content text-center">
+                    <h2 style="color: var(--felt-green);">2026 Robson Ranch Invitational</h2>
+                    <h3 style="color: #666; margin-bottom: 20px;">Three Day Tournament • March 22-25, 2026</h3>
+                    
+                    <p><strong>RYDER CUP FORMAT:</strong> 4 Teams</p>
+                    <p>Winning Team Awards • Low Gross & Low Net Champion Awards • Daily Tee Gifts</p>
+
+                    <div id="party-info" class="party-box">
+                        <h3 style="color: var(--felt-green); font-size: 1.6rem;">♣ Pre-Tournament Party ♣</h3>
+                        <p style="margin-top: 10px; font-size: 1.2rem;"><strong>Monday, March 16th @ 5:00 PM</strong></p>
+                        <p style="font-style: italic; color: #555;">Mandatory Meeting & Team Draft</p>
+                        <p style="margin-top: 10px; font-size: 1.05rem; font-weight: bold; color: #333;">BBQ sandwich, chips, and drinks provided at the pre-tournament party.</p>
+                        
+                        <div style="margin: 20px 0;">
+                            <h4 style="color: var(--wood); font-family: 'Rye', serif;">LOCATION: HOUSE OF CARTS</h4>
+                            <p>7400 FM 2449, Ponder, TX 76259</p>
+                        </div>
+
+                        <iframe class="map-frame" 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.804968393526!2d-97.24716762351296!3d33.24541575990266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864d471556947701%3A0xc3f1f313df944983!2s7400%20FM2449%2C%20Ponder%2C%20TX%2076259!5e0!3m2!1sen!2sus!4v1705000000000!5m2!1sen!2sus"
+                                loading="lazy"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container section-padding" id="schedule">
+            <div class="section-header-row">
+                <h2 class="section-title">♠ The Schedule & Format ♠</h2>
+                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
+            </div>
+            <div class="play-format-callout">
+                <div class="play-format-title">Play Format</div>
+                <p><strong>ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY.</strong> Days 2 and 3 are decided by total strokes (net), not by winning individual holes. Day 1: Split format (Front 9 Scramble, Back 9 Alternate Shot) — one result for all 18 holes: <strong>1 Point</strong> for winning team, <strong>½ Point</strong> if tied. Gross score, no handicaps.</p>
+            </div>
+            <div class="format-box">
+                
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 0: Sunday, March 22 (Travel)</h3>
+                        <span class="format-sub">Destination: Shreveport, LA</span>
+                        <p><strong>Drive to Shreveport:</strong> Depart Robson Ranch 10:00am. Arrive Bally's Resort ~2:30pm. About 200 miles, ~4.5 hours.</p>
+                        <p><a class="drive-link" href="https://www.google.com/maps/dir/Robson+Ranch,+Denton,+TX/Bally%27s+Shreveport+Casino+%26+Hotel,+451+Clyde+Fant+Pkwy,+Shreveport,+LA+71101" target="_blank" rel="noopener noreferrer">📍 Driving directions: Robson Ranch → Bally's Shreveport</a></p>
+                        <p><strong>5:00 PM:</strong> Mandatory Welcome Party at Bally's. Drinks & Appetizers provided.</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/Day1.png" alt="Travel Day" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 1: Monday, March 23 (Stonebridge)</h3>
+                        <span class="format-sub">Team Game — Split Format (No Pops)</span>
+                        <p style="margin-bottom: 8px;">No handicaps; all play is gross. One result for the full 18 holes: <strong>1 Point</strong> for the winning team, <strong>½ Point</strong> if tied (combined gross score for 18 holes).</p>
+                        <p><strong>Two Man Teams = TEAMS 1 vs 2, AND Teams 3 vs 4.</strong> Shotgun start at 10:00 AM.</p>
+                        <div class="how-to-play-box" style="margin: 14px 0;">
+                            <p style="font-weight: bold; margin-bottom: 6px;">HOLES 1–9: SCRAMBLE</p>
+                            <ul style="margin-left: 18px; margin-bottom: 10px;">
+                                <li>Each player drives, hitting from the same spot through the hole.</li>
+                                <li>Write down your best score.</li>
+                                <li>Remember to change formats from the front side to the back side because we are a shotgun start starting at 10am.</li>
+                            </ul>
+                            <p style="font-weight: bold; margin-bottom: 6px;">HOLES 10–18: TRUE ALTERNATE SHOT</p>
+                            <ul style="margin-left: 18px; margin-bottom: 8px;">
+                                <li>On hole 10 choose a player to drive on 10, alternating shots all the way to 18.</li>
+                                <li>If you putt out on a hole, then the other player <strong>MUST DRIVE</strong> on the next hole.</li>
+                                <li>Remember, when getting to hole 18, and you are going to the front side to play a scramble — <strong>WRITE DOWN</strong> somewhere who putted out on 18 so you will remember who drives on 10.</li>
+                                <li>The first hole you play on alternate shot — is when you begin alternate shot format.</li>
+                                <li><strong>Example:</strong> Your match begins on hole 17, that is where your teams begin alternate shot choosing one person to drive, ALTERNATING that ball between the two players all the way through hole 18. After finishing hole 18, make a note on who putted out. When you return to hole 10 pick up where you left off remembering who putted out on 18, the opposite team member now must drive on HOLE 10.</li>
+                            </ul>
+                        </div>
+                        <p>Matchups: Team 1 vs Team 2 / Team 3 vs Team 4. Lodging: Bally's Resort & Casino</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/Day2.png" alt="Day 1 Stonebridge" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 2: Tuesday, March 24 (Cypress Bend)</h3>
+                        <span class="format-sub">Team Game — Best Ball NET (Medal Play, Handicapped)</span>
+                        <p><strong>Two Man Teams – TEAMS 1 vs 3, and TEAMS 2 vs 4.</strong> Best Ball for 18 holes / Total Score of the Best Ball (NOT MATCH PLAY). 1 Point winning team / ½ Point tie.</p>
+                        <div style="margin-bottom: 15px; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border-left: 3px solid var(--gold);">
+                            <p style="font-size: 0.95rem;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
+                        </div>
+                        <div class="how-to-play-box" style="margin: 14px 0;">
+                            <ul style="margin-left: 18px; margin-bottom: 0;">
+                                <li>You and your partner will play all 18 holes.</li>
+                                <li>Net Scoring.</li>
+                                <li>Best NET Score goes on the scorecard BETWEEN your partner and you.</li>
+                                <li>This is MEDAL PLAY, NOT MATCH – total score of your best ball after 18 holes.</li>
+                                <li>Add Best Net Ball up at the end of 18 holes and that is your two-man teams score.</li>
+                                <li>Tee Times Starting at 1pm.</li>
+                            </ul>
+                        </div>
+                        <p><strong>After the round (Day 1):</strong> Return to Bally's Shreveport. <strong>Drive to Cypress Bend (Day 2):</strong> Depart Shreveport 9:00am (about 78 miles). Arrive Cypress Bend by 11:00am for 1:00 PM tee times.</p>
+                        <p><a class="drive-link" href="https://www.google.com/maps/dir/Bally%27s+Shreveport+Casino+%26+Hotel,+451+Clyde+Fant+Pkwy,+Shreveport,+LA+71101/Cypress+Bend+Resort,+a+Wyndham+Hotel,+2000+Cypress+Bend+Pkwy,+Many,+LA+71449" target="_blank" rel="noopener noreferrer">📍 Driving directions: Bally's Shreveport → Cypress Bend Resort</a></p>
+                        <p>Matchups: Team 1 vs Team 3 / Team 2 vs Team 4</p>
+                        <p>Lodging: Wyndham Hotel at Cypress Bend</p>
+                        <p style="color: var(--gold); font-weight:bold; margin-top:10px;">Golf Rate: $60.42 (Inc. Tax & Cart)</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/Day3.png" alt="Day 2 Cypress Bend" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
+                        <span class="format-sub">Singles — Medal Play, Handicapped (Course Handicap)</span>
+                        
+                        <p><strong>SINGLE MATCHES – NET SCORING – TEAMS 1 vs 4, and TEAMS 2 vs 3.</strong> 2 Points to winning team / 1 Point if tied. Individual: <strong>Low Net (White Tees)</strong> and <strong>Low Net (Gold Tees)</strong>.</p>
+                        <div style="margin-bottom: 15px; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border-left: 3px solid var(--gold);">
+                            <p style="font-size: 0.95rem;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
+                        </div>
+                        <div class="how-to-play-box" style="margin: 14px 0;">
+                            <ul style="margin-left: 18px; margin-bottom: 0;">
+                                <li>YOU and YOUR COMPETITOR will play MEDAL PLAY, the total of your score using NET SCORING.</li>
+                                <li>Play all 18 holes, NOT MATCH PLAY – BUT TOTAL OF ALL 18 HOLES.</li>
+                                <li>TEE TIMES starting at 10am.</li>
+                            </ul>
+                        </div>
+
+                        <div style="border: 2px solid var(--red-accent); padding: 15px; margin-top: 15px; background: rgba(183, 28, 28, 0.25); border-radius: 5px;">
+                            <p style="font-weight: bold; color: #ff8a80; font-size: 1.1rem; text-transform: uppercase;">⚠️ IMPORTANT NOTE</p>
+                            <p style="color: #fff;">Keep track of total Gross/Net Score.</p>
+                            <p style="color: #fff; font-weight: 900; font-size: 1.2rem; margin-top: 5px;">NO GIMMIE PUTTS</p>
+                            
+                            <div style="margin-top: 15px; background: rgba(255,215,0,0.15); border: 1px dashed var(--gold); padding: 10px; border-radius: 5px;">
+                                <p style="color: var(--gold); font-weight: bold; margin-bottom: 5px;">🏆 NEW AWARD ALERT</p>
+                                <p style="font-size: 0.95rem; color: #fff;">
+                                    To encourage "No Gimmies", we will be presenting the <br>
+                                    <strong style="color: #ff8a80;">"Missed Putt from the Shortest Distance Award"</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 15px;"><strong>Drive to The Tempest (Day 3):</strong> After Day 2, depart Cypress Bend. About 115 miles, ~2 hours. Arrive by 9:30am for 10:30 AM tee times.</p>
+                        <p><a class="drive-link" href="https://www.google.com/maps/dir/Cypress+Bend+Resort,+2000+Cypress+Bend+Pkwy,+Many,+LA+71449/Gladewater,+TX" target="_blank" rel="noopener noreferrer">📍 Driving directions: Cypress Bend Resort → The Tempest (Gladewater, TX)</a></p>
+                        <p><strong>10:30 AM Tee Times</strong></p>
+                        <p>Matchups: Team 1 vs Team 4 / Team 2 vs Team 3</p>
+                        <p><strong>3:00 PM:</strong> Awards & Lunch immediately following round.</p>
+                        <p style="margin-top: 15px;"><strong>Drive home (after awards):</strong> The Tempest (Gladewater) → Robson Ranch. About 120 miles, ~2 hours.</p>
+                        <p><a class="drive-link" href="https://www.google.com/maps/dir/Gladewater,+TX/Robson+Ranch,+Denton,+TX" target="_blank" rel="noopener noreferrer">📍 Driving directions: Gladewater (The Tempest) → Robson Ranch</a></p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/Day4.png" alt="Day 3 Tempest" class="format-img">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container section-padding" id="rules">
+            <div class="section-header-row">
+                <h2 class="section-title">📜 Rules & Regulations 📜</h2>
+                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
+            </div>
+            <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
+                
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3 style="color: var(--bright-green);">General Play: Preferred Lies</h3>
+                        <p style="margin-bottom: 15px; font-size: 1.1rem;">
+                            <strong>BUMPING IS IN EFFECT.</strong>
+                        </p>
+                        <p style="margin-bottom: 10px;">Players are permitted to bump the ball <strong>within one foot (12 inches)</strong> of where it originally lay, <strong>not nearer the hole</strong>, using the clubhead.</p>
+                        <p style="margin-bottom: 10px; font-size: 0.95rem;">USGA Model Local Rule E-3 (Preferred Lies). The Committee may adopt other relief distances.</p>
+                        
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <span class="format-sub" style="color: var(--red-accent);">RESTRICTIONS:</span>
+                            <ul style="list-style: none; margin-left: 5px;">
+                                <li style="margin-bottom: 8px;">❌ You <strong>cannot improve your lie</strong> (e.g., you cannot bump the ball from the rough into the fairway).</li>
+                                <li style="margin-bottom: 8px;">❌ You <strong>cannot bump the ball</strong> if it is in a hazard or penalty area.</li>
+                            </ul>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 3px solid var(--gold);">
+                            <span class="format-sub" style="color: var(--gold);">CLARIFICATIONS (Line of Play & Lie):</span>
+                            <ul style="list-style: none; margin-left: 5px; margin-top: 8px;">
+                                <li style="margin-bottom: 8px;"><strong>Maintain the "Line of Play":</strong> You may move the ball within one foot (12 inches) of where it lay, not nearer the hole, but not in any direction that creates a clear line of sight to the hole if one didn't exist previously.</li>
+                                <li style="margin-bottom: 8px;"><strong>Like-to-Like Condition (same area of the course):</strong> If the ball is in the rough, it stays in the rough. If it's behind a bush, it stays behind the bush (or at least keeps the bush between the ball and the target).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/Bumping.png" alt="Bumping Rule" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 1: Team — Split Format (Scramble / Alt Shot)</h3>
+                        <p>No handicaps (gross). Front 9: 2-Man Scramble. Back 9: 2-Man Alternate Shot. One result for all 18 holes: <strong>1 Point</strong> for winning team, <strong>½ Point</strong> if tied. Gimmies are allowed and encouraged for pace of play.</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/CartGirl.png" alt="Team Day 1" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 2: 2-Man Best Ball NET (Medal Play — Not Match Play)</h3>
+                        <p><strong>Format:</strong> Medal play (low team net score wins). Not match play.</p>
+                        <p style="margin-bottom: 10px;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
+                        <p>Gimmies are allowed and encouraged for pace. Full 18-hole <strong>net</strong> scores must be recorded for each player; low net per hole counts for the team.</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/CartGirl.png" alt="Day 2 Best Ball" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 3: Singles Matches (Hybrid Format)</h3>
+                        <p><strong>Format:</strong> Singles Match Play AND Individual Low Net Stroke Play.</p>
+                        <p style="border: 1px solid var(--red-accent); padding: 10px; margin-top: 10px; background: rgba(183, 28, 28, 0.2); font-weight: bold; color: #ff8a80;">
+                            ⚠️ CRITICAL: You MUST putt everything out on Day 3. No concessions allowed. We need a valid 18-hole score for the Net Tournament.
+                        </p>
+                        
+                        <div style="margin-top: 10px; padding: 10px; background: rgba(255,215,0,0.1); border-left: 4px solid var(--gold);">
+                             <span style="color:var(--gold); font-weight:bold;">🏆 AWARD ALERT:</span>
+                             <span style="color:#ddd;"> "Missed Putt from the Shortest Distance Award"</span>
+                        </div>
+
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/NoGimmies.png" alt="No Gimmies" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Robson Ranch OB Rule</h3>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <span class="format-sub" style="color: var(--red-accent);">Out of Bounds (OB)</span>
+                            <p style="margin-bottom: 10px; font-weight: bold;">Goal: Avoid "The Walk of Shame" and speed up play.</p>
+                            <p><strong>Penalty:</strong> 2 Strokes.</p>
+                            <p><strong>Procedure:</strong> If you hit your ball Out of Bounds, you do NOT need to return to the tee. Instead, place your ball in the fairway adjacent to where it went out of bounds.</p>
+                            <p><em>(This simulates hitting a 3rd shot from the tee and landing it in the fairway. You are now lying 3, hitting your 4th shot).</em></p>
+                        </div>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/OB.png" alt="OB Rule" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Local Rule: The "Lost but Found" Option</h3>
+                        <span class="format-sub" style="color: var(--gold); margin-bottom:10px;">To be used when a ball is lost but agreed by the group NOT to be Out of Bounds.</span>
+                        
+                        <p style="margin-bottom: 10px;"><strong>Purpose:</strong> To speed up play when a ball is clearly in play but cannot be located (e.g., buried in deep rough or leaves).</p>
+                        
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px; margin: 15px 0;">
+                            <p style="font-style: italic; color: #fff; margin-bottom: 10px;">
+                                "If a player’s ball is lost and the group agrees it is not Out of Bounds, the player may opt to treat the lost ball as an <strong>Unplayable Lie</strong> rather than taking Stroke and Distance."
+                            </p>
+                            <ul style="list-style: none; margin-left: 10px;">
+                                <li style="margin-bottom: 8px;"><strong>Agreement:</strong> The group must agree on the estimated vicinity where the ball was lost.</li>
+                                <li style="margin-bottom: 8px; color: var(--red-accent); font-size: 1.2rem;"><strong>Penalty:</strong> One (1) Stroke.</li>
+                                <li style="margin-bottom: 8px;"><strong>Procedure:</strong> Drop within two club-lengths of the estimated spot (no closer to the hole).</li>
+                                <li><strong>Result:</strong> You lie 2 (shot + penalty) and are hitting your 3rd shot.</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="font-size: 0.9rem; color: #aaa;"><em>Note: If the group believes the ball may be Out of Bounds, this rule does NOT apply. You must proceed under standard OB rules (2 stroke penalty, drop in fairway).</em></p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/LostBall.png" alt="Lost Ball Rule" class="format-img">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="format-and-rules-print-content" style="display: none;" aria-hidden="true">
+            <h1 style="text-align:center; margin:0 0 8px 0;">2026 Robson Ranch Invitational</h1>
+            <p style="text-align:center; font-weight: bold; margin:0 0 4px 0;">Format &amp; Rules</p>
+            <p style="text-align:center; font-weight: bold; margin:0 0 14px 0;">ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY</p>
+            <h2>PLAY FORMAT</h2>
+            <p><strong>DAY 1 — STONEBRIDGE</strong></p>
+            <p>Two Man Teams = TEAMS 1 vs 2, AND Teams 3 vs 4. Shotgun start at 10am. One result for 18 holes: 1 Point winning team / ½ Point tie. Gross, no handicaps.</p>
+            <p><strong>HOLES 1–9: SCRAMBLE</strong> — Each player drives, hitting from the same spot through the hole. Write down your best score. Remember to change formats from the front side to the back side because we are a shotgun start starting at 10am.</p>
+            <p><strong>HOLES 10–18: TRUE ALTERNATE SHOT</strong> — On hole 10 choose a player to drive on 10, alternating shots all the way to 18. If you putt out on a hole, then the other player MUST DRIVE on the next hole. When getting to hole 18 (going to the front side to play a scramble), WRITE DOWN who putted out on 18 so you remember who drives on 10. The first hole you play on alternate shot is when you begin alternate shot format. Example: Your match begins on hole 17 — that is where your team begins alternate shot, choosing one person to drive, ALTERNATING that ball through hole 18. Note who putted out. When you return to hole 10, the opposite team member must drive on HOLE 10.</p>
+            <p><strong>DAY 2 — CYPRESS BEND</strong></p>
+            <p>Two Man Teams – TEAMS 1 vs 3, and TEAMS 2 vs 4. Best Ball for 18 holes / Total Score of the Best Ball (NOT MATCH PLAY). Course handicap from course handicap sheet.</p>
+            <p>You and your partner will play all 18 holes. Net Scoring. Best NET Score goes on the scorecard BETWEEN your partner and you. This is MEDAL PLAY, NOT MATCH – total score of your best ball after 18 holes. Add Best Net Ball up at the end of 18 holes and that is your two-man teams score. Tee Times Starting at 1pm. 1 Point winning team / ½ Point tie.</p>
+            <p><strong>DAY 3 — THE TEMPEST</strong></p>
+            <p>SINGLE MATCHES – NET SCORING – TEAMS 1 vs 4, and TEAMS 2 vs 3. YOU and YOUR COMPETITOR will play MEDAL PLAY, the total of your score using NET SCORING. Play all 18 holes, NOT MATCH PLAY – BUT TOTAL OF ALL 18 HOLES. TEE TIMES starting at 10am. Low Net (White Tees) and Low Net (Gold Tees). NO GIMMIES — putt everything out. 2 Points winning team / 1 Point if tied.</p>
+            <h2>RULES</h2>
+            <p><strong>Preferred Lies (Bumping):</strong> Ball may be moved within one foot (12 inches), not nearer the hole. Same area of course (like-to-like). Cannot improve lie (e.g. rough to fairway) or bump in hazard. Line of play: don’t create new line of sight. USGA E-3.</p>
+            <p><strong>OB (Robson Ranch):</strong> 2 strokes. Drop in fairway adjacent to where ball went OB (no return to tee).</p>
+            <p><strong>Lost ball (not OB):</strong> Group agrees location. One stroke penalty. Drop within 2 club-lengths of estimated spot (no nearer hole). If may be OB, use OB rule.</p>
+        </div>
+
+        <div class="container" id="courses">
+            <h2 class="section-title">♣ The Battlegrounds ♣</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <img src="https://ranchgolftrips.com/Stonebridge.png" alt="Stonebridge Golf" class="card-img-top">
+                    <div class="card-header">
+                        <h3>Stonebridge Golf Club</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Bossier City, LA</div>
+                        <div class="detail-row"><span class="icon">⛳</span> Monday, 10am Shotgun</div>
+                        <p><strong>Format:</strong> 2-Man Scramble / Alt Shot</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://ranchgolftrips.com/Cypressbend.png" alt="Cypress Bend" class="card-img-top">
+                    <div class="card-header">
+                        <h3>Cypress Bend Golf</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Many, LA (Toledo Bend)</div>
+                        <div class="detail-row"><span class="icon">⏰</span> Tuesday, 1pm Tee Times</div>
+                        <p><strong>Format:</strong> 2-Man Best Ball NET (medal play, not match play)</p>
+                        <p style="color: var(--gold); font-weight:bold; margin-top:10px;">Golf Rate: $60.42 (Inc. Tax & Cart)</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://ranchgolftrips.com/Tempest.png" alt="The Tempest" class="card-img-top">
+                    <div class="card-header">
+                        <h3>The Tempest</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📍</span> Gladewater, TX</div>
+                        <div class="detail-row"><span class="icon">⏰</span> Wednesday, 10:30am</div>
+                        <p><strong>Format:</strong> Singles Matches</p>
+                        <p style="color: var(--gold); font-weight:bold; margin-top:10px;">Golf Rate: $60</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">
+                            Low Net - White Tees<br>
+                            Low Net - Gold Tees
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container section-padding" id="lodging">
+            <h2 class="section-title">♦ Lodging ♦</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <img src="https://ranchgolftrips.com/Ballys.png" alt="Bally's Resort" class="card-img-top">
+                    <div class="card-header" style="background: var(--red-accent);">
+                        <h3>Bally's Resort & Casino</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📅</span> <strong>TWO NIGHTS:</strong> Mar 22 & 23</div>
+                        <p style="font-weight: bold; color: var(--bright-green); font-size: 1.1rem; border: 2px dashed var(--bright-green); padding: 10px; margin: 10px 0; background: #e8f5e9;">
+                            GREAT NEWS:<br>BOTH nights at Bally's are 100% COMPED!
+                        </p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Includes mandatory welcome party Sunday at 5pm.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://ranchgolftrips.com/Wyndham.png" alt="Wyndham @ Cypress Bend" class="card-img-top">
+                    <div class="card-header" style="background: var(--bright-green);">
+                        <h3>Cypress Bend Resort — Wyndham Hotel</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail-row"><span class="icon">📅</span> <strong>ONE NIGHT:</strong> Mar 24 (check out Mar 25)</div>
+                        <div class="detail-row"><span class="icon">📞</span> <strong>318-590-1500</strong></div>
+                        <p>Stay right on the property at the lake.</p>
+
+                        <p style="font-weight: bold; color: var(--gold); font-size: 1rem; border: 2px dashed var(--gold); padding: 10px; margin: 12px 0; background: rgba(255,193,7,0.1);">
+                            Make your own reservation — call the number above.
+                        </p>
+                        <p style="font-size: 0.9rem; margin-bottom: 8px;"><strong>When you call:</strong></p>
+                        <ul style="font-size: 0.9rem; margin: 0 0 15px 1.2em; line-height: 1.6;">
+                            <li>Ask for <strong>Reservations</strong></li>
+                            <li>Tell them you're with the <strong>Robson Ranch Invitational</strong></li>
+                            <li>Provide your <strong>credit card</strong></li>
+                            <li>Get your <strong>confirmation number</strong></li>
+                        </ul>
+
+                        <div style="background: #f9f9f9; border: 1px solid #ddd; padding: 12px; margin-top: 15px; border-radius: 4px; font-size: 0.9rem; line-height: 1.5;">
+                            <p style="margin-bottom: 10px; font-weight: bold; color: #333;">Room rate</p>
+                            <p>$130.00 per room per night × 12.625% hotel tax = <strong>$146.41</strong></p>
+                            <p style="margin-top: 6px; color: #666; font-size: 0.85rem;">Check in March 24 · Check out March 25</p>
+                        </div>
+
+                        <div style="background: #f9f9f9; border: 1px solid #ddd; padding: 12px; margin-top: 12px; border-radius: 4px; font-size: 0.9rem; line-height: 1.5;">
+                            <p style="margin-bottom: 10px; font-weight: bold; color: #333;">Wyndham + golf (Tuesday)</p>
+                            <div style="margin-bottom: 10px;">
+                                <p><strong>Hotel (1 room):</strong> $130.00 × 12.625% tax = <strong>$146.41</strong></p>
+                                <p><strong>Golf (18 holes):</strong> $55.00 + 9.85% tax = <strong>$60.42</strong> <span style="color:#666;">(includes cart)</span></p>
+                            </div>
+                            <hr style="margin: 10px 0; border: 0; border-top: 1px solid #ccc;">
+                            <p style="font-size: 1rem;"><strong>Total:</strong> <strong style="color: var(--red-accent);">$206.83 per golfer</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="container section-padding" id="driver-rider-details">
+            <h2 class="section-title">♣ Driver/Rider Details ♣</h2>
+            <div class="leaderboard-box">
+                <table class="lb-table">
+                    <thead>
+                        <tr><th style="text-align: left; width: 60px;"></th><th style="text-align: left;">Player</th><th style="text-align: left;">Drivers</th></tr>
+                    </thead>
+                    <tbody id="driver-rider-tbody">
+                        <tr><td colspan="3" class="r-loading">Loading from roster...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p><strong>RR Invitational Committee</strong></p>
+                <ul class="committee-list">
+                    <li>Jeff Watts</li>
+                    <li>Llynal Carey</li>
+                    <li>Tim Hughes</li>
+                    <li>Corey Klessig</li>
+                </ul>
+                <br>
+                <br>
+                <p style="font-size: 0.9rem; color: #666;">
+                    © 2026 All Rights Reserved | RanchGolfTrips.com
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- SCROLL FUNCTION ---
+        function scrollToId(id) {
+            var element = document.getElementById(id);
+            if (element) {
+                const headerOffset = 130; 
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+            }
+        }
+
+        // --- SUGGESTIONS LOGIC ---
+        function prefillSuggestion(text) {
+            const area = document.getElementById('suggestionText');
+            area.value = text + area.value;
+            area.focus();
+        }
+
+        function handleFormSubmit() {
+            setTimeout(function() {
+                document.getElementById('suggestionInputArea').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+            }, 100);
+            return true;
+        }
+
+        function resetForm() {
+            document.getElementById('gopherForm').reset();
+            document.getElementById('thankYouMessage').style.display = 'none';
+            document.getElementById('suggestionInputArea').style.display = 'block';
+        }
+
+        // --- COUNTDOWN TIMER ---
+        var countDownDate = new Date("Mar 22, 2026 12:00:00").getTime();
+        (function setAlertsDays() {
+            var distance = countDownDate - new Date().getTime();
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var alertsDaysEl = document.getElementById("alerts-days");
+            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
+        })();
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = (days < 10 ? "0" : "") + days;
+            document.getElementById("hours").innerHTML = (hours < 10 ? "0" : "") + hours;
+            document.getElementById("mins").innerHTML = (minutes < 10 ? "0" : "") + minutes;
+            document.getElementById("secs").innerHTML = (seconds < 10 ? "0" : "") + seconds;
+            var alertsDaysEl = document.getElementById("alerts-days");
+            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".countdown-bar").innerHTML = "<h2 style='color:var(--gold)'>TOURNAMENT STARTED!</h2>";
+            }
+        }, 1000);
+
+        function printFormatAndRules() {
+            var content = document.getElementById('format-and-rules-print-content');
+            if (!content) return;
+            var win = window.open('', '_blank');
+            var onePageCss = '<style>@page{size:8.5in 11in;margin:0.5in;}body{font-family:Georgia,serif;font-size:10.5pt;line-height:1.35;max-width:100%;margin:0;padding:0.5in;color:#000;background:#fff;min-height:10in;box-sizing:border-box;}h1{font-size:14pt;margin:0 0 6px 0;}h2{font-size:11.5pt;margin:12px 0 6px 0;padding-bottom:3px;border-bottom:1px solid #333;}p{margin:0 0 6px 0;}strong{font-weight:bold;}</style>';
+            win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Format &amp; Rules — Robson Ranch Invitational 2026</title>' + onePageCss + '</head><body>');
+            win.document.write(content.innerHTML);
+            win.document.write('</body></html>');
+            win.document.close();
+            win.focus();
+            setTimeout(function() { win.print(); win.close(); }, 300);
+        }
+
+        // --- MODAL ALERT LOGIC ---
+        window.onload = function() {
+            loadRoster();
+        };
+
+        // --- GOOGLE SHEET FETCH LOGIC ---
+async function loadRoster() {
+  const sheetId = '14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo';
+  const gid = '0';
+  const csvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
+
+  const grid = document.getElementById('roster-grid');
+  grid.innerHTML = '<div class="r-loading">Loading Roster from Sheet...</div>';
+
+  try {
+    const response = await fetch(csvUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const text = await response.text();
+    const rows = parseCSV(text);
+
+    grid.innerHTML = '';
+    const driverRiderList = [];
+
+    // 1) headers map (normalize keys for sheet column names with spaces)
+    const headerRow = rows[0] || [];
+    const headers = {};
+    headerRow.forEach((h, idx) => {
+      if (h) {
+        const key = h.trim().toLowerCase().replace(/\s+/g, ' ');
+        headers[key] = idx;
+      }
+    });
+
+    function getCell(rowArr, nameList, fallback = "") {
+      for (const name of nameList) {
+        const key = name.toLowerCase().replace(/\s+/g, ' ');
+        const idx = headers[key];
+        if (idx !== undefined && rowArr[idx] !== undefined) {
+          const val = String(rowArr[idx]).trim();
+          if (val.length) return val;
+        }
+      }
+      return fallback;
+    }
+
+    // 2) build players with team and course handicaps
+    const players = [];
+    const driverRiderList = [];
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (!row || row.length === 0) continue;
+      const nameRaw = getCell(row, ["player name", "name", "player"], "Unknown");
+      const name = normalizeName(nameRaw) || toTitleCase(nameRaw);
+      let rawAvatar = getCell(row, ["avatar", "photo", "image"], "").trim();
+      if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
+      const initials = name.split(" ").map(n => n[0]).join("").substring(0, 2);
+      const p = {
+        name,
+        index: getCell(row, ["ghin as of 3/14/2026", "ghin as of 3/14/26", "ghin", "index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
+        tees: getCell(row, ["tee box", "tees", "tee"], "TBD"),
+        bio: getCell(row, ["bio", "player bio"], "No bio available."),
+        avatar: rawAvatar.toLowerCase().startsWith('http') ? rawAvatar : "",
+        drivers: getCell(row, ["drivers", "driver"], "—"),
+        team: String(getCell(row, ["team (1, 2, 3, or 4)", "team", "team #", "team number", "team no"], "")).trim(),
+        stonebridge: getCell(row, ["stonebridge course handicap", "stonebridge", "stonebridge ch"], "—"),
+        cypress: getCell(row, ["cypress bend course handicap", "cypress bend", "cypress bend ch"], "—"),
+        tempest: getCell(row, ["the tempest course handicap", "the tempest", "tempest course handicap", "tempest ch"], "—"),
+        initials
+      };
+      players.push(p);
+      driverRiderList.push({ name: p.name, drivers: p.drivers, avatarUrl: p.avatar, initials: p.initials });
+    }
+
+    // 3) group by team and sort by index
+    const byTeam = { '1': [], '2': [], '3': [], '4': [] };
+    players.forEach(p => {
+      const t = p.team;
+      if (t === '1' || t === '2' || t === '3' || t === '4') byTeam[t].push(p);
+    });
+    [1, 2, 3, 4].forEach(num => {
+      byTeam[String(num)].sort((a, b) => indexSortValue(a.index) - indexSortValue(b.index));
+    });
+
+    // 4) build team-based roster HTML
+    let html = '<div class="roster-teams-grid">';
+    [1, 2, 3, 4].forEach(num => {
+      const list = byTeam[String(num)];
+      const teamLabel = TEAM_NAMES[String(num)] || ('Team ' + num);
+      const roles = TEAM_CAPTAINS[String(num)];
+      html += '<div class="roster-team-block">';
+      html += '<h3>' + escapeHtml(teamLabel) + '</h3>';
+      if (roles) html += '<p class="roster-team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
+      html += '<table class="roster-team-table"><thead><tr><th></th><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
+      list.forEach((p, i) => {
+        const role = roleForPlayer(p.name, num);
+        const nameDisplay = escapeHtml(p.name) + (role ? ' <span class="roster-team-role-tag">(' + role + ')</span>' : '');
+        const avatarCell = p.avatar ? '<img src="' + escapeHtml(p.avatar) + '" alt="" class="roster-team-avatar">' : '<div class="roster-team-avatar-initials">' + escapeHtml(p.initials) + '</div>';
+        html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    });
+    html += '</div>';
+
+    window._rosterPlayersByTeam = byTeam;
+    grid.innerHTML = players.length === 0 ? '<div class="r-loading">No roster rows found.</div>' : html;
+
+    // 5) attach click to open bio
+    grid.querySelectorAll('.roster-team-row').forEach(tr => {
+      tr.addEventListener('click', function() {
+        const team = this.getAttribute('data-team');
+        const idx = parseInt(this.getAttribute('data-idx'), 10);
+        const p = window._rosterPlayersByTeam && window._rosterPlayersByTeam[team] && window._rosterPlayersByTeam[team][idx];
+        if (p) openBio(p);
+      });
+    });
+
+    // Fill Driver/Rider Details table (with avatar)
+    const tbody = document.getElementById('driver-rider-tbody');
+    if (tbody && driverRiderList.length) {
+      tbody.innerHTML = driverRiderList.map(function(r) {
+        var avatarCell = r.avatarUrl
+          ? '<img src="' + escapeHtml(r.avatarUrl) + '" alt="" class="driver-rider-avatar">'
+          : '<div class="driver-rider-avatar driver-rider-initials">' + escapeHtml(r.initials) + '</div>';
+        return '<tr><td class="driver-rider-avatar-cell">' + avatarCell + '</td><td style="text-align:left;">' + escapeHtml(r.name) + '</td><td style="text-align:left;">' + escapeHtml(r.drivers) + '</td></tr>';
+      }).join('');
+    } else if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="3" class="r-loading">No roster rows found.</td></tr>';
+    }
+
+  } catch (error) {
+    console.error("Error fetching roster:", error);
+    grid.innerHTML = '<div style="color:white;">Failed to load roster.</div>';
+    const tbody = document.getElementById('driver-rider-tbody');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="color:var(--red-accent);">Failed to load roster.</td></tr>';
+  }
+}
+
+
+        function openBio(player) {
+            document.getElementById('bioName').innerText = player.name;
+            document.getElementById('bioIndex').innerText = "Index: " + player.index;
+            document.getElementById('bioTees').innerText = "Tees: " + player.tees;
+            document.getElementById('bioText').innerText = `"${player.bio}"`;
+            const avatarEl = document.getElementById('bioAvatar');
+            if (player.avatar && player.avatar.toLowerCase().startsWith('http')) {
+                avatarEl.innerHTML = `<img src="${player.avatar}" alt="${player.name}">`;
+            } else {
+                const initials = player.name.split(" ").map((n)=>n[0]).join("").substring(0,2);
+                avatarEl.innerHTML = initials;
+            }
+            document.getElementById('bioModal').style.display = 'flex';
+        }
+
+        function closeBio() {
+            document.getElementById('bioModal').style.display = 'none';
+        }
+
+        function parseCSV(text) {
+            let rows = [];
+            let row = [];
+            let inQuote = false;
+            let currentCell = "";
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                let nextChar = text[i+1];
+                if (char === '"') {
+                    if (inQuote && nextChar === '"') {
+                        currentCell += '"';
+                        i++; 
+                    } else {
+                        inQuote = !inQuote;
+                    }
+                } else if (char === ',' && !inQuote) {
+                    row.push(currentCell);
+                    currentCell = "";
+                } else if ((char === '\r' || char === '\n') && !inQuote) {
+                    if (currentCell || row.length > 0) row.push(currentCell);
+                    if (row.length > 0) rows.push(row);
+                    row = [];
+                    currentCell = "";
+                    if (char === '\r' && nextChar === '\n') i++;
+                } else {
+                    currentCell += char;
+                }
+            }
+            if (currentCell || row.length > 0) {
+                row.push(currentCell);
+                rows.push(row);
+            }
+            return rows;
+        }
+
+        function toTitleCase(str) {
+            return str.replace(
+                /\w\S*/g,
+                function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                }
+            );
+        }
+
+        function normalizeName(raw) {
+            if (!raw || !String(raw).trim()) return '';
+            let s = String(raw).trim();
+            let withoutNick = s.replace(/\s*["'].*["']\s*$/i, '').trim();
+            let parts = withoutNick.split(/\s*,\s*/);
+            if (parts.length >= 2) return toTitleCase(parts[1].trim() + ' ' + parts[0].trim());
+            return toTitleCase(withoutNick);
+        }
+
+        const TEAM_NAMES = { '1': 'Team 1 — Back Nine Bandits', '2': 'Team 2 — Bogey Brothers', '3': 'Team 3 — Slice Masters', '4': 'Team 4 — Sand Trap Seniors' };
+        const TEAM_CAPTAINS = {
+            '1': { captain: 'Corey Klessog', captainMatch: ['Corey Klessog', 'Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
+            '2': { captain: 'Lyynal Carey', captainMatch: ['Lyynal Carey', 'Llynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
+            '3': { captain: 'Bob DiFonzo', captainMatch: ['Bob DiFonzo'], coCaptain: 'Scott Eskridge', coCaptainMatch: ['Scott Eskridge'] },
+            '4': { captain: 'John Gauthier', captainMatch: ['John Gauthier'], coCaptain: 'Tyler Clark', coCaptainMatch: ['Tyler Clark'] }
+        };
+        function roleForPlayer(playerName, teamNum) {
+            const roles = TEAM_CAPTAINS[String(teamNum)];
+            if (!roles) return '';
+            const lower = (playerName || '').toLowerCase().trim();
+            if (roles.captainMatch && roles.captainMatch.some(m => lower === (m || '').toLowerCase().trim())) return 'Captain';
+            if (roles.coCaptainMatch && roles.coCaptainMatch.some(m => lower === (m || '').toLowerCase().trim())) return 'Co-Captain';
+            return '';
+        }
+        function indexSortValue(indexStr) {
+            const n = parseFloat(String(indexStr).replace(/[^\d.-]/g, ''));
+            return isNaN(n) ? 999 : n;
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
