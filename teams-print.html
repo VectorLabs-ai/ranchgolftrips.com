@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams — Robson Ranch Invitational 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Georgia, serif; background: #2a2a2a; color: #eee; padding: 24px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { text-align: center; font-size: 1.5rem; margin-bottom: 8px; color: #f4c430; }
+        .sub { text-align: center; margin-bottom: 20px; font-size: 0.95rem; color: #ccc; }
+        .print-only { display: none; }
+        @media print {
+            body { background: #fff; color: #000; padding: 0.5in; }
+            .no-print { display: none !important; }
+            .print-only { display: block; }
+            h1 { color: #000; }
+            .team-block { break-inside: avoid; }
+        }
+        .btn-print {
+            display: inline-block; background: #f4c430; color: #000; border: none;
+            padding: 12px 24px; font-size: 1rem; font-weight: bold; cursor: pointer;
+            border-radius: 8px; margin-bottom: 24px;
+        }
+        .btn-print:hover { opacity: 0.9; }
+        .team-block {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(244,196,48,0.4);
+            border-radius: 8px; padding: 16px; margin-bottom: 20px;
+        }
+        .team-block h2 { font-size: 1.15rem; margin-bottom: 6px; color: #f4c430; }
+        .team-captain { font-size: 0.9rem; margin-bottom: 12px; color: #ccc; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { font-weight: bold; color: #f4c430; }
+        @media print {
+            .team-block { border-color: #ccc; }
+            .team-block h2 { color: #000; }
+            th { color: #000; }
+            td, .team-captain { border-color: #ddd; color: #000; }
+        }
+        .role-tag { font-size: 0.85em; color: #f4c430; font-weight: normal; }
+        @media print { .role-tag { color: #000; } }
+        .loading { text-align: center; padding: 40px; color: #999; }
+        .error { color: #e57373; padding: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2026 Robson Ranch Invitational</h1>
+        <p class="sub">Teams — Captains, Handicaps & Course Handicaps</p>
+        <div class="no-print">
+            <button type="button" class="btn-print" onclick="window.print()">🖨️ Print</button>
+        </div>
+        <div id="content">
+            <div class="loading">Loading teams from roster…</div>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var sheetId = '14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo';
+            var gid = '0';
+            var csvUrl = 'https://docs.google.com/spreadsheets/d/' + sheetId + '/export?format=csv&gid=' + gid;
+
+            var teamNames = {
+                '1': 'Team 1 — Back Nine Bandits',
+                '2': 'Team 2 — Bogey Brothers',
+                '3': 'Team 3 — Sand Trap Seniors',
+                '4': 'Team 4 — Slice Masters'
+            };
+            // Captain and Co-Captain per team (display as given; match names case-insensitive, with alternate spellings)
+            var teamCaptains = {
+                '1': { captain: 'Corey Klessog', captainMatch: ['Corey Klessog', 'Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
+                '2': { captain: 'Lyynal Carey', captainMatch: ['Lyynal Carey', 'Llynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
+                '3': { captain: 'Bob DiFonzo', captainMatch: ['Bob DiFonzo'], coCaptain: 'Scott Eskridge', coCaptainMatch: ['Scott Eskridge'] },
+                '4': { captain: 'John Gauthier', captainMatch: ['John Gauthier'], coCaptain: 'Tyler Clark', coCaptainMatch: ['Tyler Clark'] }
+            };
+
+            function parseCSV(text) {
+                var rows = [];
+                var row = [];
+                var inQuote = false;
+                var currentCell = "";
+                for (var i = 0; i < text.length; i++) {
+                    var char = text[i];
+                    var nextChar = text[i + 1];
+                    if (char === '"') {
+                        if (inQuote && nextChar === '"') { currentCell += '"'; i++; }
+                        else { inQuote = !inQuote; }
+                    } else if (char === ',' && !inQuote) {
+                        row.push(currentCell);
+                        currentCell = "";
+                    } else if ((char === '\r' || char === '\n') && !inQuote) {
+                        if (currentCell || row.length > 0) row.push(currentCell);
+                        if (row.length > 0) rows.push(row);
+                        row = [];
+                        currentCell = "";
+                        if (char === '\r' && nextChar === '\n') i++;
+                    } else {
+                        currentCell += char;
+                    }
+                }
+                if (currentCell || row.length > 0) {
+                    row.push(currentCell);
+                    rows.push(row);
+                }
+                return rows;
+            }
+
+            function getCell(rowArr, headers, nameList, fallback) {
+                fallback = fallback || "";
+                for (var k = 0; k < nameList.length; k++) {
+                    var idx = headers[nameList[k].toLowerCase()];
+                    if (idx !== undefined && rowArr[idx] !== undefined) {
+                        var val = String(rowArr[idx]).trim();
+                        if (val.length) return val;
+                    }
+                }
+                return fallback;
+            }
+
+            function toTitleCase(str) {
+                return str.replace(/\w\S*/g, function(txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
+            }
+
+            function escapeHtml(str) {
+                if (str == null) return '';
+                var div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            function indexSortValue(indexStr) {
+                var n = parseFloat(String(indexStr).replace(/[^\d.-]/g, ''));
+                return isNaN(n) ? 999 : n;
+            }
+
+            function nameMatches(playerName, matchList) {
+                if (!matchList || !matchList.length) return false;
+                var lower = (playerName || '').toLowerCase().trim();
+                for (var i = 0; i < matchList.length; i++) {
+                    if (lower === (matchList[i] || '').toLowerCase().trim()) return true;
+                }
+                return false;
+            }
+            function roleForPlayer(playerName, teamNum) {
+                var roles = teamCaptains[String(teamNum)];
+                if (!roles) return '';
+                if (nameMatches(playerName, roles.captainMatch)) return 'Captain';
+                if (nameMatches(playerName, roles.coCaptainMatch)) return 'Co-Captain';
+                return '';
+            }
+
+            fetch(csvUrl)
+                .then(function(response) {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.text();
+                })
+                .then(function(text) {
+                    var rows = parseCSV(text);
+                    var headerRow = rows[0] || [];
+                    var headers = {};
+                    for (var h = 0; h < headerRow.length; h++) {
+                        if (headerRow[h]) headers[headerRow[h].trim().toLowerCase()] = h;
+                    }
+
+                    var players = [];
+                    for (var i = 1; i < rows.length; i++) {
+                        var row = rows[i];
+                        if (!row || row.length === 0) continue;
+                        var name = getCell(row, headers, ['name', 'player', 'player name'], 'Unknown');
+                        var index = getCell(row, headers, ['index', 'handicap', 'hcp', 'current index', 'hi', 'indx', 'ghin'], '—');
+                        var tees = getCell(row, headers, ['tees', 'tee', 'tee box'], 'TBD');
+                        var team = getCell(row, headers, ['team', 'team #', 'team number', 'team no'], '');
+                        var captain = getCell(row, headers, ['captain', 'team captain', 'c'], '');
+                        var courseHcp = getCell(row, headers, ['course handicap', 'course hcp', 'ch', 'chcp', 'course hand'], '—');
+                        players.push({
+                            name: toTitleCase(name),
+                            index: index,
+                            tees: tees,
+                            team: String(team).trim(),
+                            courseHandicap: courseHcp
+                        });
+                    }
+
+                    var byTeam = { '1': [], '2': [], '3': [], '4': [] };
+                    var noTeam = [];
+                    players.forEach(function(p) {
+                        var t = p.team;
+                        if (t === '1' || t === '2' || t === '3' || t === '4') {
+                            byTeam[t].push(p);
+                        } else if (t && byTeam[t]) {
+                            byTeam[t].push(p);
+                        } else {
+                            noTeam.push(p);
+                        }
+                    });
+
+                    var html = '';
+                    [1, 2, 3, 4].forEach(function(num) {
+                        var list = byTeam[String(num)];
+                        var teamLabel = teamNames[String(num)] || ('Team ' + num);
+                        var roles = teamCaptains[String(num)];
+                        list.sort(function(a, b) { return indexSortValue(a.index) - indexSortValue(b.index); });
+                        html += '<div class="team-block">';
+                        html += '<h2>' + escapeHtml(teamLabel) + '</h2>';
+                        if (roles) {
+                            html += '<p class="team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
+                        }
+                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Course Handicap</th></tr></thead><tbody>';
+                        list.forEach(function(p) {
+                            var role = roleForPlayer(p.name, num);
+                            var nameDisplay = p.name + (role ? ' <span class="role-tag">(' + role + ')</span>' : '');
+                            html += '<tr><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.courseHandicap) + '</td></tr>';
+                        });
+                        html += '</tbody></table></div>';
+                    });
+                    if (noTeam.length > 0) {
+                        html += '<div class="team-block">';
+                        html += '<h2>Unassigned</h2>';
+                        html += '<p class="team-captain">Add a "Team" column (1–4) in the roster sheet to assign players to teams.</p>';
+                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Course Handicap</th></tr></thead><tbody>';
+                        noTeam.forEach(function(p) {
+                            html += '<tr><td>' + escapeHtml(p.name) + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.courseHandicap) + '</td></tr>';
+                        });
+                        html += '</tbody></table></div>';
+                    }
+
+                    document.getElementById('content').innerHTML = html || '<p class="error">No roster data. Add columns: Team (1–4), Captain (yes), Course Handicap (or leave blank).</p>';
+                })
+                .catch(function(err) {
+                    document.getElementById('content').innerHTML = '<p class="error">Could not load roster: ' + escapeHtml(err.message) + '</p>';
+                });
+        })();
+    </script>
+</body>
+</html>
