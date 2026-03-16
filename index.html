@@ -92,6 +92,11 @@
 
         .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
+        .section-header-row {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 16px; margin-bottom: 20px;
+        }
+        .section-header-row .section-title { margin-bottom: 0; }
 
         .play-format-callout {
             background: rgba(0,0,0,0.4); color: #fff; padding: 18px 24px;
@@ -1261,7 +1266,10 @@
         </div>
 
         <div class="container section-padding" id="schedule">
-            <h2 class="section-title">♠ The Schedule & Format ♠</h2>
+            <div class="section-header-row">
+                <h2 class="section-title">♠ The Schedule & Format ♠</h2>
+                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
+            </div>
             <div class="play-format-callout">
                 <div class="play-format-title">Play Format</div>
                 <p><strong>ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY.</strong> Days 2 and 3 are decided by total strokes (net), not by winning individual holes. Day 1: Split format (Front 9 Scramble, Back 9 Alternate Shot) — one result for all 18 holes: <strong>1 Point</strong> for winning team, <strong>½ Point</strong> if tied. Gross score, no handicaps.</p>
@@ -1387,9 +1395,9 @@
         </div>
 
         <div class="container section-padding" id="rules">
-            <h2 class="section-title">📜 Rules & Regulations 📜</h2>
-            <div style="margin-bottom: 24px;">
-                <button type="button" class="btn-print-rules" onclick="printRules()">🖨️ Print Rules</button>
+            <div class="section-header-row">
+                <h2 class="section-title">📜 Rules & Regulations 📜</h2>
+                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
             </div>
             <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
                 
@@ -1508,15 +1516,24 @@
             </div>
         </div>
 
-        <div id="rules-print-content" style="display: none;" aria-hidden="true">
-            <h1 style="text-align:center; font-size: 1.4rem; margin-bottom: 12px;">2026 Robson Ranch Invitational — Rules & Regulations</h1>
-            <p style="text-align:center; font-weight: bold; margin-bottom: 16px;">FORMAT RULES: ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY</p>
-            <p style="margin-bottom: 8px;"><strong>Preferred Lies (Bumping):</strong> Ball may be moved within one foot (12 inches), not nearer the hole. Same area of course (like-to-like). Not in hazards. USGA E-3.</p>
-            <p style="margin-bottom: 8px;"><strong>Day 1 (Stonebridge):</strong> Split format — Front 9 Scramble, Back 9 Alternate Shot. All 18 holes: 1 Point winning team / ½ Point tie. Gross score, no handicaps. Gimmies OK.</p>
-            <p style="margin-bottom: 8px;"><strong>Day 2 (Cypress Bend):</strong> 2-Man Best Ball NET. Medal play (total score), not match play. Course handicap from course handicap sheet. Full 18-hole net scores. 1 Point / ½ Point tie. Gimmies OK.</p>
-            <p style="margin-bottom: 8px;"><strong>Day 3 (The Tempest):</strong> Singles — net medal play (2 pts win / 1 pt tie). Individual: Low Net (White Tees) and Low Net (Gold Tees). NO GIMMIES — putt everything out. Valid 18-hole score required.</p>
-            <p style="margin-bottom: 8px;"><strong>OB (Robson Ranch rule):</strong> 2 strokes. Drop in fairway adjacent to where ball went OB (no return to tee).</p>
-            <p style="margin-bottom: 8px;"><strong>Lost ball (not OB):</strong> Group agrees location. One stroke penalty. Drop within 2 club-lengths of estimated spot (no nearer hole). If may be OB, use standard OB rule.</p>
+        <div id="format-and-rules-print-content" style="display: none;" aria-hidden="true">
+            <h1 style="text-align:center; font-size: 1.35rem; margin-bottom: 4px;">2026 Robson Ranch Invitational</h1>
+            <p style="text-align:center; font-size: 1.1rem; font-weight: bold; margin-bottom: 16px;">Format &amp; Rules</p>
+            <p style="text-align:center; font-weight: bold; margin-bottom: 14px;">ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY</p>
+
+            <h2 style="font-size: 1.1rem; margin: 14px 0 8px; border-bottom: 1px solid #333;">PLAY FORMAT</h2>
+            <p style="margin-bottom: 6px;"><strong>Day 1 — Stonebridge.</strong> Two-man teams: Teams 1 vs 2, Teams 3 vs 4. 10:00 AM shotgun. One result for 18 holes: 1 Point winning team / ½ Point tie. Gross, no handicaps.</p>
+            <p style="margin-bottom: 4px;"><strong>Holes 1–9:</strong> Scramble — each player drives, same spot through the hole; write down best score. Switch format at the turn (shotgun).</p>
+            <p style="margin-bottom: 10px;"><strong>Holes 10–18:</strong> True alternate shot. Choose one to drive on first alternate-shot hole; alternate shots. If you putt out, other player must drive next hole. Note who putted out on 18 so the correct player drives on 10 when you reach it.</p>
+
+            <p style="margin-bottom: 6px;"><strong>Day 2 — Cypress Bend.</strong> Two-man teams: Teams 1 vs 3, Teams 2 vs 4. Best ball for 18 holes, total score (NOT match play). Net scoring. Best net score per hole on card; add best net ball for 18 holes = team score. Tee times 1:00 PM. Course handicap from course handicap sheet.</p>
+
+            <p style="margin-bottom: 10px;"><strong>Day 3 — The Tempest.</strong> Singles: Teams 1 vs 4, Teams 2 vs 3. Medal play, total net score for 18 holes (NOT match play). You and your competitor: total of your net score. Tee times 10:30 AM. Low Net (White Tees) and Low Net (Gold Tees). NO GIMMIES — putt everything out.</p>
+
+            <h2 style="font-size: 1.1rem; margin: 14px 0 8px; border-bottom: 1px solid #333;">RULES</h2>
+            <p style="margin-bottom: 8px;"><strong>Preferred Lies (Bumping):</strong> Ball may be moved within one foot (12 inches), not nearer the hole. Same area of course (like-to-like). Cannot improve lie (e.g. rough to fairway) or bump in hazard. Line of play: don’t create new line of sight. USGA E-3.</p>
+            <p style="margin-bottom: 8px;"><strong>OB (Robson Ranch):</strong> 2 strokes. Drop in fairway adjacent to where ball went OB (no return to tee).</p>
+            <p style="margin-bottom: 8px;"><strong>Lost ball (not OB):</strong> Group agrees location. One stroke penalty. Drop within 2 club-lengths of estimated spot (no nearer hole). If may be OB, use OB rule.</p>
         </div>
 
         <div class="container" id="courses">
@@ -1725,11 +1742,11 @@
             }
         }, 1000);
 
-        function printRules() {
-            var content = document.getElementById('rules-print-content');
+        function printFormatAndRules() {
+            var content = document.getElementById('format-and-rules-print-content');
             if (!content) return;
             var win = window.open('', '_blank');
-            win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Rules — Robson Ranch Invitational 2026</title><style>body{font-family:Georgia,serif;font-size:11pt;line-height:1.4;max-width:7in;margin:0.5in auto;padding:0;color:#000;background:#fff;} h1{font-size:1.2rem;margin-bottom:8px;} p{margin-bottom:10px;} strong{font-weight:bold;}</style></head><body>');
+            win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Format &amp; Rules — Robson Ranch Invitational 2026</title><style>body{font-family:Georgia,serif;font-size:10.5pt;line-height:1.35;max-width:7in;margin:0.5in auto;padding:0;color:#000;background:#fff;} h1{font-size:1.2rem;} h2{font-size:1.05rem;} p{margin-bottom:8px;} strong{font-weight:bold;}</style></head><body>');
             win.document.write(content.innerHTML);
             win.document.write('</body></html>');
             win.document.close();
