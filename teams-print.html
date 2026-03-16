@@ -51,6 +51,9 @@
         .teams-print-grid { display: block; }
         .role-tag { font-size: 0.85em; color: #f4c430; font-weight: normal; }
         @media print { .role-tag { color: #000; } }
+        .validation-warning { background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 16px; border-radius: 6px; font-size: 0.9rem; }
+        .validation-warning ul { margin: 8px 0 0 16px; }
+        @media print { .validation-warning { display: none !important; } }
         .loading { text-align: center; padding: 40px; color: #999; }
         .error { color: #e57373; padding: 16px; }
     </style>
@@ -175,6 +178,39 @@
                 return '';
             }
 
+            function parseNum(s) {
+                if (s == null || s === '' || s === '—' || s === '-') return NaN;
+                var n = parseFloat(String(s).replace(/[^\d.-]/g, ''));
+                return isNaN(n) ? NaN : n;
+            }
+
+            function checkIndexVsCourseHcp(players) {
+                var courses = [{ key: 'stonebridge', label: 'Stonebridge' }, { key: 'cypress', label: 'Cypress Bend' }, { key: 'tempest', label: 'The Tempest' }];
+                var issues = [];
+                courses.forEach(function(course) {
+                    var byTees = {};
+                    players.forEach(function(p) {
+                        var tees = (p.tees || '').toLowerCase();
+                        if (!byTees[tees]) byTees[tees] = [];
+                        var ch = parseNum(p[course.key]);
+                        var idx = parseNum(p.index);
+                        if (!isNaN(idx) && !isNaN(ch)) byTees[tees].push({ name: p.name, index: idx, ch: ch });
+                    });
+                    Object.keys(byTees).forEach(function(tees) {
+                        var list = byTees[tees];
+                        for (var i = 0; i < list.length; i++) {
+                            for (var j = 0; j < list.length; j++) {
+                                if (i === j) continue;
+                                if (list[i].index > list[j].index && list[i].ch < list[j].ch) {
+                                    issues.push(list[i].name + ' (index ' + list[i].index + ') has lower ' + course.label + ' CH (' + list[i].ch + ') than ' + list[j].name + ' (index ' + list[j].index + ', CH ' + list[j].ch + ') — ' + (tees || 'Tees') + '.');
+                                }
+                            }
+                        }
+                    });
+                });
+                return issues;
+            }
+
             fetch(csvUrl)
                 .then(function(response) {
                     if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -247,6 +283,12 @@
                         html += '</tbody></table></div>';
                     });
                     html += '</div>';
+                    var validationIssues = checkIndexVsCourseHcp(players);
+                    if (validationIssues.length > 0) {
+                        html = '<div class="validation-warning no-print"><strong>Index vs Course Handicap check:</strong> The following look inconsistent (higher index but lower strokes). Check your sheet or course handicap table.<ul>' +
+                            validationIssues.map(function(msg) { return '<li>' + escapeHtml(msg) + '</li>'; }).join('') +
+                            '</ul></div>' + html;
+                    }
                     if (noTeam.length > 0) {
                         html += '<div class="team-block">';
                         html += '<h2>Unassigned</h2>';
