@@ -12,18 +12,18 @@
         .sub { text-align: center; margin-bottom: 20px; font-size: 0.95rem; color: #ccc; }
         .print-only { display: none; }
         @media print {
-            @page { size: letter; margin: 0.35in; }
-            body { background: #fff; color: #000; padding: 0.2in 0.25in; font-size: 8pt; }
+            @page { size: letter; margin: 0.25in; }
+            body { background: #fff; color: #000; padding: 0.15in 0.2in; font-size: 6.5pt; }
             .no-print { display: none !important; }
             .print-only { display: block; }
-            h1 { font-size: 11pt; margin-bottom: 2px; color: #000; }
-            .sub { font-size: 8pt; margin-bottom: 6px; }
-            .teams-print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
-            .team-block { break-inside: avoid; padding: 6px 8px; margin-bottom: 0; border: 1px solid #ccc; }
-            .team-block h2 { font-size: 8.5pt; margin-bottom: 2px; color: #000; }
-            .team-captain { font-size: 6.5pt; margin-bottom: 4px; color: #000; }
-            .team-block table { font-size: 7pt; }
-            .team-block th, .team-block td { padding: 2px 4px; border-bottom: 1px solid #ddd; }
+            h1 { font-size: 9pt; margin-bottom: 1px; color: #000; }
+            .sub { font-size: 6.5pt; margin-bottom: 3px; color: #000; }
+            .teams-print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; }
+            .team-block { break-inside: avoid; padding: 4px 5px; margin-bottom: 0; border: 1px solid #999; }
+            .team-block h2 { font-size: 6.5pt; margin-bottom: 1px; color: #000; }
+            .team-captain { font-size: 5.5pt; margin-bottom: 2px; color: #000; }
+            .team-block table { font-size: 5.5pt; }
+            .team-block th, .team-block td { padding: 1px 3px; border-bottom: 1px solid #ddd; }
             .team-block th { color: #000; }
             .role-tag { font-size: 1em; color: #000; }
         }
@@ -78,8 +78,8 @@
             var teamNames = {
                 '1': 'Team 1 — Back Nine Bandits',
                 '2': 'Team 2 — Bogey Brothers',
-                '3': 'Team 3 — Sand Trap Seniors',
-                '4': 'Team 4 — Slice Masters'
+                '3': 'Team 3 — Slice Masters',
+                '4': 'Team 4 — Sand Trap Seniors'
             };
             // Captain and Co-Captain per team (display as given; match names case-insensitive, with alternate spellings)
             var teamCaptains = {
