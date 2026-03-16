@@ -125,6 +125,18 @@
                 });
             }
 
+            // Convert "LAST, FIRST \"Nickname\"" to "First Last" for display and captain matching
+            function normalizeName(raw) {
+                if (!raw || !String(raw).trim()) return '';
+                var s = String(raw).trim();
+                var withoutNick = s.replace(/\s*["'].*["']\s*$/i, '').trim();
+                var parts = withoutNick.split(/\s*,\s*/);
+                if (parts.length >= 2) {
+                    return toTitleCase(parts[1].trim() + ' ' + parts[0].trim());
+                }
+                return toTitleCase(withoutNick);
+            }
+
             function escapeHtml(str) {
                 if (str == null) return '';
                 var div = document.createElement('div');
@@ -163,25 +175,32 @@
                     var headerRow = rows[0] || [];
                     var headers = {};
                     for (var h = 0; h < headerRow.length; h++) {
-                        if (headerRow[h]) headers[headerRow[h].trim().toLowerCase()] = h;
+                        if (headerRow[h]) {
+                            var key = headerRow[h].trim().toLowerCase().replace(/\s+/g, ' ');
+                            headers[key] = h;
+                        }
                     }
 
                     var players = [];
                     for (var i = 1; i < rows.length; i++) {
                         var row = rows[i];
                         if (!row || row.length === 0) continue;
-                        var name = getCell(row, headers, ['name', 'player', 'player name'], 'Unknown');
-                        var index = getCell(row, headers, ['index', 'handicap', 'hcp', 'current index', 'hi', 'indx', 'ghin'], '—');
-                        var tees = getCell(row, headers, ['tees', 'tee', 'tee box'], 'TBD');
-                        var team = getCell(row, headers, ['team', 'team #', 'team number', 'team no'], '');
-                        var captain = getCell(row, headers, ['captain', 'team captain', 'c'], '');
-                        var courseHcp = getCell(row, headers, ['course handicap', 'course hcp', 'ch', 'chcp', 'course hand'], '—');
+                        var nameRaw = getCell(row, headers, ['player name', 'name', 'player'], 'Unknown');
+                        var name = normalizeName(nameRaw) || toTitleCase(nameRaw);
+                        var index = getCell(row, headers, ['ghin as of 3/14/2026', 'ghin as of 3/14/26', 'ghin', 'index', 'handicap', 'hcp', 'current index', 'hi', 'indx'], '—');
+                        var tees = getCell(row, headers, ['tee box', 'tees', 'tee'], 'TBD');
+                        var team = getCell(row, headers, ['team (1, 2, 3, or 4)', 'team', 'team #', 'team number', 'team no'], '');
+                        var stonebridge = getCell(row, headers, ['stonebridge course handicap', 'stonebridge', 'stonebridge ch'], '—');
+                        var cypress = getCell(row, headers, ['cypress bend course handicap', 'cypress bend', 'cypress bend ch'], '—');
+                        var tempest = getCell(row, headers, ['the tempest course handicap', 'the tempest', 'tempest course handicap', 'tempest ch'], '—');
                         players.push({
-                            name: toTitleCase(name),
+                            name: name,
                             index: index,
                             tees: tees,
                             team: String(team).trim(),
-                            courseHandicap: courseHcp
+                            stonebridge: stonebridge,
+                            cypress: cypress,
+                            tempest: tempest
                         });
                     }
 
@@ -209,11 +228,11 @@
                         if (roles) {
                             html += '<p class="team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
                         }
-                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Course Handicap</th></tr></thead><tbody>';
+                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
                         list.forEach(function(p) {
                             var role = roleForPlayer(p.name, num);
                             var nameDisplay = p.name + (role ? ' <span class="role-tag">(' + role + ')</span>' : '');
-                            html += '<tr><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.courseHandicap) + '</td></tr>';
+                            html += '<tr><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
                         });
                         html += '</tbody></table></div>';
                     });
@@ -221,9 +240,9 @@
                         html += '<div class="team-block">';
                         html += '<h2>Unassigned</h2>';
                         html += '<p class="team-captain">Add a "Team" column (1–4) in the roster sheet to assign players to teams.</p>';
-                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Course Handicap</th></tr></thead><tbody>';
+                        html += '<table><thead><tr><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
                         noTeam.forEach(function(p) {
-                            html += '<tr><td>' + escapeHtml(p.name) + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.courseHandicap) + '</td></tr>';
+                            html += '<tr><td>' + escapeHtml(p.name) + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
                         });
                         html += '</tbody></table></div>';
                     }
