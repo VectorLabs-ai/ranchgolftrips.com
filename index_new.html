@@ -372,9 +372,33 @@
             border-radius: 12px;
             padding: 18px 24px 20px;
             margin: 20px 20px 24px;
-            text-align: center;
             color: #fff;
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .tangent-promo-box .tangent-promo-content {
+            flex: 1;
+            min-width: 260px;
+            text-align: center;
+        }
+        .tangent-promo-box .tangent-promo-img {
+            flex-shrink: 0;
+        }
+        .tangent-promo-box .tangent-promo-img img {
+            display: block;
+            height: 200px;
+            width: auto;
+            max-width: 320px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        @media (max-width: 700px) {
+            .tangent-promo-box { flex-direction: column; text-align: center; }
+            .tangent-promo-box .tangent-promo-content { min-width: 0; }
+            .tangent-promo-box .tangent-promo-img img { max-height: 180px; }
         }
         .tangent-promo-box .promo-logos {
             display: flex;
@@ -1264,15 +1288,20 @@
         </div>
 
         <div class="tangent-promo-box">
-            <div class="promo-logos">
-                <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
-                <span class="logo-sep">×</span>
-                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
+            <div class="tangent-promo-content">
+                <div class="promo-logos">
+                    <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
+                    <span class="logo-sep">×</span>
+                    <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
+                </div>
+                <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
+                <p style="margin-bottom: 12px;"><a href="https://tangent.golf" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
+                <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
+                <div class="tangent-info-box">The Golpher uses this app to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>.</div>
             </div>
-            <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
-            <p style="margin-bottom: 12px;"><a href="https://tangent.golf" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
-            <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
-            <div class="tangent-info-box">The Golpher uses this app to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>.</div>
+            <div class="tangent-promo-img">
+                <img src="https://ranchgolftrips.com/Tangent-App-Devices.png" alt="Tangent app on Apple Watch and iPhone — shot tracking and course view">
+            </div>
         </div>
 
         <div class="container" id="leaderboard">
