@@ -342,7 +342,7 @@
             border: 3px solid var(--gold);
             border-radius: 12px;
             padding: 18px 24px 20px;
-            margin: 0 20px 24px;
+            margin: 20px 20px 24px;
             text-align: center;
             color: #fff;
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
@@ -365,13 +365,19 @@
         .tangent-promo-box p { margin-bottom: 8px; line-height: 1.5; font-size: 0.95rem; color: #e8e8e8; }
         .tangent-promo-box .vga-text { color: #fff; font-weight: normal; }
         .tangent-promo-box .vga-text strong { color: #fff; font-weight: bold; }
-        .tangent-promo-box .vga-text .vga-ai { color: #60a5fa; font-weight: bold; }
+        .tangent-promo-box .vga-text .vga-ai,
+        .tangent-promo-box .vga-ai { color: #60a5fa; font-weight: bold; }
         .tangent-promo-box .promo-code { display: inline-block; background: var(--gold); color: #000; padding: 8px 20px; font-weight: bold; font-size: 1.1rem; border-radius: 6px; margin: 4px 0; letter-spacing: 2px; }
         .tangent-promo-box .app-download-btn { display: inline-block; background: var(--gold); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; margin-top: 8px; transition: opacity 0.2s; }
         .tangent-promo-box .app-download-btn:hover { opacity: 0.9; }
         .tangent-promo-box .see-in-action-link { color: var(--gold); font-weight: 600; text-decoration: none; }
         .tangent-promo-box .see-in-action-link:hover { text-decoration: underline; color: #fff; }
         .tangent-promo-box .tangent-site-link { color: var(--gold); font-size: 0.9rem; }
+        .tangent-promo-box .tangent-info-box {
+            margin-top: 14px; padding: 12px 16px; text-align: center;
+            border: 1px solid rgba(244, 196, 48, 0.4); border-radius: 8px;
+            background: rgba(0,0,0,0.25); font-size: 0.9rem; line-height: 1.5; color: #e8e8e8;
+        }
 
         .driver-rider-avatar-cell { width: 60px; padding: 8px 12px !important; vertical-align: middle; }
         .driver-rider-avatar {
@@ -1108,9 +1114,13 @@
         <div class="tangent-promo-box">
             <div class="promo-logos">
                 <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
+                <span class="logo-sep">×</span>
+                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
             </div>
+            <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
             <p style="margin-bottom: 12px;"><a href="https://apps.apple.com/us/app/tangent-golf-ai-caddie-drills/id1626743725" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
             <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
+            <div class="tangent-info-box">This is the app Corey uses to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>.</div>
         </div>
 
         <div class="container" id="leaderboard">
