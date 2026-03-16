@@ -372,9 +372,33 @@
             border-radius: 12px;
             padding: 18px 24px 20px;
             margin: 20px 20px 24px;
-            text-align: center;
             color: #fff;
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .tangent-promo-box .tangent-promo-content {
+            flex: 1;
+            min-width: 260px;
+            text-align: center;
+        }
+        .tangent-promo-box .tangent-promo-img {
+            flex-shrink: 0;
+        }
+        .tangent-promo-box .tangent-promo-img img {
+            display: block;
+            height: 200px;
+            width: auto;
+            max-width: 320px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        @media (max-width: 700px) {
+            .tangent-promo-box { flex-direction: column; text-align: center; }
+            .tangent-promo-box .tangent-promo-content { min-width: 0; }
+            .tangent-promo-box .tangent-promo-img img { max-height: 180px; }
         }
         .tangent-promo-box .promo-logos {
             display: flex;
@@ -449,8 +473,18 @@
             text-shadow: 2px 2px 4px #000; margin: 0;
         }
 
+        .roster-header-buttons {
+            display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .btn-print-roster {
+            background: #fff; color: #1a472a; padding: 8px 14px;
+            border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            border: 2px solid var(--gold); cursor: pointer;
+            font-family: 'Roboto', sans-serif; transition: all 0.2s;
+        }
+        .btn-print-roster:hover { background: var(--gold); color: #000; }
+
         .btn-edit-roster {
-            display: none;
             background: var(--gold); color: #000; padding: 8px 15px;
             border-radius: 4px; text-decoration: none; font-weight: bold;
             font-size: 0.9rem; border: 1px solid #d4af37;
@@ -468,6 +502,11 @@
             padding: 20px;
             border: 2px solid var(--gold);
             border-radius: 8px;
+        }
+        /* When roster is team-based, inner grid fills the full width (no empty gap) */
+        .roster-grid .roster-teams-grid {
+            grid-column: 1 / -1;
+            width: 100%;
         }
         
         .roster-item {
@@ -567,6 +606,114 @@
         .r-name { font-size: 1rem; color: #222; text-transform: uppercase; font-weight: bold; display: flex; align-items: center;}
         .r-meta { font-size: 0.8rem; color: #555; margin-top: 2px; }
         .r-loading { color: #fff; font-size: 1.2rem; text-align: center; grid-column: 1 / -1; }
+
+        /* --- ROSTER BY TEAMS (index_new) --- */
+        .roster-teams-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 24px 28px;
+        }
+        .roster-team-block {
+            background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 18px 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .roster-team-block h3 {
+            color: var(--gold);
+            font-family: 'Rye', serif;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+        .roster-team-block h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 8px auto 0;
+            opacity: 0.8;
+        }
+        .roster-team-captain {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+        .roster-team-captain strong { color: var(--gold); }
+        .roster-team-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        .roster-team-table thead {
+            background: rgba(244,196,48,0.12);
+        }
+        .roster-team-table th {
+            text-align: left;
+            padding: 8px 10px;
+            color: var(--gold);
+            border-bottom: 2px solid rgba(244,196,48,0.5);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        .roster-team-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.95);
+            vertical-align: middle;
+        }
+        .roster-team-table tbody tr:hover td { background: rgba(255,255,255,0.08); }
+        .roster-team-table tbody tr:last-child td { border-bottom: none; }
+        .roster-team-avatar-cell {
+            width: 48px;
+            padding: 8px 10px !important;
+        }
+        .roster-team-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .roster-team-avatar-initials {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(244,196,48,0.25);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--gold);
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .roster-team-role-tag { font-size: 0.7rem; color: var(--gold); font-weight: normal; }
+        /* Center course handicap columns (Stonebridge, Cypress Bend, The Tempest) */
+        .roster-team-table th:nth-child(5),
+        .roster-team-table th:nth-child(6),
+        .roster-team-table th:nth-child(7),
+        .roster-team-table td:nth-child(5),
+        .roster-team-table td:nth-child(6),
+        .roster-team-table td:nth-child(7) { text-align: center; }
+        /* Equal-height rows: fixed height so badges don't affect row size */
+        .roster-team-table tbody tr { height: 48px; }
+        .roster-team-table tbody td { vertical-align: middle; }
+        @media (max-width: 768px) {
+            .roster-teams-grid { grid-template-columns: 1fr; }
+        }
 
         /* --- PLAYER BIO MODAL STYLES --- */
         .bio-card {
@@ -1126,6 +1273,7 @@
                 <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Wildhorse-logo.webp" alt="Wildhorse"></a>
                 <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf"></a>
                 <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai"></a>
+                <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf"></a>
                 <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="https://ranchgolftrips.com/HouseOfCarts-Logo.webp" alt="House of Carts"></a>
             </div>
         </div>
@@ -1141,15 +1289,20 @@
         </div>
 
         <div class="tangent-promo-box">
-            <div class="promo-logos">
-                <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
-                <span class="logo-sep">×</span>
-                <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
+            <div class="tangent-promo-content">
+                <div class="promo-logos">
+                    <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
+                    <span class="logo-sep">×</span>
+                    <img src="https://ranchgolftrips.com/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" class="vga-logo">
+                </div>
+                <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
+                <p style="margin-bottom: 12px;"><a href="https://tangent.golf" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
+                <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
+                <div class="tangent-info-box">The Golpher uses this app to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>. We're playing new courses—having Tangent's course overlay and GPS could be an advantage!</div>
             </div>
-            <p><span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span> has secured a 30-day free trial of the Tangent App for tournament players.</p>
-            <p style="margin-bottom: 12px;"><a href="https://apps.apple.com/us/app/tangent-golf-ai-caddie-drills/id1626743725" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent App</a></p>
-            <p style="margin-bottom: 0;">Use Promo Code DALLAS</p>
-            <div class="tangent-info-box">The Golpher uses this app to track all on-course golf shots that are imported into <span class="vga-text">Vector</span><span class="vga-text"><strong>GOLF</strong></span><span class="vga-text vga-ai">.ai</span>.</div>
+            <div class="tangent-promo-img">
+                <img src="https://ranchgolftrips.com/Tangent-App-Devices.png" alt="Tangent app on Apple Watch and iPhone — shot tracking and course view">
+            </div>
         </div>
 
         <div class="container" id="leaderboard">
@@ -1223,10 +1376,12 @@
         <div class="container" id="roster">
             <div class="roster-header-container">
                 <h2 class="roster-title">♣ The Field (2026 Roster) ♣</h2>
-                
-                <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
-                    <span>✏️</span> Edit Roster
-                </a>
+                <div class="roster-header-buttons">
+                    <button type="button" class="btn-print-roster" id="btn-print-roster" title="Print roster (single page, ink-friendly)">🖨️ Print Roster</button>
+                    <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
+                        <span>✏️</span> Edit Roster
+                    </a>
+                </div>
             </div>
 
             <div class="roster-grid" id="roster-grid">
@@ -1403,6 +1558,39 @@
                 
                 <div class="format-item">
                     <div class="format-text">
+                        <h3>Day 1: Team — Split Format (Scramble / Alt Shot)</h3>
+                        <p>No handicaps (gross). Front 9: 2-Man Scramble. Back 9: 2-Man Alternate Shot. One result for all 18 holes: <strong>1 Point</strong> for winning team, <strong>½ Point</strong> if tied. Gimmies are allowed and encouraged for pace of play.</p>
+                        <h3 style="margin-top: 20px;">Day 2: 2-Man Best Ball NET (Medal Play — Not Match Play)</h3>
+                        <p><strong>Format:</strong> Medal play (low team net score wins). Not match play.</p>
+                        <p style="margin-bottom: 10px;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
+                        <p>Gimmies are allowed and encouraged for pace. Full 18-hole <strong>net</strong> scores must be recorded for each player; low net per hole counts for the team.</p>
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/CartGirl.png" alt="Day 1 &amp; Day 2 format" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
+                        <h3>Day 3: Singles Matches (Hybrid Format)</h3>
+                        <p><strong>Format:</strong> Singles Match Play AND Individual Low Net Stroke Play.</p>
+                        <p style="border: 1px solid var(--red-accent); padding: 10px; margin-top: 10px; background: rgba(183, 28, 28, 0.2); font-weight: bold; color: #ff8a80;">
+                            ⚠️ CRITICAL: You MUST putt everything out on Day 3. No concessions allowed. We need a valid 18-hole score for the Net Tournament.
+                        </p>
+                        
+                        <div style="margin-top: 10px; padding: 10px; background: rgba(255,215,0,0.1); border-left: 4px solid var(--gold);">
+                             <span style="color:var(--gold); font-weight:bold;">🏆 AWARD ALERT:</span>
+                             <span style="color:#ddd;"> "Missed Putt from the Shortest Distance Award"</span>
+                        </div>
+
+                    </div>
+                    <div class="format-img-container">
+                        <img src="https://ranchgolftrips.com/NoGimmies.png" alt="No Gimmies" class="format-img">
+                    </div>
+                </div>
+
+                <div class="format-item">
+                    <div class="format-text">
                         <h3 style="color: var(--bright-green);">General Play: Preferred Lies</h3>
                         <p style="margin-bottom: 15px; font-size: 1.1rem;">
                             <strong>BUMPING IS IN EFFECT.</strong>
@@ -1427,47 +1615,6 @@
                     </div>
                     <div class="format-img-container">
                         <img src="https://ranchgolftrips.com/Bumping.png" alt="Bumping Rule" class="format-img">
-                    </div>
-                </div>
-
-                <div class="format-item">
-                    <div class="format-text">
-                        <h3>Day 1: Team — Split Format (Scramble / Alt Shot)</h3>
-                        <p>No handicaps (gross). Front 9: 2-Man Scramble. Back 9: 2-Man Alternate Shot. One result for all 18 holes: <strong>1 Point</strong> for winning team, <strong>½ Point</strong> if tied. Gimmies are allowed and encouraged for pace of play.</p>
-                    </div>
-                    <div class="format-img-container">
-                        <img src="https://ranchgolftrips.com/CartGirl.png" alt="Team Day 1" class="format-img">
-                    </div>
-                </div>
-
-                <div class="format-item">
-                    <div class="format-text">
-                        <h3>Day 2: 2-Man Best Ball NET (Medal Play — Not Match Play)</h3>
-                        <p><strong>Format:</strong> Medal play (low team net score wins). Not match play.</p>
-                        <p style="margin-bottom: 10px;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
-                        <p>Gimmies are allowed and encouraged for pace. Full 18-hole <strong>net</strong> scores must be recorded for each player; low net per hole counts for the team.</p>
-                    </div>
-                    <div class="format-img-container">
-                        <img src="https://ranchgolftrips.com/CartGirl.png" alt="Day 2 Best Ball" class="format-img">
-                    </div>
-                </div>
-
-                <div class="format-item">
-                    <div class="format-text">
-                        <h3>Day 3: Singles Matches (Hybrid Format)</h3>
-                        <p><strong>Format:</strong> Singles Match Play AND Individual Low Net Stroke Play.</p>
-                        <p style="border: 1px solid var(--red-accent); padding: 10px; margin-top: 10px; background: rgba(183, 28, 28, 0.2); font-weight: bold; color: #ff8a80;">
-                            ⚠️ CRITICAL: You MUST putt everything out on Day 3. No concessions allowed. We need a valid 18-hole score for the Net Tournament.
-                        </p>
-                        
-                        <div style="margin-top: 10px; padding: 10px; background: rgba(255,215,0,0.1); border-left: 4px solid var(--gold);">
-                             <span style="color:var(--gold); font-weight:bold;">🏆 AWARD ALERT:</span>
-                             <span style="color:#ddd;"> "Missed Putt from the Shortest Distance Award"</span>
-                        </div>
-
-                    </div>
-                    <div class="format-img-container">
-                        <img src="https://ranchgolftrips.com/NoGimmies.png" alt="No Gimmies" class="format-img">
                     </div>
                 </div>
 
@@ -1758,6 +1905,8 @@
         // --- MODAL ALERT LOGIC ---
         window.onload = function() {
             loadRoster();
+            var btn = document.getElementById('btn-print-roster');
+            if (btn) btn.addEventListener('click', printRoster);
         };
 
         // --- GOOGLE SHEET FETCH LOGIC ---
@@ -1775,19 +1924,20 @@ async function loadRoster() {
     const text = await response.text();
     const rows = parseCSV(text);
 
-    grid.innerHTML = '';
-    const driverRiderList = [];
-
-    // 1) headers map
+    // 1) headers map (normalize keys for sheet column names with spaces)
     const headerRow = rows[0] || [];
     const headers = {};
     headerRow.forEach((h, idx) => {
-      if (h) headers[h.trim().toLowerCase()] = idx;
+      if (h) {
+        const key = h.trim().toLowerCase().replace(/\s+/g, ' ');
+        headers[key] = idx;
+      }
     });
 
     function getCell(rowArr, nameList, fallback = "") {
       for (const name of nameList) {
-        const idx = headers[name.toLowerCase()];
+        const key = name.toLowerCase().replace(/\s+/g, ' ');
+        const idx = headers[key];
         if (idx !== undefined && rowArr[idx] !== undefined) {
           const val = String(rowArr[idx]).trim();
           if (val.length) return val;
@@ -1796,78 +1946,74 @@ async function loadRoster() {
       return fallback;
     }
 
-    // 2) loop players
+    // 2) build players with team and course handicaps
+    const players = [];
+    const driverRiderList = [];
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       if (!row || row.length === 0) continue;
-
+      const nameRaw = getCell(row, ["player name", "name", "player"], "Unknown");
+      const name = normalizeName(nameRaw) || toTitleCase(nameRaw);
+      let rawAvatar = getCell(row, ["avatar", "photo", "image"], "").trim();
+      if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
+      const initials = name.split(" ").map(n => n[0]).join("").substring(0, 2);
       const p = {
-        name: toTitleCase(getCell(row, ["name", "player", "player name"], "Unknown")),
-        // UPDATE: CHECKING MORE COLUMN NAMES FOR INDEX including GHIN
-        index: getCell(row, ["index", "handicap", "hcp", "current index", "hi", "indx", "ghin"], "-"),
-        tees: getCell(row, ["tees", "tee", "tee box"], "TBD"),
+        name,
+        index: getCell(row, ["ghin as of 3/14/2026", "ghin as of 3/14/26", "ghin", "index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
+        tees: getCell(row, ["tee box", "tees", "tee"], "TBD"),
         bio: getCell(row, ["bio", "player bio"], "No bio available."),
-        avatar: getCell(row, ["avatar", "photo", "image"], ""),
-        winner: getCell(row, ["winner", "previous winner"], ""),
-        commish: getCell(row, ["commish", "commissioner"], ""),
-        paid: getCell(row, ["paid"], ""),
-        drivers: getCell(row, ["drivers", "driver"], "—")
+        avatar: rawAvatar.toLowerCase().startsWith('http') ? rawAvatar : "",
+        drivers: getCell(row, ["drivers", "driver"], "—"),
+        team: String(getCell(row, ["team (1, 2, 3, or 4)", "team", "team #", "team number", "team no"], "")).trim(),
+        stonebridge: getCell(row, ["stonebridge course handicap", "stonebridge", "stonebridge ch"], "—"),
+        cypress: getCell(row, ["cypress bend course handicap", "cypress bend", "cypress bend ch"], "—"),
+        tempest: getCell(row, ["the tempest course handicap", "the tempest", "tempest course handicap", "tempest ch"], "—"),
+        initials
       };
-
-      const isPaid = String(p.paid).trim().toLowerCase() === "yes";
-      const paidHtml = isPaid ? `<span class="paid-stamp">PAID</span>` : "";
-
-      // avatar
-      let rawAvatar = (p.avatar || "").trim();
-      if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) {
-        rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
-      }
-
-      let avatarHtml = '';
-      if (rawAvatar.toLowerCase().startsWith('http')) {
-        avatarHtml = `<img src="${rawAvatar}" alt="${p.name}" class="roster-thumb">`;
-        p.avatar = rawAvatar;
-      } else {
-        const initials = p.name.split(" ").map(n => n[0]).join("").substring(0,2);
-        avatarHtml = `<div class="roster-thumb">${initials}</div>`;
-      }
-
-      // badges
-      const item = document.createElement('div');
-      item.className = 'roster-item';
-
-      let badgeHtml = '';
-      if (String(p.commish).toLowerCase() === 'yes') {
-        item.classList.add('commissioner');
-        badgeHtml = ' <span class="commish-badge">COMMISSIONER</span>';
-      } else if (String(p.winner).toLowerCase() === 'yes') {
-        item.classList.add('previous-winner');
-        badgeHtml = ' <span class="trophy-icon">🏆</span>';
-      }
-
-      item.innerHTML = `
-        ${paidHtml}
-        ${avatarHtml}
-        <div class="roster-text">
-          <span class="r-name">${p.name} ${badgeHtml}</span>
-          <span class="r-meta">
-            <strong>Index:</strong> ${p.index} • <strong>Tees:</strong> ${p.tees}
-          </span>
-        </div>
-      `;
-
-      item.onclick = function () { openBio(p); };
-      grid.appendChild(item);
-
-      // Collect for Driver/Rider Details section (avatar URL or empty for initials)
-      var avatarUrl = (rawAvatar && rawAvatar.toLowerCase().startsWith('http')) ? rawAvatar : '';
-      var initials = p.name.split(" ").map(function(n) { return n[0]; }).join("").substring(0, 2);
-      driverRiderList.push({ name: p.name, drivers: p.drivers, avatarUrl: avatarUrl, initials: initials });
+      players.push(p);
+      driverRiderList.push({ name: p.name, drivers: p.drivers, avatarUrl: p.avatar, initials: p.initials });
     }
 
-    if (grid.innerHTML.trim() === '') {
-      grid.innerHTML = '<div class="r-loading">No roster rows found.</div>';
-    }
+    // 3) group by team and sort by index
+    const byTeam = { '1': [], '2': [], '3': [], '4': [] };
+    players.forEach(p => {
+      const t = p.team;
+      if (t === '1' || t === '2' || t === '3' || t === '4') byTeam[t].push(p);
+    });
+    [1, 2, 3, 4].forEach(num => {
+      byTeam[String(num)].sort((a, b) => indexSortValue(a.index) - indexSortValue(b.index));
+    });
+
+    // 4) build team-based roster HTML
+    let html = '<div class="roster-teams-grid">';
+    [1, 2, 3, 4].forEach(num => {
+      const list = byTeam[String(num)];
+      const teamLabel = TEAM_NAMES[String(num)] || ('Team ' + num);
+      const roles = TEAM_CAPTAINS[String(num)];
+      html += '<div class="roster-team-block">';
+      html += '<h3>' + escapeHtml(teamLabel) + '</h3>';
+      if (roles) html += '<p class="roster-team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
+      html += '<table class="roster-team-table"><thead><tr><th></th><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
+      list.forEach((p, i) => {
+        const avatarCell = p.avatar ? '<img src="' + escapeHtml(p.avatar) + '" alt="" class="roster-team-avatar">' : '<div class="roster-team-avatar-initials">' + escapeHtml(p.initials) + '</div>';
+        html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + escapeHtml(p.name) + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    });
+    html += '</div>';
+
+    window._rosterPlayersByTeam = byTeam;
+    grid.innerHTML = players.length === 0 ? '<div class="r-loading">No roster rows found.</div>' : html;
+
+    // 5) attach click to open bio
+    grid.querySelectorAll('.roster-team-row').forEach(tr => {
+      tr.addEventListener('click', function() {
+        const team = this.getAttribute('data-team');
+        const idx = parseInt(this.getAttribute('data-idx'), 10);
+        const p = window._rosterPlayersByTeam && window._rosterPlayersByTeam[team] && window._rosterPlayersByTeam[team][idx];
+        if (p) openBio(p);
+      });
+    });
 
     // Fill Driver/Rider Details table (with avatar)
     const tbody = document.getElementById('driver-rider-tbody');
@@ -1954,11 +2100,94 @@ async function loadRoster() {
             );
         }
 
+        /** Strip ALL nicknames (quoted or in parens) from a string, return first + last only. Handles "straight" and "curly" quotes. */
+        /** Strip nicknames: remove content in double quotes, single quotes, or parens. Handles straight/curly quotes and unbalanced quotes. */
+        function stripNicknames(str) {
+            if (!str || !String(str).trim()) return '';
+            var s = String(str);
+            var dqClass = '["\u201C\u201D\u201E\u201F]';
+            var notDq = '[^"\u201C\u201D\u201E\u201F]';
+            s = s.replace(new RegExp('\\s*' + dqClass + notDq + '*' + dqClass, 'g'), '');  /* "Risky" or "Risky" */
+            s = s.replace(new RegExp('\\s*' + dqClass + notDq + '*$', 'g'), '');           /* "Risky Liske with no closing quote */
+            s = s.replace(/\s*'[^']*'/g, '').replace(/\s*'[^']*$/g, '');
+            s = s.replace(/\s*[\u2018\u2019\u201A\u201B][^\u2018\u2019\u201A\u201B]*[\u2018\u2019\u201A\u201B]/g, '');
+            s = s.replace(/\s*\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
+            return s;
+        }
+        function normalizeName(raw) {
+            if (!raw || !String(raw).trim()) return '';
+            let s = String(raw).trim();
+            s = stripNicknames(s);
+            if (!s) return '';
+            let parts = s.split(/\s*,\s*/);
+            if (parts.length >= 2) return toTitleCase(parts[1].trim() + ' ' + parts[0].trim());
+            return toTitleCase(s);
+        }
+
+        const TEAM_NAMES = { '1': 'Team 1 — Back Nine Bandits', '2': 'Team 2 — Bogey Brothers', '3': 'Team 3 — Slice Masters', '4': 'Team 4 — Sand Trap Seniors' };
+        const TEAM_CAPTAINS = {
+            '1': { captain: 'Corey Klessig', captainMatch: ['Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
+            '2': { captain: 'Lyynal Carey', captainMatch: ['Lyynal Carey', 'Llynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
+            '3': { captain: 'Bob DiFonzo', captainMatch: ['Bob DiFonzo'], coCaptain: 'Scott Eskridge', coCaptainMatch: ['Scott Eskridge'] },
+            '4': { captain: 'John Gauthier', captainMatch: ['John Gauthier'], coCaptain: 'Tyler Clark', coCaptainMatch: ['Tyler Clark'] }
+        };
+        function roleForPlayer(playerName, teamNum) {
+            const roles = TEAM_CAPTAINS[String(teamNum)];
+            if (!roles) return '';
+            const lower = (playerName || '').toLowerCase().trim();
+            if (roles.captainMatch && roles.captainMatch.some(m => lower === (m || '').toLowerCase().trim())) return 'Captain';
+            if (roles.coCaptainMatch && roles.coCaptainMatch.some(m => lower === (m || '').toLowerCase().trim())) return 'Co-Captain';
+            return '';
+        }
+        function indexSortValue(indexStr) {
+            const n = parseFloat(String(indexStr).replace(/[^\d.-]/g, ''));
+            return isNaN(n) ? 999 : n;
+        }
+
         function escapeHtml(str) {
             if (str == null) return '';
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML;
+        }
+
+        function printRoster() {
+            var byTeam = window._rosterPlayersByTeam;
+            if (!byTeam) {
+                alert('Roster not loaded yet. Please wait and try again.');
+                return;
+            }
+            var title = '2026 Robson Ranch Invitational — Roster';
+            var styles = '<style type="text/css">' +
+                '*,*::before,*::after{box-sizing:border-box;} body{margin:0;background:#fff;color:#111;font-family:Georgia,serif;font-size:11px;padding:0.4in;}' +
+                'h1{font-size:14px;margin:0 0 12px 0;text-align:center;font-weight:bold;}' +
+                '.print-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;}' +
+                '.print-team{break-inside:avoid;border:1px solid #999;padding:8px;}' +
+                '.print-team h2{font-size:11px;margin:0 0 4px 0;font-weight:bold;}' +
+                '.print-team .captain{font-size:9px;color:#333;margin-bottom:6px;}' +
+                'table{width:100%;border-collapse:collapse;font-size:9px;} th,td{border:1px solid #ccc;padding:3px 5px;text-align:left;}' +
+                'th{font-weight:bold;background:#f5f5f5;} .num{text-align:center;} @page{size:letter;margin:0.5in;}' +
+                '</style>';
+            var body = '<h1>' + escapeHtml(title) + '</h1><div class="print-grid">';
+            [1, 2, 3, 4].forEach(function(num) {
+                var list = byTeam[String(num)] || [];
+                var teamLabel = TEAM_NAMES[String(num)] || ('Team ' + num);
+                var roles = TEAM_CAPTAINS[String(num)];
+                body += '<div class="print-team">';
+                body += '<h2>' + escapeHtml(teamLabel) + '</h2>';
+                if (roles) body += '<p class="captain">Captain: ' + escapeHtml(roles.captain) + ' | Co-Captain: ' + escapeHtml(roles.coCaptain) + '</p>';
+                body += '<table><thead><tr><th>Player</th><th class="num">Index</th><th>Tees</th><th class="num">Stonebridge</th><th class="num">Cypress</th><th class="num">Tempest</th></tr></thead><tbody>';
+                list.forEach(function(p) {
+                    body += '<tr><td>' + escapeHtml(p.name) + '</td><td class="num">' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td class="num">' + escapeHtml(p.stonebridge) + '</td><td class="num">' + escapeHtml(p.cypress) + '</td><td class="num">' + escapeHtml(p.tempest) + '</td></tr>';
+                });
+                body += '</tbody></table></div>';
+            });
+            body += '</div>';
+            var win = window.open('', '_blank');
+            win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escapeHtml(title) + '</title>' + styles + '</head><body>' + body + '</body></html>');
+            win.document.close();
+            win.focus();
+            win.onload = function() { win.print(); };
         }
     </script>
 </body>
