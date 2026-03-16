@@ -449,8 +449,18 @@
             text-shadow: 2px 2px 4px #000; margin: 0;
         }
 
+        .roster-header-buttons {
+            display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .btn-print-roster {
+            background: #fff; color: #1a472a; padding: 8px 14px;
+            border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            border: 2px solid var(--gold); cursor: pointer;
+            font-family: 'Roboto', sans-serif; transition: all 0.2s;
+        }
+        .btn-print-roster:hover { background: var(--gold); color: #000; }
+
         .btn-edit-roster {
-            display: none;
             background: var(--gold); color: #000; padding: 8px 15px;
             border-radius: 4px; text-decoration: none; font-weight: bold;
             font-size: 0.9rem; border: 1px solid #d4af37;
@@ -1336,10 +1346,12 @@
         <div class="container" id="roster">
             <div class="roster-header-container">
                 <h2 class="roster-title">♣ The Field (2026 Roster) ♣</h2>
-                
-                <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
-                    <span>✏️</span> Edit Roster
-                </a>
+                <div class="roster-header-buttons">
+                    <button type="button" class="btn-print-roster" id="btn-print-roster" title="Print roster (single page, ink-friendly)">🖨️ Print Roster</button>
+                    <a href="https://docs.google.com/spreadsheets/d/14yvwtXhF5zR-9dOmgxT9lYls_XXAyfELrKSrxyuneQo/edit?usp=sharing" target="_blank" class="btn-edit-roster">
+                        <span>✏️</span> Edit Roster
+                    </a>
+                </div>
             </div>
 
             <div class="roster-grid" id="roster-grid">
@@ -1871,6 +1883,8 @@
         // --- MODAL ALERT LOGIC ---
         window.onload = function() {
             loadRoster();
+            var btn = document.getElementById('btn-print-roster');
+            if (btn) btn.addEventListener('click', printRoster);
         };
 
         // --- GOOGLE SHEET FETCH LOGIC ---
@@ -2065,12 +2079,16 @@ async function loadRoster() {
         }
 
         /** Strip ALL nicknames (quoted or in parens) from a string, return first + last only. Handles "straight" and "curly" quotes. */
+        /** Strip nicknames: remove content in double quotes, single quotes, or parens. Handles straight/curly quotes and unbalanced quotes. */
         function stripNicknames(str) {
             if (!str || !String(str).trim()) return '';
             var s = String(str);
-            s = s.replace(/\s*"[^"]*"/g, '').replace(/\s*'[^']*'/g, '');
-            s = s.replace(/\s*[\u201C\u201D\u201E\u201F][^\u201C\u201D\u201E\u201F]*[\u201C\u201D\u201E\u201F]/g, '');  /* “ ” */
-            s = s.replace(/\s*[\u2018\u2019\u201A\u201B][^\u2018\u2019\u201A\u201B]*[\u2018\u2019\u201A\u201B]/g, '');  /* ' ' */
+            var dqClass = '["\u201C\u201D\u201E\u201F]';
+            var notDq = '[^"\u201C\u201D\u201E\u201F]';
+            s = s.replace(new RegExp('\\s*' + dqClass + notDq + '*' + dqClass, 'g'), '');  /* "Risky" or "Risky" */
+            s = s.replace(new RegExp('\\s*' + dqClass + notDq + '*$', 'g'), '');           /* "Risky Liske with no closing quote */
+            s = s.replace(/\s*'[^']*'/g, '').replace(/\s*'[^']*$/g, '');
+            s = s.replace(/\s*[\u2018\u2019\u201A\u201B][^\u2018\u2019\u201A\u201B]*[\u2018\u2019\u201A\u201B]/g, '');
             s = s.replace(/\s*\([^)]*\)/g, '').replace(/\s+/g, ' ').trim();
             return s;
         }
@@ -2109,6 +2127,45 @@ async function loadRoster() {
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML;
+        }
+
+        function printRoster() {
+            var byTeam = window._rosterPlayersByTeam;
+            if (!byTeam) {
+                alert('Roster not loaded yet. Please wait and try again.');
+                return;
+            }
+            var title = '2026 Robson Ranch Invitational — Roster';
+            var styles = '<style type="text/css">' +
+                '*,*::before,*::after{box-sizing:border-box;} body{margin:0;background:#fff;color:#111;font-family:Georgia,serif;font-size:11px;padding:0.4in;}' +
+                'h1{font-size:14px;margin:0 0 12px 0;text-align:center;font-weight:bold;}' +
+                '.print-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;}' +
+                '.print-team{break-inside:avoid;border:1px solid #999;padding:8px;}' +
+                '.print-team h2{font-size:11px;margin:0 0 4px 0;font-weight:bold;}' +
+                '.print-team .captain{font-size:9px;color:#333;margin-bottom:6px;}' +
+                'table{width:100%;border-collapse:collapse;font-size:9px;} th,td{border:1px solid #ccc;padding:3px 5px;text-align:left;}' +
+                'th{font-weight:bold;background:#f5f5f5;} .num{text-align:center;} @page{size:letter;margin:0.5in;}' +
+                '</style>';
+            var body = '<h1>' + escapeHtml(title) + '</h1><div class="print-grid">';
+            [1, 2, 3, 4].forEach(function(num) {
+                var list = byTeam[String(num)] || [];
+                var teamLabel = TEAM_NAMES[String(num)] || ('Team ' + num);
+                var roles = TEAM_CAPTAINS[String(num)];
+                body += '<div class="print-team">';
+                body += '<h2>' + escapeHtml(teamLabel) + '</h2>';
+                if (roles) body += '<p class="captain">Captain: ' + escapeHtml(roles.captain) + ' | Co-Captain: ' + escapeHtml(roles.coCaptain) + '</p>';
+                body += '<table><thead><tr><th>Player</th><th class="num">Index</th><th>Tees</th><th class="num">Stonebridge</th><th class="num">Cypress</th><th class="num">Tempest</th></tr></thead><tbody>';
+                list.forEach(function(p) {
+                    body += '<tr><td>' + escapeHtml(p.name) + '</td><td class="num">' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td class="num">' + escapeHtml(p.stonebridge) + '</td><td class="num">' + escapeHtml(p.cypress) + '</td><td class="num">' + escapeHtml(p.tempest) + '</td></tr>';
+                });
+                body += '</tbody></table></div>';
+            });
+            body += '</div>';
+            var win = window.open('', '_blank');
+            win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escapeHtml(title) + '</title>' + styles + '</head><body>' + body + '</body></html>');
+            win.document.close();
+            win.focus();
+            win.onload = function() { win.print(); };
         }
     </script>
 </body>
