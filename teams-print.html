@@ -17,9 +17,14 @@
             .no-print { display: none !important; }
             .print-only { display: block; }
             h1 { font-size: 9pt; margin-bottom: 1px; color: #000; }
-            .sub { font-size: 6.5pt; margin-bottom: 3px; color: #000; }
-            .teams-print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; }
-            .team-block { break-inside: avoid; padding: 4px 5px; margin-bottom: 0; border: 1px solid #999; }
+            .sub { font-size: 6.5pt; margin-bottom: 4px; color: #000; }
+            .teams-print-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                gap: 6px 10px;
+            }
+            .team-block { break-inside: avoid; padding: 4px 5px; margin: 0; border: 1px solid #999; }
             .team-block h2 { font-size: 6.5pt; margin-bottom: 1px; color: #000; }
             .team-captain { font-size: 5.5pt; margin-bottom: 2px; color: #000; }
             .team-block table { font-size: 5.5pt; }
