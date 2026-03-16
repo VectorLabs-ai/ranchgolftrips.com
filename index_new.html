@@ -667,6 +667,37 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .roster-team-role-tag { font-size: 0.7rem; color: var(--gold); font-weight: normal; }
+        /* Center course handicap columns (Stonebridge, Cypress Bend, The Tempest) */
+        .roster-team-table th:nth-child(5),
+        .roster-team-table th:nth-child(6),
+        .roster-team-table th:nth-child(7),
+        .roster-team-table td:nth-child(5),
+        .roster-team-table td:nth-child(6),
+        .roster-team-table td:nth-child(7) { text-align: center; }
+        /* Equal-height rows */
+        .roster-team-table tbody tr { height: 48px; }
+        .roster-team-table tbody td { vertical-align: middle; }
+        /* Captain / Co-Captain badges */
+        .roster-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .roster-badge-captain {
+            background: var(--gold);
+            color: #1a472a;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .roster-badge-cocaptain {
+            background: rgba(244,196,48,0.35);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
         @media (max-width: 768px) {
             .roster-teams-grid { grid-template-columns: 1fr; }
         }
@@ -1911,8 +1942,10 @@ async function loadRoster() {
       let rawAvatar = getCell(row, ["avatar", "photo", "image"], "").trim();
       if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
       const initials = name.split(" ").map(n => n[0]).join("").substring(0, 2);
+      const displayName = stripNicknames(name) || name;
       const p = {
         name,
+        displayName,
         index: getCell(row, ["ghin as of 3/14/2026", "ghin as of 3/14/26", "ghin", "index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
         tees: getCell(row, ["tee box", "tees", "tee"], "TBD"),
         bio: getCell(row, ["bio", "player bio"], "No bio available."),
@@ -1949,8 +1982,9 @@ async function loadRoster() {
       if (roles) html += '<p class="roster-team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
       html += '<table class="roster-team-table"><thead><tr><th></th><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
       list.forEach((p, i) => {
-        const role = roleForPlayer(p.name, num);
-        const nameDisplay = escapeHtml(p.name) + (role ? ' <span class="roster-team-role-tag">(' + role + ')</span>' : '');
+        const role = roleForPlayer(p.displayName, num);
+        const badge = role === 'Captain' ? '<span class="roster-badge roster-badge-captain">Captain</span>' : role === 'Co-Captain' ? '<span class="roster-badge roster-badge-cocaptain">Co-Captain</span>' : '';
+        const nameDisplay = escapeHtml(p.displayName) + (badge ? ' ' + badge : '');
         const avatarCell = p.avatar ? '<img src="' + escapeHtml(p.avatar) + '" alt="" class="roster-team-avatar">' : '<div class="roster-team-avatar-initials">' + escapeHtml(p.initials) + '</div>';
         html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
       });
@@ -2063,6 +2097,11 @@ async function loadRoster() {
             let parts = withoutNick.split(/\s*,\s*/);
             if (parts.length >= 2) return toTitleCase(parts[1].trim() + ' ' + parts[0].trim());
             return toTitleCase(withoutNick);
+        }
+        /** Remove quoted nicknames for display (e.g. Gary "Coach" Smith -> Gary Smith) */
+        function stripNicknames(str) {
+            if (!str || !String(str).trim()) return '';
+            return String(str).replace(/\s*"[^"]*"/g, '').replace(/\s+/g, ' ').trim();
         }
 
         const TEAM_NAMES = { '1': 'Team 1 — Back Nine Bandits', '2': 'Team 2 — Bogey Brothers', '3': 'Team 3 — Slice Masters', '4': 'Team 4 — Sand Trap Seniors' };
