@@ -19,9 +19,9 @@
             h1 { font-size: 9pt; margin-bottom: 1px; color: #000; }
             .sub { font-size: 6.5pt; margin-bottom: 4px; color: #000; }
             .teams-print-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto auto;
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                grid-template-rows: auto auto !important;
                 gap: 6px 10px;
             }
             .team-block { break-inside: avoid; padding: 4px 5px; margin: 0; border: 1px solid #999; }
@@ -53,7 +53,13 @@
             th { color: #000; }
             td, .team-captain { border-color: #ddd; color: #000; }
         }
-        .teams-print-grid { display: block; }
+        .teams-print-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 16px 20px;
+        }
+        .teams-print-grid .team-block { margin-bottom: 0; }
         .role-tag { font-size: 0.85em; color: #f4c430; font-weight: normal; }
         @media print { .role-tag { color: #000; } }
         .validation-warning { background: #fff3cd; border: 1px solid #ffc107; color: #856404; padding: 12px; margin-bottom: 16px; border-radius: 6px; font-size: 0.9rem; }
