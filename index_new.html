@@ -469,6 +469,11 @@
             border: 2px solid var(--gold);
             border-radius: 8px;
         }
+        /* When roster is team-based, inner grid fills the full width (no empty gap) */
+        .roster-grid .roster-teams-grid {
+            grid-column: 1 / -1;
+            width: 100%;
+        }
         
         .roster-item {
             background: #fff;
@@ -573,64 +578,85 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: auto auto;
-            gap: 20px 24px;
+            gap: 24px 28px;
         }
         .roster-team-block {
-            background: rgba(0,0,0,0.35);
+            background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 100%);
             border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 18px 20px;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
         }
         .roster-team-block h3 {
             color: var(--gold);
             font-family: 'Rye', serif;
-            font-size: 1.2rem;
-            margin-bottom: 4px;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
             text-align: center;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+        .roster-team-block h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 8px auto 0;
+            opacity: 0.8;
         }
         .roster-team-captain {
             font-size: 0.8rem;
-            color: #ccc;
+            color: rgba(255,255,255,0.85);
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            line-height: 1.4;
         }
+        .roster-team-captain strong { color: var(--gold); }
         .roster-team-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+        }
+        .roster-team-table thead {
+            background: rgba(244,196,48,0.12);
         }
         .roster-team-table th {
             text-align: left;
-            padding: 6px 8px;
+            padding: 8px 10px;
             color: var(--gold);
-            border-bottom: 1px solid rgba(244,196,48,0.5);
-            font-size: 0.75rem;
+            border-bottom: 2px solid rgba(244,196,48,0.5);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
         .roster-team-table td {
-            padding: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.95);
             vertical-align: middle;
         }
-        .roster-team-table tr:hover td { background: rgba(255,255,255,0.06); }
+        .roster-team-table tbody tr:hover td { background: rgba(255,255,255,0.08); }
+        .roster-team-table tbody tr:last-child td { border-bottom: none; }
         .roster-team-avatar-cell {
-            width: 44px;
-            padding: 6px 8px !important;
+            width: 48px;
+            padding: 8px 10px !important;
         }
         .roster-team-avatar {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
             display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         .roster-team-avatar-initials {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: rgba(244,196,48,0.2);
+            background: rgba(244,196,48,0.25);
             border: 2px solid var(--gold);
             display: flex;
             align-items: center;
@@ -638,6 +664,7 @@
             font-weight: bold;
             color: var(--gold);
             font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .roster-team-role-tag { font-size: 0.7rem; color: var(--gold); font-weight: normal; }
         @media (max-width: 768px) {
