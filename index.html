@@ -337,6 +337,22 @@
         .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
         .lb-table tr:hover { background-color: #e8f5e9; }
 
+        .tangent-promo-box {
+            background: linear-gradient(180deg, #1a2a1a 0%, #0d1a0d 100%);
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 24px;
+            margin: 0 20px 30px;
+            text-align: center;
+            color: #fff;
+        }
+        .tangent-promo-box .tangent-logo { height: 56px; width: auto; max-width: 180px; margin-bottom: 12px; object-fit: contain; }
+        .tangent-promo-box h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 12px; }
+        .tangent-promo-box p { margin-bottom: 10px; line-height: 1.5; font-size: 1rem; }
+        .tangent-promo-box .promo-code { display: inline-block; background: var(--gold); color: #000; padding: 8px 20px; font-weight: bold; font-size: 1.2rem; border-radius: 6px; margin: 8px 0; letter-spacing: 2px; }
+        .tangent-promo-box .app-download-btn { display: inline-block; background: #000; color: var(--gold); border: 2px solid var(--gold); padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; margin-top: 12px; transition: background 0.2s, color 0.2s; }
+        .tangent-promo-box .app-download-btn:hover { background: var(--gold); color: #000; }
+
         .driver-rider-avatar-cell { width: 60px; padding: 8px 12px !important; vertical-align: middle; }
         .driver-rider-avatar {
             width: 44px; height: 44px;
@@ -1067,6 +1083,16 @@
             <div class="timer-unit"><span class="timer-val" id="hours">00</span><span class="timer-label">Hours</span></div>
             <div class="timer-unit"><span class="timer-val" id="mins">00</span><span class="timer-label">Mins</span></div>
             <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
+        </div>
+
+        <div class="tangent-promo-box">
+            <img src="https://ranchgolftrips.com/Tangent-Logo.png" alt="Tangent Golf" class="tangent-logo" onerror="this.style.display='none'">
+            <h3>VectorGOLF.ai × Tangent Golf — Free 30-Day Trial for Players</h3>
+            <p><strong>VectorGOLF.ai</strong> has secured a <strong>free 30-day trial</strong> of the Tangent Golf app for all tournament participants. With the Tangent app you can track and collect on-course shot data and directly import it into VectorGOLF.ai for deeper analysis.</p>
+            <p>Corey will be available throughout the tournament to answer questions about both apps.</p>
+            <p>Use promo code <span class="promo-code">DALLAS</span> for the Tangent app.</p>
+            <p><a href="https://apps.apple.com/us/app/tangent-golf-ai-caddie-drills/id1626743725" target="_blank" rel="noopener noreferrer" class="app-download-btn">Download Tangent Golf (App Store)</a></p>
+            <p style="margin-top: 8px; font-size: 0.9rem;"><a href="https://www.tangent.golf" target="_blank" rel="noopener noreferrer" style="color: var(--gold);">tangent.golf</a></p>
         </div>
 
         <div class="container" id="leaderboard">
