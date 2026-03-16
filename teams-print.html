@@ -12,11 +12,20 @@
         .sub { text-align: center; margin-bottom: 20px; font-size: 0.95rem; color: #ccc; }
         .print-only { display: none; }
         @media print {
-            body { background: #fff; color: #000; padding: 0.5in; }
+            @page { size: letter; margin: 0.35in; }
+            body { background: #fff; color: #000; padding: 0.2in 0.25in; font-size: 8pt; }
             .no-print { display: none !important; }
             .print-only { display: block; }
-            h1 { color: #000; }
-            .team-block { break-inside: avoid; }
+            h1 { font-size: 11pt; margin-bottom: 2px; color: #000; }
+            .sub { font-size: 8pt; margin-bottom: 6px; }
+            .teams-print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; }
+            .team-block { break-inside: avoid; padding: 6px 8px; margin-bottom: 0; border: 1px solid #ccc; }
+            .team-block h2 { font-size: 8.5pt; margin-bottom: 2px; color: #000; }
+            .team-captain { font-size: 6.5pt; margin-bottom: 4px; color: #000; }
+            .team-block table { font-size: 7pt; }
+            .team-block th, .team-block td { padding: 2px 4px; border-bottom: 1px solid #ddd; }
+            .team-block th { color: #000; }
+            .role-tag { font-size: 1em; color: #000; }
         }
         .btn-print {
             display: inline-block; background: #f4c430; color: #000; border: none;
@@ -39,6 +48,7 @@
             th { color: #000; }
             td, .team-captain { border-color: #ddd; color: #000; }
         }
+        .teams-print-grid { display: block; }
         .role-tag { font-size: 0.85em; color: #f4c430; font-weight: normal; }
         @media print { .role-tag { color: #000; } }
         .loading { text-align: center; padding: 40px; color: #999; }
@@ -217,7 +227,7 @@
                         }
                     });
 
-                    var html = '';
+                    var html = '<div class="teams-print-grid">';
                     [1, 2, 3, 4].forEach(function(num) {
                         var list = byTeam[String(num)];
                         var teamLabel = teamNames[String(num)] || ('Team ' + num);
@@ -236,6 +246,7 @@
                         });
                         html += '</tbody></table></div>';
                     });
+                    html += '</div>';
                     if (noTeam.length > 0) {
                         html += '<div class="team-block">';
                         html += '<h2>Unassigned</h2>';
