@@ -674,19 +674,27 @@
         .roster-team-table td:nth-child(5),
         .roster-team-table td:nth-child(6),
         .roster-team-table td:nth-child(7) { text-align: center; }
-        /* Equal-height rows */
+        /* Equal-height rows: fixed height so badges don't affect row size */
         .roster-team-table tbody tr { height: 48px; }
         .roster-team-table tbody td { vertical-align: middle; }
-        /* Captain / Co-Captain badges */
+        .roster-player-cell {
+            position: relative;
+            display: block;
+            padding-right: 0;
+        }
+        /* Captain / Co-Captain badges: small, on top, out of flow so row size stays fixed */
         .roster-badge {
+            position: absolute;
+            top: 2px;
+            right: 0;
             display: inline-block;
-            font-size: 0.65rem;
+            font-size: 0.5rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-left: 6px;
-            vertical-align: middle;
+            letter-spacing: 0.3px;
+            line-height: 1;
+            padding: 1px 4px;
+            border-radius: 3px;
+            white-space: nowrap;
         }
         .roster-badge-captain {
             background: var(--gold);
@@ -1984,7 +1992,7 @@ async function loadRoster() {
       list.forEach((p, i) => {
         const role = roleForPlayer(p.displayName, num);
         const badge = role === 'Captain' ? '<span class="roster-badge roster-badge-captain">Captain</span>' : role === 'Co-Captain' ? '<span class="roster-badge roster-badge-cocaptain">Co-Captain</span>' : '';
-        const nameDisplay = escapeHtml(p.displayName) + (badge ? ' ' + badge : '');
+        const nameDisplay = '<span class="roster-player-cell">' + escapeHtml(p.displayName) + (badge ? badge : '') + '</span>';
         const avatarCell = p.avatar ? '<img src="' + escapeHtml(p.avatar) + '" alt="" class="roster-team-avatar">' : '<div class="roster-team-avatar-initials">' + escapeHtml(p.initials) + '</div>';
         html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
       });
@@ -2099,9 +2107,15 @@ async function loadRoster() {
             return toTitleCase(withoutNick);
         }
         /** Remove quoted nicknames for display (e.g. Gary "Coach" Smith -> Gary Smith) */
+        /** Display only first and last name: strip nicknames in quotes or parentheses */
         function stripNicknames(str) {
             if (!str || !String(str).trim()) return '';
-            return String(str).replace(/\s*"[^"]*"/g, '').replace(/\s+/g, ' ').trim();
+            return String(str)
+                .replace(/\s*"[^"]*"/g, '')
+                .replace(/\s*'[^']*'/g, '')
+                .replace(/\s*\([^)]*\)/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
         }
 
         const TEAM_NAMES = { '1': 'Team 1 — Back Nine Bandits', '2': 'Team 2 — Bogey Brothers', '3': 'Team 3 — Slice Masters', '4': 'Team 4 — Sand Trap Seniors' };
