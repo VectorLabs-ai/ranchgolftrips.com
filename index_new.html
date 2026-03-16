@@ -677,35 +677,6 @@
         /* Equal-height rows: fixed height so badges don't affect row size */
         .roster-team-table tbody tr { height: 48px; }
         .roster-team-table tbody td { vertical-align: middle; }
-        .roster-player-cell {
-            position: relative;
-            display: block;
-            padding-right: 0;
-        }
-        /* Captain / Co-Captain badges: small, on top, out of flow so row size stays fixed */
-        .roster-badge {
-            position: absolute;
-            top: 2px;
-            right: 0;
-            display: inline-block;
-            font-size: 0.5rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            line-height: 1;
-            padding: 1px 4px;
-            border-radius: 3px;
-            white-space: nowrap;
-        }
-        .roster-badge-captain {
-            background: var(--gold);
-            color: #1a472a;
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-        .roster-badge-cocaptain {
-            background: rgba(244,196,48,0.35);
-            color: var(--gold);
-            border: 1px solid var(--gold);
-        }
         @media (max-width: 768px) {
             .roster-teams-grid { grid-template-columns: 1fr; }
         }
@@ -1988,11 +1959,8 @@ async function loadRoster() {
       if (roles) html += '<p class="roster-team-captain"><strong>Captain:</strong> ' + escapeHtml(roles.captain) + ' &nbsp;|&nbsp; <strong>Co-Captain:</strong> ' + escapeHtml(roles.coCaptain) + '</p>';
       html += '<table class="roster-team-table"><thead><tr><th></th><th>Player</th><th>Index</th><th>Tees</th><th>Stonebridge</th><th>Cypress Bend</th><th>The Tempest</th></tr></thead><tbody>';
       list.forEach((p, i) => {
-        const role = roleForPlayer(p.name, num);
-        const badge = role === 'Captain' ? '<span class="roster-badge roster-badge-captain">Captain</span>' : role === 'Co-Captain' ? '<span class="roster-badge roster-badge-cocaptain">Co-Captain</span>' : '';
-        const nameDisplay = '<span class="roster-player-cell">' + escapeHtml(p.name) + (badge ? badge : '') + '</span>';
         const avatarCell = p.avatar ? '<img src="' + escapeHtml(p.avatar) + '" alt="" class="roster-team-avatar">' : '<div class="roster-team-avatar-initials">' + escapeHtml(p.initials) + '</div>';
-        html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + nameDisplay + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
+        html += '<tr class="roster-team-row" data-team="' + num + '" data-idx="' + i + '" style="cursor:pointer;"><td class="roster-team-avatar-cell">' + avatarCell + '</td><td>' + escapeHtml(p.name) + '</td><td>' + escapeHtml(p.index) + '</td><td>' + escapeHtml(p.tees) + '</td><td>' + escapeHtml(p.stonebridge) + '</td><td>' + escapeHtml(p.cypress) + '</td><td>' + escapeHtml(p.tempest) + '</td></tr>';
       });
       html += '</tbody></table></div>';
     });
@@ -2118,7 +2086,7 @@ async function loadRoster() {
 
         const TEAM_NAMES = { '1': 'Team 1 — Back Nine Bandits', '2': 'Team 2 — Bogey Brothers', '3': 'Team 3 — Slice Masters', '4': 'Team 4 — Sand Trap Seniors' };
         const TEAM_CAPTAINS = {
-            '1': { captain: 'Corey Klessog', captainMatch: ['Corey Klessog', 'Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
+            '1': { captain: 'Corey Klessig', captainMatch: ['Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
             '2': { captain: 'Lyynal Carey', captainMatch: ['Lyynal Carey', 'Llynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
             '3': { captain: 'Bob DiFonzo', captainMatch: ['Bob DiFonzo'], coCaptain: 'Scott Eskridge', coCaptainMatch: ['Scott Eskridge'] },
             '4': { captain: 'John Gauthier', captainMatch: ['John Gauthier'], coCaptain: 'Tyler Clark', coCaptainMatch: ['Tyler Clark'] }
