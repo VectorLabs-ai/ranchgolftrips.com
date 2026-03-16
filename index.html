@@ -93,11 +93,16 @@
         .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
 
-        .format-rules-callout {
-            background: #000; color: var(--red-accent); padding: 16px 24px;
-            border: 3px solid var(--red-accent); border-radius: 8px;
-            font-family: 'Rye', serif; line-height: 1.35;
+        .play-format-callout {
+            background: rgba(0,0,0,0.4); color: #fff; padding: 18px 24px;
+            border: 2px solid var(--gold); border-radius: 8px;
+            margin-bottom: 24px; line-height: 1.5;
         }
+        .play-format-callout .play-format-title {
+            font-family: 'Rye', serif; font-size: 1.1rem; font-weight: bold;
+            margin-bottom: 8px; color: var(--gold);
+        }
+        .play-format-callout p { margin: 0; font-size: 0.98rem; }
         .btn-print-rules {
             background: var(--gold); color: #000; border: 2px solid #000;
             padding: 12px 24px; border-radius: 8px; font-weight: bold;
@@ -1250,6 +1255,10 @@
 
         <div class="container section-padding" id="schedule">
             <h2 class="section-title">♠ The Schedule & Format ♠</h2>
+            <div class="play-format-callout">
+                <div class="play-format-title">Play Format</div>
+                <p><strong>ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY.</strong> Days 2 and 3 are decided by total strokes (net), not by winning individual holes. Day 1 uses a split format: Front 9 Scramble and Back 9 Alternate Shot, with 1 point or ½ point awarded at the end of each 9 based on that segment’s score.</p>
+            </div>
             <div class="format-box">
                 
                 <div class="format-item">
@@ -1269,7 +1278,7 @@
                     <div class="format-text">
                         <h3>Day 1: Monday, March 23 (Stonebridge)</h3>
                         <span class="format-sub">Team Game — Split Format (No Pops)</span>
-                        <p style="margin-bottom: 10px;"><strong>No pops.</strong> Handicaps are not used for stroke allocation; all play is gross.</p>
+                        <p style="margin-bottom: 8px;">No handicaps; all play is gross. Two separate 9-hole segments — each segment awards <strong>1 Point</strong> for a win or <strong>½ Point</strong> for a tie (based on that 9’s total score, not hole-by-hole match play).</p>
                         <div style="margin-bottom: 15px;">
                             <p style="margin-bottom: 5px;"><strong>Front 9:</strong> 2-Man Scramble <span style="color:var(--gold); font-size:0.9rem;">(1 Point Win / ½ Point Tie)</span></p>
                             <p><strong>Back 9:</strong> 2-Man Alternate Shot <span style="color:var(--gold); font-size:0.9rem;">(1 Point Win / ½ Point Tie)</span></p>
@@ -1286,8 +1295,8 @@
                 <div class="format-item">
                     <div class="format-text">
                         <h3>Day 2: Tuesday, March 24 (Cypress Bend)</h3>
-                        <span class="format-sub">Team Game — Best Ball NET (Medal Play, Handicapped with Pops)</span>
-                        <p><strong>Format:</strong> 2-Man Best Ball, <strong>NET</strong> — medal play (low team net score wins). Not match play.</p>
+                        <span class="format-sub">Team Game — Best Ball NET (Medal Play, Handicapped)</span>
+                        <p><strong>Format:</strong> 2-Man Best Ball, <strong>NET</strong>. Medal play — the team with the <strong>lower total net score</strong> for 18 holes wins (not match play). Each player uses their course handicap from the course handicap sheet; low net score per hole counts for the team. 1 Point winning team / ½ Point tie.</p>
                         <div style="margin-bottom: 15px; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border-left: 3px solid var(--gold);">
                             <p style="font-size: 0.95rem;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
                         </div>
@@ -1310,7 +1319,7 @@
                         <h3>Day 3: Wednesday, March 25 (The Tempest)</h3>
                         <span class="format-sub">Singles — Medal Play, Handicapped (Course Handicap)</span>
                         
-                        <p style="margin-bottom: 10px;"><strong>Medal play (not match play).</strong> Handicapped (course handicap from the sheet). Low net score wins each pairing and counts for the team; individual net scores also used for Best Net awards.</p>
+                        <p style="margin-bottom: 10px;"><strong>Medal play (total score, not match play).</strong> Each singles match is decided by <strong>total net score</strong> for 18 holes. Course handicap from the course handicap sheet. Low net in each pairing wins 2 points for the team (1 point if tied). Individual net scores also determine <strong>Low Net (White Tees)</strong> and <strong>Low Net (Gold Tees)</strong> awards.</p>
                         
                         <div style="margin-bottom: 15px; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; border-left: 3px solid var(--gold);">
                             <p style="font-size: 0.95rem;">Handicaps are the <strong>regular course handicap</strong> as designated on the course handicap sheet.</p>
@@ -1353,12 +1362,7 @@
 
         <div class="container section-padding" id="rules">
             <h2 class="section-title">📜 Rules & Regulations 📜</h2>
-            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 24px; justify-content: space-between;">
-                <div class="format-rules-callout">
-                    <div style="font-size: 1rem; font-weight: bold; margin-bottom: 6px;">FORMAT RULES</div>
-                    <div style="font-size: 1.15rem; font-weight: bold;">IMPORTANT: ALL MEDAL PLAY (TOTAL SCORE)</div>
-                    <div style="font-size: 1.15rem; font-weight: bold;">NOT MATCH PLAY</div>
-                </div>
+            <div style="margin-bottom: 24px;">
                 <button type="button" class="btn-print-rules" onclick="printRules()">🖨️ Print Rules</button>
             </div>
             <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
