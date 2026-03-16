@@ -93,6 +93,18 @@
         .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
 
+        .format-rules-callout {
+            background: #000; color: var(--red-accent); padding: 16px 24px;
+            border: 3px solid var(--red-accent); border-radius: 8px;
+            font-family: 'Rye', serif; line-height: 1.35;
+        }
+        .btn-print-rules {
+            background: var(--gold); color: #000; border: 2px solid #000;
+            padding: 12px 24px; border-radius: 8px; font-weight: bold;
+            font-size: 1rem; cursor: pointer; white-space: nowrap;
+        }
+        .btn-print-rules:hover { opacity: 0.9; }
+
         /* --- ALERT BARS (full-width red bars, gold borders) --- */
         .alerts-section {
             background: transparent;
@@ -1341,6 +1353,14 @@
 
         <div class="container section-padding" id="rules">
             <h2 class="section-title">📜 Rules & Regulations 📜</h2>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 24px; justify-content: space-between;">
+                <div class="format-rules-callout">
+                    <div style="font-size: 1rem; font-weight: bold; margin-bottom: 6px;">FORMAT RULES</div>
+                    <div style="font-size: 1.15rem; font-weight: bold;">IMPORTANT: ALL MEDAL PLAY (TOTAL SCORE)</div>
+                    <div style="font-size: 1.15rem; font-weight: bold;">NOT MATCH PLAY</div>
+                </div>
+                <button type="button" class="btn-print-rules" onclick="printRules()">🖨️ Print Rules</button>
+            </div>
             <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
                 
                 <div class="format-item">
@@ -1457,6 +1477,17 @@
                 </div>
 
             </div>
+        </div>
+
+        <div id="rules-print-content" style="display: none;" aria-hidden="true">
+            <h1 style="text-align:center; font-size: 1.4rem; margin-bottom: 12px;">2026 Robson Ranch Invitational — Rules & Regulations</h1>
+            <p style="text-align:center; font-weight: bold; margin-bottom: 16px;">FORMAT RULES: ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY</p>
+            <p style="margin-bottom: 8px;"><strong>Preferred Lies (Bumping):</strong> Ball may be moved within one foot (12 inches), not nearer the hole. Same area of course (like-to-like). Not in hazards. USGA E-3.</p>
+            <p style="margin-bottom: 8px;"><strong>Day 1 (Stonebridge):</strong> Split format — Front 9: 2-Man Scramble. Back 9: 2-Man Alternate Shot. No pops (gross). At end of each 9: 1 Point win / ½ Point tie. Gimmies OK.</p>
+            <p style="margin-bottom: 8px;"><strong>Day 2 (Cypress Bend):</strong> 2-Man Best Ball NET. Medal play (total score), not match play. Course handicap from course handicap sheet. Full 18-hole net scores. 1 Point / ½ Point tie. Gimmies OK.</p>
+            <p style="margin-bottom: 8px;"><strong>Day 3 (The Tempest):</strong> Singles — net medal play (2 pts win / 1 pt tie). Individual: Low Net (White Tees) and Low Net (Gold Tees). NO GIMMIES — putt everything out. Valid 18-hole score required.</p>
+            <p style="margin-bottom: 8px;"><strong>OB (Robson Ranch rule):</strong> 2 strokes. Drop in fairway adjacent to where ball went OB (no return to tee).</p>
+            <p style="margin-bottom: 8px;"><strong>Lost ball (not OB):</strong> Group agrees location. One stroke penalty. Drop within 2 club-lengths of estimated spot (no nearer hole). If may be OB, use standard OB rule.</p>
         </div>
 
         <div class="container" id="courses">
@@ -1664,6 +1695,18 @@
                 document.querySelector(".countdown-bar").innerHTML = "<h2 style='color:var(--gold)'>TOURNAMENT STARTED!</h2>";
             }
         }, 1000);
+
+        function printRules() {
+            var content = document.getElementById('rules-print-content');
+            if (!content) return;
+            var win = window.open('', '_blank');
+            win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Rules — Robson Ranch Invitational 2026</title><style>body{font-family:Georgia,serif;font-size:11pt;line-height:1.4;max-width:7in;margin:0.5in auto;padding:0;color:#000;background:#fff;} h1{font-size:1.2rem;margin-bottom:8px;} p{margin-bottom:10px;} strong{font-weight:bold;}</style></head><body>');
+            win.document.write(content.innerHTML);
+            win.document.write('</body></html>');
+            win.document.close();
+            win.focus();
+            setTimeout(function() { win.print(); win.close(); }, 300);
+        }
 
         // --- MODAL ALERT LOGIC ---
         window.onload = function() {
