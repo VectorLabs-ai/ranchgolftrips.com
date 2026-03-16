@@ -1851,9 +1851,6 @@ async function loadRoster() {
     const text = await response.text();
     const rows = parseCSV(text);
 
-    grid.innerHTML = '';
-    const driverRiderList = [];
-
     // 1) headers map (normalize keys for sheet column names with spaces)
     const headerRow = rows[0] || [];
     const headers = {};
