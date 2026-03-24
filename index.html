@@ -715,6 +715,91 @@
             .roster-teams-grid { grid-template-columns: 1fr; }
         }
 
+        /* --- PER-DAY PLAYER SCORING (from roster sheet) --- */
+        .player-scoring-section {
+            padding: 50px 20px 40px;
+        }
+        .player-scoring-section .section-title { margin-bottom: 12px; }
+        .scoring-sheet-hint {
+            color: rgba(255,255,255,0.85); font-size: 0.92rem; line-height: 1.5;
+            margin-bottom: 20px; max-width: 900px;
+        }
+        .scoring-sheet-hint a { color: var(--gold); font-weight: 600; }
+        .player-scoring-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 22px 26px;
+        }
+        @media (max-width: 900px) {
+            .player-scoring-grid { grid-template-columns: 1fr; }
+        }
+        .player-scoring-team {
+            background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.35) 100%);
+            border: 2px solid var(--gold); border-radius: 12px; padding: 16px 18px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+        }
+        .player-scoring-team h3 {
+            color: var(--gold); font-family: 'Rye', serif; font-size: 1.05rem;
+            text-align: center; margin: 0 0 12px 0; letter-spacing: 0.5px;
+        }
+        .player-scoring-table {
+            width: 100%; border-collapse: collapse; font-size: 0.86rem;
+        }
+        .player-scoring-table th {
+            text-align: left; padding: 8px 10px; color: var(--gold);
+            border-bottom: 2px solid rgba(244,196,48,0.45); font-size: 0.72rem;
+        }
+        .player-scoring-table th.num, .player-scoring-table td.num { text-align: center; }
+        .player-scoring-table td {
+            padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.95);
+        }
+        .player-scoring-table tbody tr:hover td { background: rgba(255,255,255,0.06); }
+        .player-scoring-table tr.team-scoring-total td {
+            font-weight: bold; color: var(--gold); border-top: 1px solid rgba(244,196,48,0.4);
+            border-bottom: none; background: rgba(244,196,48,0.08);
+        }
+        .scoring-empty, .scoring-loading {
+            color: rgba(255,255,255,0.9); text-align: center; padding: 24px;
+            background: rgba(0,0,0,0.25); border: 1px dashed var(--gold); border-radius: 10px;
+        }
+        .day1-results-wrap {
+            margin-bottom: 36px;
+        }
+        .day1-results-wrap h3 {
+            font-family: 'Rye', serif; color: var(--gold); text-align: center;
+            font-size: 1.15rem; margin: 0 0 8px 0; letter-spacing: 0.5px;
+        }
+        .day1-results-wrap .day1-sub {
+            text-align: center; color: rgba(255,255,255,0.85); font-size: 0.9rem; margin-bottom: 20px;
+        }
+        .day1-match-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+        }
+        @media (max-width: 900px) { .day1-match-grid { grid-template-columns: 1fr; } }
+        .day1-match-card {
+            background: rgba(0,0,0,0.35); border: 2px solid var(--gold); border-radius: 12px;
+            padding: 16px; overflow-x: auto;
+        }
+        .day1-match-card h4 {
+            font-family: 'Rye', serif; color: var(--gold); font-size: 0.95rem; margin: 0 0 12px 0;
+            text-align: center;
+        }
+        .day1-match-table {
+            width: 100%; border-collapse: collapse; font-size: 0.82rem;
+        }
+        .day1-match-table th, .day1-match-table td {
+            padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.95);
+        }
+        .day1-match-table th {
+            color: var(--gold); font-size: 0.72rem; text-align: left;
+        }
+        .day1-match-table th.num, .day1-match-table td.num { text-align: center; width: 52px; }
+        .day1-match-table th.vs { text-align: center; width: 36px; color: rgba(255,255,255,0.5); }
+        .day1-match-table tr.day1-total-row td {
+            font-weight: bold; color: var(--gold); border-top: 2px solid rgba(244,196,48,0.45);
+            border-bottom: none; background: rgba(244,196,48,0.1);
+        }
+
         /* --- PLAYER BIO MODAL STYLES --- */
         .bio-card {
             background: #fff; padding: 0 !important; overflow: hidden;
@@ -1247,6 +1332,7 @@
                 <a class="nav-logo" href="#">RR INVITATIONAL '26</a>
                 <div class="nav-links">
                     <span onclick="scrollToId('leaderboard')">Leaderboard</span>
+                    <span onclick="scrollToId('player-scoring-section')">Scores</span>
                     <span onclick="scrollToId('roster')">Roster</span>
                     <span onclick="scrollToId('info')">Info & Fees</span>
                     <span onclick="scrollToId('schedule')">Schedule</span>
@@ -1373,6 +1459,68 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div class="container player-scoring-section" id="player-scoring-section">
+            <h2 class="section-title text-center">📊 Per-Day Player Scores 📊</h2>
+            <p class="scoring-sheet-hint text-center">Pulled from the same roster Google Sheet. Add columns named <strong>Day 1</strong>, <strong>Day 2</strong>, and <strong>Day 3</strong> (or e.g. <strong>Day 1 Net</strong>, <strong>Stonebridge Net</strong>, <strong>Cypress Net</strong>, <strong>Tempest Net</strong>) with each player’s score or points. The <strong>Team sum</strong> row adds numeric values only (for net totals or points—use the sheet however you track).</p>
+
+            <div class="day1-results-wrap">
+                <h3>Day 1 — Stonebridge (2-man team matches)</h3>
+                <p class="day1-sub">Each match awards 2 points split between the two sides. Totals: Team 1 &amp; Team 2 — 5 pts each; Team 3 — 7.5 pts; Team 4 — 2.5 pts.</p>
+                <div class="day1-match-grid">
+                    <div class="day1-match-card">
+                        <h4>Team 1 vs Team 2</h4>
+                        <table class="day1-match-table">
+                            <thead>
+                                <tr>
+                                    <th>Match</th>
+                                    <th>Team 1</th>
+                                    <th class="num">Pts</th>
+                                    <th class="vs"></th>
+                                    <th>Team 2</th>
+                                    <th class="num">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>Klessig / Smith</td><td class="num">0</td><td class="vs">vs</td><td>Watts / Eason</td><td class="num">2</td></tr>
+                                <tr><td>2</td><td>Bali / Stewart</td><td class="num">0</td><td class="vs">vs</td><td>Carey / Tefft</td><td class="num">2</td></tr>
+                                <tr><td>3</td><td>Hull / Paugh</td><td class="num">1</td><td class="vs">vs</td><td>Valentine / Smith</td><td class="num">1</td></tr>
+                                <tr><td>4</td><td>Miloser / Moen</td><td class="num">2</td><td class="vs">vs</td><td>Bent / Knowles</td><td class="num">0</td></tr>
+                                <tr><td>5</td><td>Thompson / Shoff</td><td class="num">2</td><td class="vs">vs</td><td>Reed / Hicks</td><td class="num">0</td></tr>
+                                <tr class="day1-total-row"><td colspan="2">Team total</td><td class="num">5</td><td class="vs"></td><td>Team total</td><td class="num">5</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="day1-match-card">
+                        <h4>Team 3 vs Team 4</h4>
+                        <table class="day1-match-table">
+                            <thead>
+                                <tr>
+                                    <th>Match</th>
+                                    <th>Team 3</th>
+                                    <th class="num">Pts</th>
+                                    <th class="vs"></th>
+                                    <th>Team 4</th>
+                                    <th class="num">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>Shaffer / Gibson</td><td class="num">0</td><td class="vs">vs</td><td>Tyler / Swedlund</td><td class="num">2</td></tr>
+                                <tr><td>2</td><td>Burns / Jedlowski</td><td class="num">2</td><td class="vs">vs</td><td>Gauthier / Liske</td><td class="num">0</td></tr>
+                                <tr><td>3</td><td>DiFonzo / Lackey</td><td class="num">2</td><td class="vs">vs</td><td>Hajdyla / Williams</td><td class="num">0</td></tr>
+                                <tr><td>4</td><td>Eskridge / Dickens</td><td class="num">2</td><td class="vs">vs</td><td>Finnell / Buckrucker</td><td class="num">0</td></tr>
+                                <tr><td>5</td><td>Hughes / Donehue</td><td class="num">1.5</td><td class="vs">vs</td><td>Emerton / Murphy</td><td class="num">0.5</td></tr>
+                                <tr class="day1-total-row"><td colspan="2">Team total</td><td class="num">7.5</td><td class="vs"></td><td>Team total</td><td class="num">2.5</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="player-scoring-root">
+                <div class="scoring-loading">Loading scores from roster sheet…</div>
             </div>
         </div>
 
@@ -1947,7 +2095,7 @@ async function loadRoster() {
       let rawAvatar = getCell(row, ["avatar", "photo", "image"], "").trim();
       if (rawAvatar.length > 3 && !rawAvatar.toLowerCase().startsWith('http')) rawAvatar = "https://ranchgolftrips.com/" + rawAvatar;
       const initials = name.split(" ").map(n => n[0]).join("").substring(0, 2);
-      const p = {
+        const p = {
         name,
         index: getCell(row, ["ghin as of 3/14/2026", "ghin as of 3/14/26", "ghin", "index", "handicap", "hcp", "current index", "hi", "indx"], "-"),
         tees: getCell(row, ["tee box", "tees", "tee"], "TBD"),
@@ -1958,6 +2106,9 @@ async function loadRoster() {
         stonebridge: getCell(row, ["stonebridge course handicap", "stonebridge", "stonebridge ch"], "—"),
         cypress: getCell(row, ["cypress bend course handicap", "cypress bend", "cypress bend ch"], "—"),
         tempest: getCell(row, ["the tempest course handicap", "the tempest", "tempest course handicap", "tempest ch"], "—"),
+        day1Score: getCell(row, ["day 1 score", "day 1 net", "day 1 gross", "day 1 pts", "day 1 points", "day 1", "d1 score", "d1 net", "d1 pts", "d1", "stonebridge net score", "stonebridge round", "stonebridge net", "stonebridge score", "stonebridge gross"], ""),
+        day2Score: getCell(row, ["day 2 score", "day 2 net", "day 2 gross", "day 2 pts", "day 2 points", "day 2", "d2 score", "d2 net", "d2 pts", "d2", "cypress bend net", "cypress net score", "cypress round", "cypress net", "cypress score", "cypress gross"], ""),
+        day3Score: getCell(row, ["day 3 score", "day 3 net", "day 3 gross", "day 3 pts", "day 3 points", "day 3", "d3 score", "d3 net", "d3 pts", "d3", "the tempest net", "tempest net score", "tempest round", "tempest net", "tempest score", "tempest gross"], ""),
         initials
       };
       players.push(p);
@@ -1995,6 +2146,11 @@ async function loadRoster() {
     window._rosterPlayersByTeam = byTeam;
     grid.innerHTML = players.length === 0 ? '<div class="r-loading">No roster rows found.</div>' : html;
 
+    var scoringRoot = document.getElementById('player-scoring-root');
+    if (scoringRoot) {
+      scoringRoot.innerHTML = renderPlayerScoringHTML(byTeam, players.length === 0);
+    }
+
     // 5) attach click to open bio
     grid.querySelectorAll('.roster-team-row').forEach(tr => {
       tr.addEventListener('click', function() {
@@ -2023,8 +2179,86 @@ async function loadRoster() {
     grid.innerHTML = '<div style="color:white;">Failed to load roster.</div>';
     const tbody = document.getElementById('driver-rider-tbody');
     if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="color:var(--red-accent);">Failed to load roster.</td></tr>';
+    var scoringRootErr = document.getElementById('player-scoring-root');
+    if (scoringRootErr) scoringRootErr.innerHTML = '<div class="scoring-empty">Could not load scoring data (roster fetch failed).</div>';
   }
 }
+
+        function parseNumericScore(val) {
+            if (val == null || !String(val).trim()) return null;
+            var s = String(val).trim().replace(/,/g, '');
+            if (/^-?\d+(\.\d+)?$/.test(s)) return parseFloat(s);
+            return null;
+        }
+
+        function playerScoringRowTotal(p) {
+            var a = parseNumericScore(p.day1Score);
+            var b = parseNumericScore(p.day2Score);
+            var c = parseNumericScore(p.day3Score);
+            var nums = [];
+            if (a !== null) nums.push(a);
+            if (b !== null) nums.push(b);
+            if (c !== null) nums.push(c);
+            if (nums.length > 0) {
+                var t = nums.reduce(function(s, x) { return s + x; }, 0);
+                return (t % 1 === 0 ? String(t) : t.toFixed(1));
+            }
+            var bits = [p.day1Score, p.day2Score, p.day3Score].map(function(x) { return x && String(x).trim(); }).filter(Boolean);
+            return bits.length ? bits.join(' / ') : '—';
+        }
+
+        function sumTeamDayScores(list, field) {
+            var sum = 0;
+            var any = false;
+            list.forEach(function(p) {
+                var n = parseNumericScore(p[field]);
+                if (n !== null) { sum += n; any = true; }
+            });
+            return any ? sum : null;
+        }
+
+        function renderPlayerScoringHTML(byTeam, rosterEmpty) {
+            if (rosterEmpty) {
+                return '<div class="scoring-empty">No roster rows — add players to the sheet to show scores.</div>';
+            }
+            var hasAny = false;
+            [1, 2, 3, 4].forEach(function(num) {
+                (byTeam[String(num)] || []).forEach(function(p) {
+                    if ((p.day1Score && String(p.day1Score).trim()) || (p.day2Score && String(p.day2Score).trim()) || (p.day3Score && String(p.day3Score).trim())) hasAny = true;
+                });
+            });
+            if (!hasAny) {
+                return '<div class="scoring-empty">No per-day score columns filled yet. In the roster spreadsheet, add headers such as <strong>Day 1</strong>, <strong>Day 2</strong>, <strong>Day 3</strong> (or <strong>Day 1 Net</strong>, <strong>Cypress Net</strong>, <strong>Tempest Net</strong>) and enter each player’s scores or points.</div>';
+            }
+            var html = '<div class="player-scoring-grid">';
+            [1, 2, 3, 4].forEach(function(num) {
+                var list = byTeam[String(num)] || [];
+                var teamLabel = TEAM_NAMES[String(num)] || ('Team ' + num);
+                html += '<div class="player-scoring-team">';
+                html += '<h3>' + escapeHtml(teamLabel) + '</h3>';
+                html += '<table class="player-scoring-table"><thead><tr><th>Player</th><th class="num">Day 1<br><span style="font-weight:400;opacity:0.85">Stonebridge</span></th><th class="num">Day 2<br><span style="font-weight:400;opacity:0.85">Cypress</span></th><th class="num">Day 3<br><span style="font-weight:400;opacity:0.85">Tempest</span></th><th class="num">Total</th></tr></thead><tbody>';
+                list.forEach(function(p) {
+                    var d1 = p.day1Score && String(p.day1Score).trim() ? escapeHtml(String(p.day1Score).trim()) : '—';
+                    var d2 = p.day2Score && String(p.day2Score).trim() ? escapeHtml(String(p.day2Score).trim()) : '—';
+                    var d3 = p.day3Score && String(p.day3Score).trim() ? escapeHtml(String(p.day3Score).trim()) : '—';
+                    var tot = escapeHtml(playerScoringRowTotal(p));
+                    html += '<tr><td>' + escapeHtml(p.name) + '</td><td class="num">' + d1 + '</td><td class="num">' + d2 + '</td><td class="num">' + d3 + '</td><td class="num">' + tot + '</td></tr>';
+                });
+                var s1 = sumTeamDayScores(list, 'day1Score');
+                var s2 = sumTeamDayScores(list, 'day2Score');
+                var s3 = sumTeamDayScores(list, 'day3Score');
+                var fmt = function(x) {
+                    if (x === null) return '—';
+                    return (x % 1 === 0 ? String(x) : x.toFixed(1));
+                };
+                var grand = (s1 !== null || s2 !== null || s3 !== null) ? (s1 || 0) + (s2 || 0) + (s3 || 0) : null;
+                var grandStr = grand === null ? '—' : (grand % 1 === 0 ? String(grand) : grand.toFixed(1));
+                html += '<tr class="team-scoring-total"><td>Team sum (numeric only)</td><td class="num">' + fmt(s1) + '</td><td class="num">' + fmt(s2) + '</td><td class="num">' + fmt(s3) + '</td><td class="num">' + grandStr + '</td></tr>';
+                html += '</tbody></table></div>';
+            });
+            html += '</div>';
+            return html;
+        }
 
 
         function openBio(player) {
