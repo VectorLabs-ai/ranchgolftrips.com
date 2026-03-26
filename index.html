@@ -92,11 +92,6 @@
 
         .section-padding { padding: 60px 0; }
         .text-center { text-align: center; }
-        .section-header-row {
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-            gap: 16px; margin-bottom: 20px;
-        }
-        .section-header-row .section-title { margin-bottom: 0; }
 
         .play-format-callout {
             background: rgba(0,0,0,0.4); color: #fff; padding: 18px 24px;
@@ -115,67 +110,7 @@
         }
         .how-to-play-box ul { padding-left: 4px; }
         .how-to-play-box li { margin-bottom: 4px; }
-        .btn-print-rules {
-            background: var(--gold); color: #000; border: 2px solid #000;
-            padding: 12px 24px; border-radius: 8px; font-weight: bold;
-            font-size: 1rem; cursor: pointer; white-space: nowrap;
-        }
-        .btn-print-rules:hover { opacity: 0.9; }
 
-        /* --- ALERT BARS (full-width red bars, gold borders) --- */
-        .alerts-section {
-            background: transparent;
-            padding: 0;
-            position: relative;
-            z-index: 10;
-        }
-        .alert-bar-item {
-            width: 100%;
-            background-color: var(--red-accent);
-            color: #fff;
-            text-align: center;
-            padding: 14px 20px;
-            border-top: 3px solid var(--gold);
-            border-bottom: 3px solid var(--gold);
-            font-family: 'Rye', serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1.4;
-        }
-        .alert-bar-item a.vector-link-box {
-            display: inline-block;
-            text-decoration: none;
-            background: #fff;
-            color: #000;
-            padding: 6px 14px;
-            margin: 0 4px;
-            border: 2px solid var(--gold);
-            border-radius: 6px;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: background 0.2s, transform 0.2s;
-        }
-        .alert-bar-item a.vector-link-box:hover {
-            background: var(--gold);
-            transform: scale(1.05);
-        }
-        .alert-bar-item a.vector-link-box .vga-ai { color: #2563eb; font-weight: bold; }
-        .alert-bar-item .free-stamp {
-            display: inline-block;
-            background: rgba(183, 28, 28, 0.95);
-            color: #fff;
-            font-family: 'Rye', serif;
-            font-size: 1.4rem;
-            font-weight: bold;
-            padding: 6px 14px;
-            margin-left: 12px;
-            border: 4px dashed #fff;
-            transform: rotate(5deg);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            vertical-align: middle;
-            text-transform: uppercase;
-        }
         .sponsor-bar {
             width: 100%;
             background-color: var(--felt-green);
@@ -322,64 +257,6 @@
         
         .timer-val { font-size: 1.8rem; font-weight: bold; font-family: 'Courier New', monospace; display: block; color: var(--gold); }
         .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; }
-
-        /* --- LEADERBOARD STYLES --- */
-        .leaderboard-box {
-            background: var(--card-white); border: 4px solid var(--gold);
-            border-radius: 8px; overflow: hidden; margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .leaderboard-header {
-            background: #000; color: var(--gold); padding: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 4px solid var(--gold);
-        }
-
-        .live-badge {
-            background: var(--red-accent); color: white; padding: 5px 12px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: bold;
-            animation: pulse 2s infinite; border: 1px solid white;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        .lb-table {
-            width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif;
-        }
-
-        .lb-table th {
-            background: var(--felt-green); color: white; padding: 15px;
-            text-align: center; font-family: 'Rye', serif; letter-spacing: 1px;
-            border-bottom: 2px solid #ccc;
-        }
-
-        .lb-table td {
-            padding: 15px; text-align: center; border-bottom: 1px solid #ddd;
-            font-size: 1.1rem; font-weight: bold; vertical-align: middle;
-        }
-
-        .lb-table tr:nth-child(even) { background-color: #f2f2f2; }
-        .lb-table tr:hover { background-color: #e8f5e9; }
-
-        .team-name-cell { text-align: left !important; color: var(--text-dark); display: flex; align-items: center; gap: 15px; }
-        .total-cell { color: var(--red-accent); font-size: 1.3rem; font-weight: 900; }
-        
-        /* NEW: Leaderboard Logo Style - UPDATED SIZE */
-        .lb-logo {
-            width: 150px; /* INCREASED SIZE */
-            height: 150px; /* INCREASED SIZE */
-            object-fit: cover; 
-            border-radius: 50%; 
-            border: 4px solid var(--gold); 
-            display: block; margin-right: 15px;
-            background: #fff;
-            flex-shrink: 0; /* Prevents squishing */
-        }
 
         /* --- ROSTER STYLES --- */
         .roster-header-container {
@@ -597,12 +474,29 @@
             color: rgba(255,255,255,0.9); font-size: 1rem; margin: 0 auto 28px;
             max-width: 640px; line-height: 1.5;
         }
-        .champions-team-card, .champions-awards-card {
+        .champions-team-card, .champions-awards-card, .champions-standings-card {
             background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.32) 100%);
             border: 2px solid var(--gold); border-radius: 12px;
             padding: 22px 20px 26px; margin: 0 auto 28px; max-width: 980px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.35);
         }
+        .champions-standings-title {
+            font-family: 'Rye', serif; color: var(--gold); font-size: 1.1rem;
+            text-align: center; margin: 0 0 16px 0; letter-spacing: 0.4px;
+        }
+        .champions-standings-list {
+            list-style: none; margin: 0; padding: 0; max-width: 420px; margin-left: auto; margin-right: auto;
+        }
+        .champions-standings-list li {
+            display: flex; justify-content: space-between; align-items: center; gap: 16px;
+            padding: 10px 14px; margin-bottom: 8px; border-radius: 8px;
+            background: rgba(0,0,0,0.22); border: 1px solid rgba(244,196,48,0.3);
+            color: rgba(255,255,255,0.95); font-size: 0.98rem; font-weight: 600;
+        }
+        .champions-standings-list li:last-child { margin-bottom: 0; }
+        .champions-stand-place { color: var(--gold); font-family: 'Rye', serif; min-width: 2.2em; }
+        .champions-stand-team { flex: 1; text-align: left; }
+        .champions-stand-pts { color: var(--gold); font-variant-numeric: tabular-nums; }
         .champions-team-head {
             display: flex; align-items: center; justify-content: center; gap: 14px;
             margin-bottom: 20px; flex-wrap: wrap;
@@ -1120,7 +1014,6 @@
             .code-display { font-size: 2rem; padding: 10px 20px; letter-spacing: 2px; }
             
             .team-grid { grid-template-columns: 1fr; }
-            .lb-table th, .lb-table td { padding: 10px 5px; font-size: 0.9rem; }
             .roster-grid { grid-template-columns: 1fr 1fr; }
 
             .suggestions-box { padding-top: 20px; }
@@ -1190,7 +1083,6 @@
             <div class="nav-inner">
                 <a class="nav-logo" href="#">RR INVITATIONAL '26</a>
                 <div class="nav-links">
-                    <span onclick="scrollToId('leaderboard')">Leaderboard</span>
                     <span onclick="scrollToId('champions-section')">Champions</span>
                     <span onclick="scrollToId('roster')">Roster</span>
                     <span onclick="scrollToId('schedule')">Schedule</span>
@@ -1224,8 +1116,6 @@
             </div>
         </div>
 
-        <div class="alert-bar-item"><span id="alerts-days">--</span> DAYS TO TIGHTEN UP YOUR GAME USING <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer" class="vector-link-box"><strong>Vector</strong><strong>GOLF</strong><span class="vga-ai">.ai</span></a> SCORECARD AI INSIGHTS <span class="free-stamp">FREE</span></div>
-
         <div class="countdown-bar">
             <div class="timer-text" style="width: 100%; font-size: 1.2rem; margin-bottom: 10px;">TOURNAMENT COUNTDOWN:</div>
             <div class="timer-unit"><span class="timer-val" id="days">00</span><span class="timer-label">Days</span></div>
@@ -1234,77 +1124,19 @@
             <div class="timer-unit"><span class="timer-val" id="secs">00</span><span class="timer-label">Secs</span></div>
         </div>
 
-        <div class="container" id="leaderboard">
-            <h2 class="section-title" style="margin-top: 40px;">🏆 Team Standings 🏆</h2>
-            <div class="leaderboard-box">
-                <div class="leaderboard-header">
-                    <span style="font-family: 'Rye', serif; font-size: 1.2rem;">CURRENT POINTS</span>
-                    <span class="live-badge">● LIVE UPDATES</span>
-                </div>
-                <table class="lb-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 10%;">Pos</th>
-                            <th style="text-align: left;">Team</th>
-                            <th>Day 1</th>
-                            <th>Day 2</th>
-                            <th>Day 3</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="team-name-cell">
-                                <img src="https://ranchgolftrips.com/Logo-SliceMasters.jpeg" class="lb-logo">
-                                Slice Masters
-                            </td>
-                            <td>7.5</td>
-                            <td>4</td>
-                            <td>15</td>
-                            <td class="total-cell">26.5</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="team-name-cell">
-                                <img src="https://ranchgolftrips.com/Logo-SandTrapSeniors.jpeg" class="lb-logo">
-                                Sand Trap Seniors
-                            </td>
-                            <td>2.5</td>
-                            <td>2</td>
-                            <td>11</td>
-                            <td class="total-cell">15.5</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td class="team-name-cell">
-                                <img src="https://ranchgolftrips.com/Logo-BackNineBandits.jpeg" class="lb-logo">
-                                Back Nine Bandits
-                            </td>
-                            <td>5</td>
-                            <td>1</td>
-                            <td>9</td>
-                            <td class="total-cell">15</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td class="team-name-cell">
-                                <img src="https://ranchgolftrips.com/Logo-BogeyBrothers.jpeg" class="lb-logo">
-                                Bogey Brothers
-                            </td>
-                            <td>5</td>
-                            <td>3</td>
-                            <td>5</td>
-                            <td class="total-cell">13</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
         <div class="container champions-section" id="champions-section">
             <h2 class="section-title text-center">🏆 2026 Champions 🏆</h2>
-            <p class="champions-intro text-center">Team champions — <strong>Slice Masters</strong> (Team 3) · 26.5 points</p>
+            <p class="champions-intro text-center"><strong>Slice Masters</strong> (Team 3) — team champions.</p>
+
+            <div class="champions-standings-card">
+                <h3 class="champions-standings-title">Final team standings</h3>
+                <ul class="champions-standings-list">
+                    <li><span class="champions-stand-place">1st</span> <span class="champions-stand-team">Slice Masters</span> <span class="champions-stand-pts">26.5 pts</span></li>
+                    <li><span class="champions-stand-place">2nd</span> <span class="champions-stand-team">Sand Trap Seniors</span> <span class="champions-stand-pts">15.5 pts</span></li>
+                    <li><span class="champions-stand-place">3rd</span> <span class="champions-stand-team">Back Nine Bandits</span> <span class="champions-stand-pts">15 pts</span></li>
+                    <li><span class="champions-stand-place">4th</span> <span class="champions-stand-team">Bogey Brothers</span> <span class="champions-stand-pts">13 pts</span></li>
+                </ul>
+            </div>
 
             <div class="champions-team-card">
                 <div class="champions-team-head">
@@ -1353,10 +1185,7 @@
 
 
         <div class="container section-padding" id="schedule">
-            <div class="section-header-row">
-                <h2 class="section-title">♠ The Schedule & Format ♠</h2>
-                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
-            </div>
+            <h2 class="section-title">♠ The Schedule & Format ♠</h2>
             <div class="play-format-callout">
                 <div class="play-format-title">Play Format</div>
                 <p><strong>ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY.</strong> Days 2 and 3 are decided by total strokes (net), not by winning individual holes. Day 1: Split format (Front 9 Scramble, Back 9 Alternate Shot) — <strong>1 Point</strong> for winning holes 1–9, <strong>1 Point</strong> for winning holes 10–18; ½ Point per nine if tied. Gross score, no handicaps.</p>
@@ -1486,10 +1315,7 @@
         </div>
 
         <div class="container section-padding" id="rules">
-            <div class="section-header-row">
-                <h2 class="section-title">📜 Rules & Regulations 📜</h2>
-                <button type="button" class="btn-print-rules" onclick="printFormatAndRules()">🖨️ Print Format & Rules</button>
-            </div>
+            <h2 class="section-title">📜 Rules & Regulations 📜</h2>
             <div class="format-box" style="background: rgba(20, 20, 20, 0.9);">
                 
                 <div class="format-item">
@@ -1598,26 +1424,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <div id="format-and-rules-print-content" style="display: none;" aria-hidden="true">
-            <h1 style="text-align:center; margin:0 0 8px 0;">2026 Robson Ranch Invitational</h1>
-            <p style="text-align:center; font-weight: bold; margin:0 0 4px 0;">Format &amp; Rules</p>
-            <p style="text-align:center; font-weight: bold; margin:0 0 14px 0;">ALL MEDAL PLAY (TOTAL SCORE) — NOT MATCH PLAY</p>
-            <h2>PLAY FORMAT</h2>
-            <p><strong>DAY 1 — STONEBRIDGE</strong></p>
-            <p>Two Man Teams = TEAMS 1 vs 2, AND Teams 3 vs 4. Shotgun start at 10am. 1 Point for winning holes 1–9 (Scramble), 1 Point for winning holes 10–18 (Alternate Shot); ½ Point per nine if tied. Gross, no handicaps.</p>
-            <p><strong>HOLES 1–9: SCRAMBLE</strong> — Each player drives, hitting from the same spot through the hole. Write down your best score. Remember to change formats from the front side to the back side because we are a shotgun start starting at 10am.</p>
-            <p><strong>HOLES 10–18: TRUE ALTERNATE SHOT</strong> — On hole 10 choose a player to drive on 10, alternating shots all the way to 18. If you putt out on a hole, then the other player MUST DRIVE on the next hole. When getting to hole 18 (going to the front side to play a scramble), WRITE DOWN who putted out on 18 so you remember who drives on 10. The first hole you play on alternate shot is when you begin alternate shot format. Example: Your match begins on hole 17 — that is where your team begins alternate shot, choosing one person to drive, ALTERNATING that ball through hole 18. Note who putted out. When you return to hole 10, the opposite team member must drive on HOLE 10.</p>
-            <p><strong>DAY 2 — CYPRESS BEND</strong></p>
-            <p>Two Man Teams – TEAMS 1 vs 3, and TEAMS 2 vs 4. Best Ball for 18 holes / Total Score of the Best Ball (NOT MATCH PLAY). Course handicap from course handicap sheet.</p>
-            <p>You and your partner will play all 18 holes. Net Scoring. Best NET Score goes on the scorecard BETWEEN your partner and you. This is MEDAL PLAY, NOT MATCH – total score of your best ball after 18 holes. Add Best Net Ball up at the end of 18 holes and that is your two-man teams score. Tee Times Starting at 1pm. 1 Point winning team / ½ Point tie.</p>
-            <p><strong>DAY 3 — THE TEMPEST</strong></p>
-            <p>DAY 3 — MEDAL PLAY, TOTAL NET (not match play). TEAMS 1 vs 4, and TEAMS 2 vs 3. You and your competitor play 18 holes; low total NET score wins. TEE TIMES starting at 10am. Low Net (White Tees) and Low Net (Gold Tees). NO GIMMIES — putt everything out. 2 Points winning team / 1 Point if tied.</p>
-            <h2>RULES</h2>
-            <p><strong>Preferred Lies (Bumping):</strong> Ball may be moved within one foot (12 inches), not nearer the hole. Same area of course (like-to-like). Cannot improve lie (e.g. rough to fairway) or bump in hazard. Line of play: don’t create new line of sight. USGA E-3.</p>
-            <p><strong>OB (Robson Ranch):</strong> 2 strokes. Drop in fairway adjacent to where ball went OB (no return to tee). Par 3 OB: if there is a drop zone, play from the drop zone; if not, re-tee.</p>
-            <p><strong>Lost ball (not OB):</strong> Group agrees location. One stroke penalty. Drop within 2 club-lengths of estimated spot (no nearer hole). If may be OB, use OB rule.</p>
         </div>
 
         <div class="container" id="courses">
@@ -1785,12 +1591,6 @@
 
         // --- COUNTDOWN TIMER ---
         var countDownDate = new Date("Mar 22, 2026 12:00:00").getTime();
-        (function setAlertsDays() {
-            var distance = countDownDate - new Date().getTime();
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var alertsDaysEl = document.getElementById("alerts-days");
-            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
-        })();
         var x = setInterval(function() {
             var now = new Date().getTime();
             var distance = countDownDate - now;
@@ -1803,8 +1603,6 @@
             document.getElementById("hours").innerHTML = (hours < 10 ? "0" : "") + hours;
             document.getElementById("mins").innerHTML = (minutes < 10 ? "0" : "") + minutes;
             document.getElementById("secs").innerHTML = (seconds < 10 ? "0" : "") + seconds;
-            var alertsDaysEl = document.getElementById("alerts-days");
-            if (alertsDaysEl) alertsDaysEl.innerHTML = distance >= 0 ? days : "0";
 
             if (distance < 0) {
                 clearInterval(x);
@@ -1812,19 +1610,6 @@
                 if (countdownEl) countdownEl.style.display = "none";
             }
         }, 1000);
-
-        function printFormatAndRules() {
-            var content = document.getElementById('format-and-rules-print-content');
-            if (!content) return;
-            var win = window.open('', '_blank');
-            var onePageCss = '<style>@page{size:8.5in 11in;margin:0.5in;}body{font-family:Georgia,serif;font-size:10.5pt;line-height:1.35;max-width:100%;margin:0;padding:0.5in;color:#000;background:#fff;min-height:10in;box-sizing:border-box;}h1{font-size:14pt;margin:0 0 6px 0;}h2{font-size:11.5pt;margin:12px 0 6px 0;padding-bottom:3px;border-bottom:1px solid #333;}p{margin:0 0 6px 0;}strong{font-weight:bold;}</style>';
-            win.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Format &amp; Rules — Robson Ranch Invitational 2026</title>' + onePageCss + '</head><body>');
-            win.document.write(content.innerHTML);
-            win.document.write('</body></html>');
-            win.document.close();
-            win.focus();
-            setTimeout(function() { win.print(); win.close(); }, 300);
-        }
 
         window._rosterPlayersByTeam = {"1":[{"name":"Bali Ramarao","index":"+5.1","tees":"White","bio":"win or lose booze","avatar":"https://ranchgolftrips.com/bali.png","drivers":"Driving himself, visiting family on the way back","team":"1","stonebridge":"2","cypress":"4","tempest":"4","day1Score":"","day2Score":"","day3Score":"81","initials":"BR","idx":0},{"name":"Corey Klessig","index":"+5.5","tees":"White","bio":"Kicked in doors for the Marines, now I just kick down flagsticks with my PXGs and the Golpher.","avatar":"https://ranchgolftrips.com/CoreyKlessig.png","drivers":"Riding with Donny Reed","team":"1","stonebridge":"3","cypress":"4","tempest":"4","day1Score":"","day2Score":"","day3Score":"76","initials":"CK","idx":1},{"name":"Larry Hull","index":"+12.6","tees":"Gold","bio":"I am prepared to negotiate my handicap... for the right price.","avatar":"https://ranchgolftrips.com/Hull.png","drivers":"Riding with Tim Hughes","team":"1","stonebridge":"6","cypress":"10","tempest":"7","day1Score":"","day2Score":"","day3Score":"84","initials":"LH","idx":2},{"name":"Mike Miloser","index":"+12.8","tees":"White","bio":"Did you guys see the Pool, I could've done a better job!","avatar":"https://ranchgolftrips.com/MikeM.png","drivers":"Driving Doyle Hicks, Johnnie Eason, Harley Finnell","team":"1","stonebridge":"11","cypress":"12","tempest":"12","day1Score":"","day2Score":"","day3Score":"99","initials":"MM","idx":3},{"name":"Sam Paugh","index":"+13.4","tees":"Gold","bio":"I've started aiming for the trees on the left, just to keep my follow-through consistent.","avatar":"https://ranchgolftrips.com/Sam.png","drivers":"Riding with Mark Shaffer","team":"1","stonebridge":"7","cypress":"11","tempest":"8","day1Score":"","day2Score":"","day3Score":"85","initials":"SP","idx":4},{"name":"Dave Moen","index":"+14.6","tees":"Gold","bio":"They say practice makes perfect, but in golf, even the perfect practice shot can end up in the rough.","avatar":"https://ranchgolftrips.com/Moen.png","drivers":"Driving w/wife","team":"1","stonebridge":"8","cypress":"12","tempest":"9","day1Score":"","day2Score":"","day3Score":"90","initials":"DM","idx":5},{"name":"Virgil Thompson","index":"+16.4","tees":"Gold","bio":"The only thing straight about my drive is the path of the beer cart when it's headed my way.","avatar":"https://ranchgolftrips.com/Virgil.png","drivers":"Riding with Jim Burns","team":"1","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"91","initials":"VT","idx":6},{"name":"Randy Shoff","index":"+18.9","tees":"Gold","bio":"My golf strategy is simple: Hit the ball, find the ball, hit it again. Repeat until drunk.","avatar":"https://ranchgolftrips.com/Schoff.png","drivers":"Riding with Rich Jedlowski and Jimmy Knowles","team":"1","stonebridge":"12","cypress":"17","tempest":"14","day1Score":"","day2Score":"","day3Score":"82","initials":"RS","idx":7},{"name":"Dennis Stewart","index":"+21.3","tees":"Gold","bio":"Do you smell that, it smells like marijuana.","avatar":"https://ranchgolftrips.com/Stewart.jpeg","drivers":"Riding with Jeff Watts","team":"1","stonebridge":"15","cypress":"19","tempest":"16","day1Score":"","day2Score":"","day3Score":"80","initials":"DS","idx":8},{"name":"Carl Smith","index":"+23.0","tees":"White","bio":"My 8-iron is the only club in my bag that hasn't threatened to walk off the course.","avatar":"https://ranchgolftrips.com/CarlS.png","drivers":"—","team":"1","stonebridge":"22","cypress":"24","tempest":"23","day1Score":"","day2Score":"","day3Score":"95","initials":"CS","idx":9}],"2":[{"name":"Llynal Carey","index":"+7.3","tees":"White","bio":"I'm not saying I'm good, I'm just saying I never have to look for my ball in the rough... because it’s not there.","avatar":"https://ranchgolftrips.com/Carey.png","drivers":"Driving with Wife","team":"2","stonebridge":"5","cypress":"6","tempest":"6","day1Score":"","day2Score":"","day3Score":"78","initials":"LC","idx":0},{"name":"Johnny Eason","index":"+7.5","tees":"White","bio":"If I bogey the first 2 holes somebody better pull out the Vodka","avatar":"https://ranchgolftrips.com/Hippie.png","drivers":"Riding with Mike Miloser","team":"2","stonebridge":"5","cypress":"6","tempest":"6","day1Score":"","day2Score":"","day3Score":"89","initials":"JE","idx":1},{"name":"Scott Tefft","index":"+8.6","tees":"White","bio":"2024 Bayou Classic Invitational Champion","avatar":"https://ranchgolftrips.com/Tefft.png","drivers":"Driving John Liske, Pat Donehue","team":"2","stonebridge":"6","cypress":"7","tempest":"7","day1Score":"","day2Score":"","day3Score":"77","initials":"ST","idx":2},{"name":"Jeff Watts","index":"+8.7","tees":"White","bio":"The Commisioner, don't piss me off or you may find yourself off the list.","avatar":"https://ranchgolftrips.com/Watts.png","drivers":"Driving with Dennis Stewart, Greg Hajdyla, Dale Valentine","team":"2","stonebridge":"6","cypress":"8","tempest":"7","day1Score":"","day2Score":"","day3Score":"91","initials":"JW","idx":3},{"name":"Bruce Bent","index":"+12.2","tees":"White","bio":"Is this putt good?","avatar":"https://ranchgolftrips.com/BruceBent.png","drivers":"Riding with Larry Swedlund","team":"2","stonebridge":"10","cypress":"12","tempest":"11","day1Score":"","day2Score":"","day3Score":"85","initials":"BB","idx":4},{"name":"Gary Smith","index":"+13.4","tees":"Gold","bio":"I almost have enough frequent flyer miles for a summer tip to Thailand.","avatar":"https://ranchgolftrips.com/GarySmith.png","drivers":"Riding with Tim Hughes","team":"2","stonebridge":"7","cypress":"11","tempest":"8","day1Score":"","day2Score":"","day3Score":"79","initials":"GS","idx":5},{"name":"Dale Valentine","index":"15.6","tees":"Gold","bio":"No bio available.","avatar":"https://ranchgolftrips.com/Valentine.png","drivers":"Riding with Jeff Watts","team":"2","stonebridge":"9","cypress":"13","tempest":"10","day1Score":"","day2Score":"","day3Score":"90","initials":"DV","idx":6},{"name":"Donny Reed","index":"+16.4","tees":"Gold","bio":"If I am not on the teebox I am at the blackjack table trying to win my money back.","avatar":"https://ranchgolftrips.com/Donny.png","drivers":"Driving: Corey Klessig","team":"2","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"92","initials":"DR","idx":7},{"name":"Doyle Hicks","index":"+16.8","tees":"Gold","bio":"I have more doctors than friends.","avatar":"https://ranchgolftrips.com/doyle.png","drivers":"Riding with Mike Miloser","team":"2","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"82","initials":"DH","idx":8},{"name":"Jim Knowles","index":"+18.1","tees":"Gold","bio":"Golf: where the scorecard lies and the beer doesn't.","avatar":"https://ranchgolftrips.com/Knowles.png","drivers":"Riding with Randy Shoff and Jed","team":"2","stonebridge":"11","cypress":"16","tempest":"13","day1Score":"","day2Score":"","day3Score":"99","initials":"JK","idx":9}],"3":[{"name":"Scott Eskridge","index":"3.8","tees":"White","bio":"No bio available.","avatar":"https://ranchgolftrips.com/scott.png","drivers":"Driving with Tyler Clark and Ken Gibson","team":"3","stonebridge":"1","cypress":"2","tempest":"2","day1Score":"","day2Score":"","day3Score":"83","initials":"SE","idx":0},{"name":"Kenneth Gibson","index":"+5.8","tees":"White","bio":"Did you guys see the cart girl, I need a glass of wine.","avatar":"https://ranchgolftrips.com/Gibby.png","drivers":"Riding with Scott Eskridge","team":"3","stonebridge":"3","cypress":"4","tempest":"4","day1Score":"","day2Score":"","day3Score":"88","initials":"KG","idx":1},{"name":"Dan Dickens","index":"6.8","tees":"White","bio":"No bio available.","avatar":"https://ranchgolftrips.com/dan.png","drivers":"Driving himself, stopping at relatives on way back","team":"3","stonebridge":"4","cypress":"5","tempest":"5","day1Score":"","day2Score":"","day3Score":"77","initials":"DD","idx":2},{"name":"Bob Difonzo","index":"+8.1","tees":"White","bio":"I am the guy to beat!  I am the Scotty Sheffler of Invitationals","avatar":"https://ranchgolftrips.com/Difonzo.png","drivers":"Riding with John Gauthier","team":"3","stonebridge":"6","cypress":"7","tempest":"7","day1Score":"","day2Score":"","day3Score":"77","initials":"BD","idx":3},{"name":"Mark Shaffer","index":"+8.4","tees":"White","bio":"I was at the bar with Johnny last night and I can't remember anything past 10PM","avatar":"https://ranchgolftrips.com/MarkS.jpg","drivers":"Driving: with Sam Paugh","team":"3","stonebridge":"6","cypress":"7","tempest":"7","day1Score":"","day2Score":"","day3Score":"81","initials":"MS","idx":4},{"name":"Dean Lackey","index":"+9.9","tees":"White","bio":"My golf swing is best described as a full-body dry heave.","avatar":"https://ranchgolftrips.com/Lackey2.png","drivers":"Riding with Bob DiFonzo","team":"3","stonebridge":"8","cypress":"9","tempest":"9","day1Score":"","day2Score":"","day3Score":"85","initials":"DL","idx":5},{"name":"Pat Donehue","index":"+12.8","tees":"Gold","bio":"I'm only using the honor system for my score because my caddy quit after the first tee.","avatar":"https://ranchgolftrips.com/PatD.png","drivers":"Riding with Scott Tefft","team":"3","stonebridge":"7","cypress":"11","tempest":"7","day1Score":"","day2Score":"","day3Score":"80","initials":"PD","idx":6},{"name":"Tim Hughes","index":"+13.9","tees":"White","bio":"I hold the money, so yea if I don't show I will be driving my Chevelle to Vegas.","avatar":"https://ranchgolftrips.com/TimHu.png","drivers":"Driving: Gary Smith and Larry Hull","team":"3","stonebridge":"12","cypress":"13","tempest":"13","day1Score":"","day2Score":"","day3Score":"85","initials":"TH","idx":7},{"name":"Jimmy Burns","index":"+16.7","tees":"Gold","bio":"My biggest worry isn't the water hazard, it's my eight-iron's witness protection program.","avatar":"https://ranchgolftrips.com/Burns.png","drivers":"Driving with Virgil Thompson","team":"3","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"98","initials":"JB","idx":8},{"name":"Rich Jedlowski","index":"+16.8","tees":"Gold","bio":"You can't handle the TRUTH!","avatar":"https://ranchgolftrips.com/RichJ.png","drivers":"Riding with Randy Shoff and Jimmy Knowles","team":"3","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"85","initials":"RJ","idx":9}],"4":[{"name":"Tyler Clark","index":"-2.3","tees":"White","bio":"Free lessons after each round...","avatar":"https://ranchgolftrips.com/TylerClark.png","drivers":"Riding with Scott Eskridge","team":"4","stonebridge":"-6","cypress":"-5","tempest":"-4","day1Score":"","day2Score":"","day3Score":"87","initials":"TC","idx":0},{"name":"Kevin Buckrucker","index":"+5.9","tees":"White","bio":"Keep an eye on this I have no idea where it is going; just like when I fly.","avatar":"https://ranchgolftrips.com/Buckrucker.png","drivers":"Driving Kevin Murphy","team":"4","stonebridge":"3","cypress":"4","tempest":"4","day1Score":"","day2Score":"","day3Score":"83","initials":"KB","idx":1},{"name":"Greg Hajdyla","index":"+6.9","tees":"White","bio":"Why did they put me in the last group?","avatar":"https://ranchgolftrips.com/Greg.png","drivers":"Riding with Jeff Watts","team":"4","stonebridge":"4","cypress":"6","tempest":"6","day1Score":"","day2Score":"","day3Score":"81","initials":"GH","idx":2},{"name":"John Gauthier","index":"+8.7","tees":"White","bio":"I only use my driver on par-3s. It's the only club I can reliably hit sideways into the next fairway.","avatar":"https://ranchgolftrips.com/JohnG.png","drivers":"Driving: with Dave Emerton, Bob Difonzo and Dean Lackey","team":"4","stonebridge":"6","cypress":"8","tempest":"7","day1Score":"","day2Score":"","day3Score":"87","initials":"JG","idx":3},{"name":"Dave Emerton","index":"+10.2","tees":"White","bio":"My putter and I are in a long-term relationship. It's complicated, and we mostly yell at each other.","avatar":"https://ranchgolftrips.com/Emerton.png","drivers":"Riding with John Gauthier","team":"4","stonebridge":"8","cypress":"9","tempest":"9","day1Score":"","day2Score":"","day3Score":"85","initials":"DE","idx":4},{"name":"Kevin Murphy","index":"+14.0","tees":"Gold","bio":"My golf handicap? Keeping a straight face after a bad shot.","avatar":"https://ranchgolftrips.com/Kevin.png","drivers":"Riding with Kevin Buckrucker","team":"4","stonebridge":"7","cypress":"11","tempest":"9","day1Score":"","day2Score":"","day3Score":"80","initials":"KM","idx":5},{"name":"John Liske","index":"+14.2","tees":"White","bio":"In golf, the term 'hazard' is just a fancy way of saying a place where my ball mysteriously disappears.","avatar":"https://ranchgolftrips.com/Liske.png","drivers":"Riding with Scott Tefft","team":"4","stonebridge":"12","cypress":"14","tempest":"13","day1Score":"","day2Score":"","day3Score":"84","initials":"JL","idx":6},{"name":"Harley Finnell","index":"+16.5","tees":"Gold","bio":"Is it always this hot and humind in Loisianna?","avatar":"https://ranchgolftrips.com/Harley.png","drivers":"Riding with Mike Miloser","team":"4","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"89","initials":"HF","idx":7},{"name":"Ron Williams","index":"+16.6","tees":"Gold","bio":"I'm not aiming for the green, I'm just aiming for a better lie than my last shot.","avatar":"https://ranchgolftrips.com/RonW.PNG","drivers":"Driving with wife and can take one person if needed","team":"4","stonebridge":"10","cypress":"14","tempest":"11","day1Score":"","day2Score":"","day3Score":"84","initials":"RW","idx":8},{"name":"Larry Swedlund","index":"16.9","tees":"Gold","bio":"No bio available.","avatar":"https://ranchgolftrips.com/Larry.png","drivers":"Driving with Bruce Bent","team":"4","stonebridge":"10","cypress":"14","tempest":"12","day1Score":"","day2Score":"","day3Score":"90","initials":"LS","idx":9}]};
 
