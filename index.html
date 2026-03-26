@@ -607,77 +607,49 @@
             margin: 8px auto 0;
             opacity: 0.8;
         }
-        .roster-team-captain {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.85);
-            text-align: center;
-            margin-bottom: 14px;
-            line-height: 1.4;
+        .roster-leadership-row {
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+            gap: 16px 20px; margin-bottom: 18px; padding-bottom: 16px;
+            border-bottom: 1px solid rgba(244,196,48,0.25);
         }
-        .roster-team-captain strong { color: var(--gold); }
-        .roster-team-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
+        .roster-players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 14px 12px;
         }
-        .roster-team-table thead {
-            background: rgba(244,196,48,0.12);
+        .roster-player-slot {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
         }
-        .roster-team-table th {
-            text-align: left;
-            padding: 8px 10px;
-            color: var(--gold);
-            border-bottom: 2px solid rgba(244,196,48,0.5);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
+        .roster-player-role {
+            display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+            padding: 3px 10px; border-radius: 999px;
+            border: 1px solid rgba(244,196,48,0.45); background: rgba(244,196,48,0.1);
         }
-        .roster-team-table td {
-            padding: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            color: rgba(255,255,255,0.95);
-            vertical-align: middle;
+        .roster-player-card {
+            width: 100%; max-width: 168px; margin: 0 auto;
+            padding: 12px 10px 14px; border-radius: 10px; cursor: pointer;
+            border: 1px solid rgba(244,196,48,0.35); background: rgba(0,0,0,0.22);
+            display: flex; flex-direction: column; align-items: center;
+            transition: background 0.15s ease, border-color 0.15s ease;
         }
-        .roster-team-table tbody tr:hover td { background: rgba(255,255,255,0.08); }
-        .roster-team-table tbody tr:last-child td { border-bottom: none; }
-        .roster-team-avatar-cell {
-            width: 48px;
-            padding: 8px 10px !important;
+        .roster-player-card:hover {
+            background: rgba(244,196,48,0.1); border-color: rgba(244,196,48,0.6);
         }
-        .roster-team-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--gold);
-            display: block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        .roster-player-card-img {
+            width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--gold); margin-bottom: 8px; background: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.35);
         }
-        .roster-team-avatar-initials {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(244,196,48,0.25);
-            border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--gold);
-            font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        .roster-leadership-row .roster-player-card-img { width: 64px; height: 64px; }
+        .roster-player-card-name {
+            font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.96);
+            line-height: 1.25; margin-bottom: 6px;
         }
-        .roster-team-role-tag { font-size: 0.7rem; color: var(--gold); font-weight: normal; }
-        /* Center course handicap columns (Stonebridge, Cypress Bend, The Tempest) */
-        .roster-team-table th:nth-child(5),
-        .roster-team-table th:nth-child(6),
-        .roster-team-table th:nth-child(7),
-        .roster-team-table td:nth-child(5),
-        .roster-team-table td:nth-child(6),
-        .roster-team-table td:nth-child(7) { text-align: center; }
-        /* Equal-height rows: fixed height so badges don't affect row size */
-        .roster-team-table tbody tr { height: 48px; }
-        .roster-team-table tbody td { vertical-align: middle; }
+        .roster-player-card-nick {
+            font-size: 0.68rem; line-height: 1.35; color: rgba(255,255,255,0.72);
+            font-style: italic; max-height: 4.2em; overflow: hidden;
+        }
         @media (max-width: 768px) {
             .roster-teams-grid { grid-template-columns: 1fr; }
         }
@@ -2034,7 +2006,7 @@
 
         const TEAM_CAPTAINS = {
             '1': { captain: 'Corey Klessig', captainMatch: ['Corey Klessig'], coCaptain: 'Sam Paugh', coCaptainMatch: ['Sam Paugh'] },
-            '2': { captain: 'Lyynal Carey', captainMatch: ['Lyynal Carey', 'Llynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
+            '2': { captain: 'Llynal Carey', captainMatch: ['Llynal Carey', 'Lyynal Carey'], coCaptain: 'Scott Tefft', coCaptainMatch: ['Scott Tefft'] },
             '3': { captain: 'Bob DiFonzo', captainMatch: ['Bob DiFonzo'], coCaptain: 'Scott Eskridge', coCaptainMatch: ['Scott Eskridge'] },
             '4': { captain: 'John Gauthier', captainMatch: ['John Gauthier'], coCaptain: 'Tyler Clark', coCaptainMatch: ['Tyler Clark'] }
         };
