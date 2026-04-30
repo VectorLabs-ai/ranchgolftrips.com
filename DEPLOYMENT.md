@@ -1,6 +1,10 @@
 # Cloudflare setup (easiest path)
 
-Do this **once**. After that, merging Git branches updates the sites automatically.
+**Production (`ranchgolftrips.com`) already on Cloudflare Pages?** You only need **Step B** (second project + `dev.ranchgolftrips.com`). Skip **Step A**.
+
+---
+
+Do staging setup **once**. After that, merging Git branches updates the sites automatically.
 
 **Repo:** `VectorLabs-ai/ranchgolftrips.com`  
 **Branches:** `main` = live site, `dev` = staging (branch already exists on GitHub).
@@ -14,9 +18,9 @@ Do this **once**. After that, merging Git branches updates the sites automatical
 
 ---
 
-## Step A — Production (`ranchgolftrips.com`)
+## Step A — Production (`ranchgolftrips.com`) *(reference only)*
 
-**Skip this block if** you already have a Cloudflare Pages project deploying `main` for this site.
+**Skip entirely** if the site has been live for months—your existing Pages project already covers this.
 
 1. Cloudflare → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
 2. **Install / authorize** the Cloudflare GitHub app when asked → pick repo **`ranchgolftrips.com`**.
@@ -71,9 +75,9 @@ Cloudflare **does not** read it. It only mattered for GitHub Pages. Safe to leav
 
 ## Quick checklist
 
-- [ ] **Project 1:** branch `main` → `ranchgolftrips.com` works.
-- [ ] **Project 2:** branch `dev` → `dev.ranchgolftrips.com` works.
-- [ ] Both projects show **green** latest deployments after a test merge.
+- [x] **Project 1 (prod):** already done — `main` → `ranchgolftrips.com`.
+- [ ] **Project 2 (staging):** new project — branch `dev` → `dev.ranchgolftrips.com`.
+- [ ] Open `dev.ranchgolftrips.com` after a **merge to `dev`** to confirm it rebuilds.
 
 ---
 
