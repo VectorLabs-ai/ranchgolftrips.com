@@ -59,6 +59,69 @@
       margin: 30px auto 50px;
     }
 
+    main > .card + .card {
+      margin-top: 24px;
+    }
+
+    .section-lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .schedule-subhead {
+      margin: 22px 0 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .schedule-subhead:first-of-type {
+      margin-top: 0;
+    }
+
+    .stack-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .stack-list > li {
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .stack-list > li:last-child {
+      margin-bottom: 0;
+    }
+
+    .stack-list:empty::after {
+      display: block;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-style: italic;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .roster-list:empty::after {
+      content: "Roster coming soon.";
+    }
+
+    .schedule-courses:empty::after {
+      content: "Course lineup TBD.";
+    }
+
+    .schedule-events:empty::after {
+      content: "Evening events TBD.";
+    }
+
     .card {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -138,8 +201,28 @@
       </p>
 
       <p class="footer-note">
-        More tournament details, pairings, and schedules will be added here soon.
+        Roster and schedule sections below will be updated as players confirm and tee times are set.
       </p>
+    </section>
+
+    <section class="card" id="roster" aria-labelledby="roster-heading">
+      <h2 id="roster-heading">Roster</h2>
+      <p class="section-lead">Confirmed players and guests will be listed below.</p>
+      <!-- Roster: add <li>Name</li> inside the ul -->
+      <ul class="stack-list roster-list" aria-label="Tournament roster"></ul>
+    </section>
+
+    <section class="card" id="schedule" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">Schedule</h2>
+      <p class="section-lead">Courses, tee times, and evening plans will be posted below as they are finalized.</p>
+
+      <h3 class="schedule-subhead">Golf — courses</h3>
+      <!-- Schedule courses: add <li>...</li> inside the ul -->
+      <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds"></ul>
+
+      <h3 class="schedule-subhead">Evenings &amp; other events</h3>
+      <!-- Schedule events: add <li>...</li> inside the ul -->
+      <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
     </section>
   </main>
 </body>
