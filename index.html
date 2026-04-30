@@ -7,14 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --felt-green: #1a472a;
-      --bright-green: #2e7d32;
-      --gold: #f4c430;
-      --wood: #5d4037;
-      --card-white: #fdfdfd;
-      --text-dark: #222;
-      --forest-dark: #1a3d35;
-      --forest-mid: #245247;
+      --bg-deep: #071210;
+      --bg-mid: #0f2420;
+      --panel: #17332d;
+      --panel-soft: #1d3f38;
+      --gold: #e7bf5f;
+      --text-dark: #1f2624;
+      --text-light: #e8f0ed;
+      --text-muted: #bfd1ca;
+      --card-white: #f9f7f1;
+      --line: rgba(231, 191, 95, 0.35);
     }
 
     * {
@@ -29,10 +31,9 @@
     }
 
     body {
-      background-color: var(--wood);
+      background: radial-gradient(circle at top, #173730 0%, var(--bg-mid) 38%, var(--bg-deep) 100%);
       font-family: "Source Sans 3", sans-serif;
-      color: var(--text-dark);
-      background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+      color: var(--text-light);
       line-height: 1.65;
     }
 
@@ -42,17 +43,18 @@
       font-family: "Anton", sans-serif;
       text-transform: uppercase;
       letter-spacing: 1.2px;
+      font-weight: 400;
     }
 
     .wrapper {
       max-width: 1200px;
-      margin: 0 auto;
-      background-color: var(--felt-green);
-      background-image: url("https://www.transparenttextures.com/patterns/felt.png");
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      margin: 18px auto;
+      background: linear-gradient(180deg, #15332d 0%, #112824 100%);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
       min-height: 100vh;
-      border-left: 15px solid #3e2723;
-      border-right: 15px solid #3e2723;
+      border: 1px solid rgba(231, 191, 95, 0.22);
+      border-radius: 14px;
+      overflow: hidden;
     }
 
     .container {
@@ -71,12 +73,13 @@
 
     /* --- NAVIGATION (matches archive) --- */
     nav {
-      background: #111;
-      border-bottom: 4px solid var(--gold);
+      background: rgba(8, 18, 16, 0.95);
+      border-bottom: 1px solid var(--line);
       position: sticky;
       top: 0;
       z-index: 999;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
     }
 
     .nav-inner {
@@ -89,8 +92,9 @@
     .nav-logo {
       color: var(--gold);
       font-family: "Anton", sans-serif;
-      font-size: 1.05rem;
+      font-size: 1.2rem;
       text-decoration: none;
+      letter-spacing: 1.6px;
     }
 
     .nav-links {
@@ -102,12 +106,12 @@
     }
 
     .nav-links a {
-      color: #fff;
+      color: var(--text-light);
       margin-left: 18px;
-      font-weight: bold;
-      font-size: 0.9rem;
+      font-weight: 600;
+      font-size: 0.95rem;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: color 0.2s ease;
     }
 
     .nav-links a:hover {
@@ -117,10 +121,10 @@
     /* --- HERO & BANNER (matches archive) --- */
     .hero-section {
       text-align: center;
-      background: #000;
+      background: #050908;
       position: relative;
       line-height: 0;
-      border-bottom: 5px solid var(--gold);
+      border-bottom: 1px solid var(--line);
       overflow: hidden;
     }
 
@@ -145,18 +149,18 @@
     /* --- SPONSOR BAR --- */
     .sponsor-bar {
       width: 100%;
-      background-color: var(--felt-green);
+      background: rgba(10, 22, 19, 0.9);
       color: var(--gold);
       text-align: center;
       padding: 20px;
-      border-top: 3px solid var(--gold);
-      border-bottom: 3px solid var(--gold);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
 
     .sponsor-title {
       font-family: "Anton", sans-serif;
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 0.95rem;
+      font-weight: 400;
       letter-spacing: 2px;
       margin-bottom: 12px;
     }
@@ -180,27 +184,25 @@
     }
 
     .sponsor-logos img {
-      height: 48px;
+      height: 44px;
       width: auto;
       max-width: 140px;
       object-fit: contain;
       flex-shrink: 0;
+      filter: saturate(0.92);
     }
 
     /* --- SECTION TITLES --- */
     .section-title {
       text-align: center;
       color: var(--gold);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
       font-size: clamp(1.4rem, 4vw, 2.2rem);
       margin-bottom: 28px;
-      background:
-        linear-gradient(180deg, rgba(40, 87, 76, 0.9), rgba(20, 47, 40, 0.95)),
-        url("https://www.transparenttextures.com/patterns/felt.png");
-      padding: 14px 16px;
-      border-radius: 8px;
-      border-top: 2px solid rgba(244, 196, 48, 0.9);
-      border-bottom: 2px solid rgba(244, 196, 48, 0.9);
+      background: linear-gradient(180deg, #214a40, #193a33);
+      padding: 14px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
     }
 
     .section-banner-img {
@@ -209,19 +211,19 @@
       max-width: 1024px;
       height: auto;
       margin: 0 auto 28px;
-      border-top: 2px solid rgba(244, 196, 48, 0.9);
-      border-bottom: 2px solid rgba(244, 196, 48, 0.9);
+      border: 1px solid var(--line);
       border-radius: 6px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
     }
 
     /* --- LETTER / TRIP BLOCK --- */
     .letter-section {
-      background-color: #fdfdfd;
+      background-color: var(--card-white);
       padding: 50px 32px;
       margin: 0 0 20px;
-      border: 1px solid #ccc;
-      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      border-radius: 12px;
       position: relative;
     }
 
@@ -231,15 +233,16 @@
       top: -15px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, var(--forest-mid), var(--forest-dark));
+      background: linear-gradient(180deg, #2a5b4e, #1c4037);
       color: white;
-      padding: 5px 20px;
+      padding: 6px 18px;
       font-weight: bold;
       font-family: "Anton", sans-serif;
       border: 2px solid white;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       font-size: 0.85rem;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      border-radius: 999px;
     }
 
     .letter-content {
@@ -279,33 +282,33 @@
       margin-bottom: 16px;
       margin-top: 10px;
       padding: 10px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 8px;
-      border: 1px solid var(--gold);
+      background: linear-gradient(180deg, #214a40, #18352f);
+      border-radius: 10px;
+      border: 1px solid var(--line);
     }
 
     .roster-title {
       color: var(--gold);
       font-family: "Anton", sans-serif;
       font-size: clamp(1.25rem, 3.5vw, 1.85rem);
-      text-shadow: 2px 2px 4px #000;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
       margin: 0;
     }
 
     .section-lead-felt {
       margin: 0 0 16px;
-      color: #e0e0e0;
+      color: var(--text-muted);
       font-size: 0.98rem;
     }
 
     /* --- FORMAT BOX (dark panels on felt — archive) --- */
     .format-box {
-      background: rgba(0, 0, 0, 0.6);
+      background: linear-gradient(180deg, rgba(12, 28, 24, 0.92), rgba(9, 22, 19, 0.95));
       color: white;
-      border: 2px dashed var(--gold);
+      border: 1px solid var(--line);
       padding: 26px 24px;
       margin-bottom: 20px;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .format-box h3 {
@@ -328,9 +331,9 @@
     .stack-list > li {
       padding: 12px 16px;
       margin-bottom: 10px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 8px;
-      border-left: 4px solid var(--gold);
+      border-left: 3px solid var(--gold);
       color: #e8e8e8;
     }
 
@@ -346,15 +349,15 @@
       gap: 12px;
       min-height: 72px;
       margin: 0;
-      border-left: 4px solid var(--gold);
-      background: rgba(255, 255, 255, 0.1);
+      border-left: 3px solid var(--gold);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .roster-avatar {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      border: 2px dashed rgba(244, 196, 48, 0.9);
+      border: 2px solid rgba(231, 191, 95, 0.75);
       background: rgba(0, 0, 0, 0.25);
       flex: 0 0 48px;
       object-fit: cover;
@@ -376,9 +379,9 @@
       padding: 14px 16px;
       color: #bbb;
       font-style: italic;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border-radius: 8px;
-      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border: 1px dashed rgba(231, 191, 95, 0.28);
     }
 
     .roster-list:empty::after {
@@ -394,18 +397,18 @@
     }
 
     .play-format-callout {
-      background: rgba(0, 0, 0, 0.4);
+      background: linear-gradient(180deg, rgba(26, 59, 51, 0.9), rgba(16, 36, 31, 0.92));
       color: #fff;
       padding: 18px 24px;
-      border: 2px solid var(--gold);
-      border-radius: 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
       margin-bottom: 24px;
       line-height: 1.5;
     }
 
     .play-format-callout .play-format-title {
       font-family: "Anton", sans-serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: bold;
       margin-bottom: 8px;
       color: var(--gold);
@@ -414,19 +417,6 @@
     .play-format-callout p {
       margin: 0;
       font-size: 0.98rem;
-    }
-
-    .site-footer {
-      text-align: center;
-      padding: 24px 16px 40px;
-      color: var(--gold);
-      font-size: 0.85rem;
-      border-top: 2px solid rgba(244, 196, 48, 0.35);
-      margin-top: 10px;
-    }
-
-    .site-footer a {
-      color: #fff;
     }
 
     @media (max-width: 768px) {
@@ -469,7 +459,7 @@
         src="mountain-man-banner.png"
         alt="Mountainman Invitational. July 10–13, 2026. Ruidoso, New Mexico. RanchGolfTrips.com"
         width="1024"
-        height="682"
+        height="455"
       />
     </div>
 
@@ -578,9 +568,6 @@
       </div>
     </div>
 
-    <footer class="site-footer">
-      Ranch Golf Trips · <a href="https://ranchgolftrips.com">ranchgolftrips.com</a>
-    </footer>
   </div>
 </body>
 </html>
