@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mountain Man Invitational</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg-deep: #071210;
@@ -15,7 +15,7 @@
       --text-dark: #1f2624;
       --text-light: #e8f0ed;
       --text-muted: #bfd1ca;
-      --card-white: #f9f7f1;
+      --paper-cream: #f9f7f1;
       --line: rgba(231, 191, 95, 0.35);
     }
 
@@ -40,10 +40,11 @@
     h1,
     h2,
     h3 {
-      font-family: "Anton", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      font-weight: 400;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0.03em;
+      line-height: 1.22;
     }
 
     .wrapper {
@@ -91,10 +92,12 @@
 
     .nav-logo {
       color: var(--gold);
-      font-family: "Anton", sans-serif;
-      font-size: 1.2rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
       text-decoration: none;
-      letter-spacing: 1.6px;
+      letter-spacing: 0.14em;
+      line-height: 1.1;
     }
 
     .nav-links {
@@ -158,10 +161,10 @@
     }
 
     .sponsor-title {
-      font-family: "Anton", sans-serif;
-      font-size: 0.95rem;
-      font-weight: 400;
-      letter-spacing: 2px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       margin-bottom: 12px;
     }
 
@@ -196,29 +199,38 @@
     .section-title {
       text-align: center;
       color: var(--gold);
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
-      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      font-size: clamp(1.65rem, 3.6vw, 2.35rem);
+      font-weight: 700;
       margin-bottom: 28px;
       background: linear-gradient(180deg, #214a40, #193a33);
-      padding: 14px 18px;
+      padding: 16px 22px;
       border-radius: 10px;
       border: 1px solid var(--line);
     }
 
-    .section-banner-img {
-      display: block;
-      width: 100%;
-      max-width: 1024px;
-      height: auto;
-      margin: 0 auto 28px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    .title-motif {
+      display: inline-block;
+      margin: 0 0.4em;
+      font-size: 0.82em;
+      line-height: 1;
+      vertical-align: middle;
+      opacity: 0.92;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+    }
+
+    .format-box h3 .title-motif {
+      margin: 0 0.35em 0 0;
+      font-size: 0.95em;
+    }
+
+    .play-format-callout .title-motif {
+      margin-right: 0.35em;
     }
 
     /* --- LETTER / TRIP BLOCK --- */
     .letter-section {
-      background-color: var(--card-white);
+      background-color: var(--paper-cream);
       padding: 50px 32px;
       margin: 0 0 20px;
       border: 1px solid rgba(0, 0, 0, 0.1);
@@ -228,7 +240,7 @@
     }
 
     .letter-section::before {
-      content: "MOUNTAIN MAN UPDATE";
+      content: "🔥 Word from camp";
       position: absolute;
       top: -15px;
       left: 50%;
@@ -236,13 +248,14 @@
       background: linear-gradient(180deg, #2a5b4e, #1c4037);
       color: white;
       padding: 6px 18px;
-      font-weight: bold;
-      font-family: "Anton", sans-serif;
-      border: 2px solid white;
+      font-weight: 600;
+      font-family: "Source Sans 3", sans-serif;
+      border: 2px solid rgba(255, 255, 255, 0.85);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      font-size: 0.85rem;
-      letter-spacing: 0.8px;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
       border-radius: 999px;
+      white-space: nowrap;
     }
 
     .letter-content {
@@ -257,14 +270,16 @@
       margin: 0 0 14px;
     }
 
-    .payment-box {
-      background: #fff3cd;
-      border: 2px dashed var(--gold);
+    .rsvp-callout {
+      background: linear-gradient(180deg, #fff8e6, #fff3cd);
+      border: 2px solid rgba(231, 191, 95, 0.65);
       padding: 18px 20px;
       margin: 20px 0 22px;
       text-align: center;
       font-weight: 700;
       color: var(--text-dark);
+      border-radius: 8px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
 
     .footer-note {
@@ -289,9 +304,11 @@
 
     .roster-title {
       color: var(--gold);
-      font-family: "Anton", sans-serif;
-      font-size: clamp(1.25rem, 3.5vw, 1.85rem);
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
       margin: 0;
     }
 
@@ -314,8 +331,11 @@
     .format-box h3 {
       color: var(--gold);
       margin: 22px 0 10px;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
+      font-size: 1.08rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: none;
     }
 
     .format-box h3:first-of-type {
@@ -407,9 +427,10 @@
     }
 
     .play-format-callout .play-format-title {
-      font-family: "Anton", sans-serif;
-      font-size: 1rem;
-      font-weight: bold;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
       margin-bottom: 8px;
       color: var(--gold);
     }
@@ -443,7 +464,7 @@
   <div class="wrapper">
     <nav>
       <div class="nav-inner container">
-        <a class="nav-logo" href="#">MOUNTAIN MAN '26</a>
+        <a class="nav-logo" href="#">Mountain Man &rsquo;26</a>
         <div class="nav-links">
           <a href="#trip-update">Trip / RSVP</a>
           <a href="#roster">Roster</a>
@@ -464,7 +485,7 @@
     </div>
 
     <div class="sponsor-bar">
-      <div class="sponsor-title">TOURNAMENT PARTNERS</div>
+      <div class="sponsor-title">🤝 Tournament partners</div>
       <div class="sponsor-logos">
         <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
         <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
@@ -474,10 +495,10 @@
     </div>
 
     <div class="container section-padding" id="trip-update">
-      <h2 class="section-title text-center">Trip Update &amp; RSVP</h2>
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏔</span> Trip update &amp; RSVP <span class="title-motif" aria-hidden="true">🏔</span></h2>
       <div class="letter-section">
         <div class="letter-content">
-          <div class="payment-box">
+          <div class="rsvp-callout">
             Please let me know by Friday of this week whether you can go or not.
           </div>
 
@@ -517,7 +538,7 @@
 
     <div class="container section-padding" id="roster">
       <div class="roster-header-container">
-        <h2 class="roster-title">Player Roster</h2>
+        <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Player roster <span class="title-motif" aria-hidden="true">🦅</span></h2>
       </div>
       <p class="section-lead-felt">Confirmed players and guests will be listed here.</p>
       <div class="format-box">
@@ -543,26 +564,20 @@
     </div>
 
     <div class="container section-padding" id="schedule">
-      <img
-        class="section-banner-img"
-        src="schedule-events-banner.png"
-        alt="Schedule and events"
-        width="2048"
-        height="314"
-      />
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🌲</span> Schedule &amp; events <span class="title-motif" aria-hidden="true">🌲</span></h2>
       <div class="play-format-callout">
-        <div class="play-format-title">At a glance</div>
+        <div class="play-format-title"><span class="title-motif" aria-hidden="true">🗺</span> Trail notes</div>
         <p>
           Courses, tee times, and evening get-togethers will be filled in as we lock in Inn of the Mountain Gods vs
           Alto / Outlaw / Rainmakers and social plans.
         </p>
       </div>
       <div class="format-box">
-        <h3>Golf — courses</h3>
+        <h3><span class="title-motif" aria-hidden="true">⛳</span> Golf — courses</h3>
         <!-- Schedule courses: add <li>...</li> inside the ul -->
         <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds"></ul>
 
-        <h3>Evenings &amp; other events</h3>
+        <h3><span class="title-motif" aria-hidden="true">🔥</span> Evenings &amp; campfire</h3>
         <!-- Schedule events: add <li>...</li> inside the ul -->
         <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
       </div>
