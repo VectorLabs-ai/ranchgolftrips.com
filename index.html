@@ -567,6 +567,148 @@
       font-size: 0.98rem;
     }
 
+    /* --- TRIP CHAT (WebSocket / Durable Object) --- */
+    .trip-chat-panel .section-lead-felt {
+      margin-bottom: 14px;
+    }
+
+    .trip-chat-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      margin-bottom: 12px;
+    }
+
+    .trip-chat-toolbar label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #dfece7;
+    }
+
+    .trip-chat-toolbar input[type="text"]#trip-chat-nick {
+      width: min(100%, 220px);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(231, 191, 95, 0.4);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .trip-chat-status {
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .trip-chat-status[data-state="ok"] {
+      color: #7dffb3;
+    }
+
+    .trip-chat-status[data-state="bad"] {
+      color: #ff9a8b;
+    }
+
+    .trip-chat-log {
+      height: min(420px, 52vh);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid rgba(231, 191, 95, 0.22);
+      font-size: 0.96rem;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .trip-chat-log:empty::before {
+      content: "No messages yet — say something kind (or don’t).";
+      color: rgba(223, 235, 230, 0.55);
+      font-style: italic;
+    }
+
+    .trip-chat-msg {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid var(--gold);
+    }
+
+    .trip-chat-msg-meta {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(231, 191, 95, 0.85);
+      margin-bottom: 4px;
+    }
+
+    .trip-chat-msg-body {
+      color: #e8f0ed;
+      word-wrap: break-word;
+    }
+
+    .trip-chat-compose {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .trip-chat-compose input#trip-chat-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(231, 191, 95, 0.4);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .trip-chat-compose button#trip-chat-send {
+      padding: 12px 22px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      cursor: pointer;
+      background: linear-gradient(180deg, #c9a24a, #a6843a);
+      color: #1a0f08;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .trip-chat-compose button#trip-chat-send:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .trip-chat-reconnect {
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+
+    .trip-chat-reconnect button {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
     @media (max-width: 768px) {
       .nav-inner {
         flex-direction: column;
@@ -597,6 +739,7 @@
           <a href="#lodging">Lodging</a>
           <a href="#players">Players</a>
           <a href="#schedule">Schedule</a>
+          <a href="#trip-chat">Camp chat</a>
         </div>
       </div>
     </nav>
@@ -700,6 +843,30 @@
             <a href="https://www.innofthemountaingods.com/" target="_blank" rel="noopener noreferrer">Inn of the Mountain Gods — official website</a>
           </p>
         </div>
+      </div>
+    </div>
+
+    <div class="container section-padding" id="trip-chat">
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🔥</span> Camp chat <span class="title-motif" aria-hidden="true">🔥</span></h2>
+      <div class="format-box trip-chat-panel">
+        <p class="section-lead-felt">
+          Live on this page — questions, answers, and tasteful smack talk. Pick a nickname; messages stick around for the next time you visit.
+        </p>
+        <div class="trip-chat-toolbar">
+          <label for="trip-chat-nick">Nickname <input id="trip-chat-nick" type="text" maxlength="40" placeholder="Your handle" autocomplete="nickname" /></label>
+          <span id="trip-chat-status" class="trip-chat-status" data-state="bad">Offline</span>
+        </div>
+        <div id="trip-chat-log" class="trip-chat-log" aria-label="Trip chat messages" tabindex="0"></div>
+        <div class="trip-chat-compose">
+          <input id="trip-chat-input" type="text" maxlength="500" placeholder="Roast a swing, ask about carts, share a tee time…" autocomplete="off" />
+          <button type="button" id="trip-chat-send" disabled>Send</button>
+        </div>
+        <div class="trip-chat-reconnect" hidden id="trip-chat-reconnect-wrap">
+          <button type="button" id="trip-chat-reconnect">Reconnect</button>
+        </div>
+        <p class="footer-note" style="margin-top: 14px; color: rgba(223, 235, 230, 0.75)">
+          <strong>Heads up:</strong> this is a shared room — don’t post private codes or anything you wouldn’t put in a group text. Runs on Cloudflare; trip hosts can’t moderate line-by-line unless we add tools later.
+        </p>
       </div>
     </div>
 
@@ -814,5 +981,169 @@
     </div>
 
   </div>
+  <script>
+    (function () {
+      var NICK_KEY = "tripChatNick";
+      var logEl = document.getElementById("trip-chat-log");
+      var nickEl = document.getElementById("trip-chat-nick");
+      var inputEl = document.getElementById("trip-chat-input");
+      var sendBtn = document.getElementById("trip-chat-send");
+      var statusEl = document.getElementById("trip-chat-status");
+      var reconnectWrap = document.getElementById("trip-chat-reconnect-wrap");
+      var reconnectBtn = document.getElementById("trip-chat-reconnect");
+      var ws = null;
+      var reconnectTimer = null;
+
+      function setStatus(ok, label) {
+        statusEl.textContent = label;
+        statusEl.setAttribute("data-state", ok ? "ok" : "bad");
+      }
+
+      function formatTime(ts) {
+        var d = new Date(ts);
+        if (isNaN(d.getTime())) return "";
+        return d.toLocaleString(undefined, {
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+        });
+      }
+
+      function appendChat(nick, text, ts) {
+        if (!logEl) return;
+        var row = document.createElement("div");
+        row.className = "trip-chat-msg";
+        var meta = document.createElement("div");
+        meta.className = "trip-chat-msg-meta";
+        meta.textContent = (nick || "anon") + " · " + formatTime(ts);
+        var body = document.createElement("div");
+        body.className = "trip-chat-msg-body";
+        body.textContent = text;
+        row.appendChild(meta);
+        row.appendChild(body);
+        logEl.appendChild(row);
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+
+      function clearLog() {
+        if (logEl) logEl.textContent = "";
+      }
+
+      function nick() {
+        var n = (nickEl && nickEl.value) || "anon";
+        n = n.replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, 40);
+        return n || "anon";
+      }
+
+      function send() {
+        if (!ws || ws.readyState !== WebSocket.OPEN) return;
+        var t = (inputEl && inputEl.value) || "";
+        t = t.trim().slice(0, 500);
+        if (!t) return;
+        ws.send(JSON.stringify({ type: "chat", nick: nick(), text: t }));
+        if (inputEl) inputEl.value = "";
+      }
+
+      function scheduleReconnect() {
+        if (reconnectTimer) return;
+        reconnectTimer = setTimeout(function () {
+          reconnectTimer = null;
+          connect();
+        }, 3500);
+      }
+
+      function connect() {
+        if (reconnectTimer) {
+          clearTimeout(reconnectTimer);
+          reconnectTimer = null;
+        }
+        if (ws) {
+          try {
+            ws.close();
+          } catch (e) {}
+          ws = null;
+        }
+        var proto = location.protocol === "https:" ? "wss:" : "ws:";
+        var url = proto + "//" + location.host + "/api/chat";
+        try {
+          ws = new WebSocket(url);
+        } catch (e) {
+          setStatus(false, "Can’t connect");
+          if (reconnectWrap) reconnectWrap.hidden = false;
+          scheduleReconnect();
+          return;
+        }
+        setStatus(false, "Connecting…");
+        if (reconnectWrap) reconnectWrap.hidden = true;
+        if (sendBtn) sendBtn.disabled = true;
+
+        ws.onopen = function () {
+          setStatus(true, "Connected");
+          if (sendBtn) sendBtn.disabled = false;
+        };
+
+        ws.onmessage = function (ev) {
+          var data;
+          try {
+            data = JSON.parse(ev.data);
+          } catch (e) {
+            return;
+          }
+          if (data.type === "history" && Array.isArray(data.messages)) {
+            clearLog();
+            for (var i = 0; i < data.messages.length; i++) {
+              var m = data.messages[i];
+              if (m && typeof m.text === "string")
+                appendChat(m.nick, m.text, m.ts);
+            }
+            return;
+          }
+          if (data.type === "chat" && typeof data.text === "string") {
+            appendChat(data.nick, data.text, data.ts);
+          }
+        };
+
+        ws.onerror = function () {
+          setStatus(false, "Error");
+          if (reconnectWrap) reconnectWrap.hidden = false;
+        };
+
+        ws.onclose = function () {
+          ws = null;
+          setStatus(false, "Disconnected");
+          if (sendBtn) sendBtn.disabled = true;
+          if (reconnectWrap) reconnectWrap.hidden = false;
+          scheduleReconnect();
+        };
+      }
+
+      if (nickEl) {
+        try {
+          var saved = localStorage.getItem(NICK_KEY);
+          if (saved) nickEl.value = saved;
+        } catch (e) {}
+        function persistNick() {
+          try {
+            localStorage.setItem(NICK_KEY, nickEl.value.slice(0, 40));
+          } catch (e) {}
+        }
+        nickEl.addEventListener("change", persistNick);
+        nickEl.addEventListener("blur", persistNick);
+      }
+
+      if (sendBtn) sendBtn.addEventListener("click", send);
+      if (inputEl)
+        inputEl.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            send();
+          }
+        });
+      if (reconnectBtn) reconnectBtn.addEventListener("click", connect);
+
+      connect();
+    })();
+  </script>
 </body>
 </html>

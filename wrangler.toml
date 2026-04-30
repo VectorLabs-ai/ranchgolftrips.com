@@ -1,0 +1,14 @@
+# Cloudflare Pages + Functions + Durable Objects (trip chat at /api/chat)
+# https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+
+name = "ranchgolftrips"
+pages_build_output_dir = "."
+compatibility_date = "2025-01-15"
+
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "TripChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["TripChatRoom"]

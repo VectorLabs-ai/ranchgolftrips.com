@@ -73,6 +73,29 @@ Cloudflare **does not** read it. It only mattered for GitHub Pages. Safe to leav
 
 ---
 
+## Camp chat (`/api/chat`, Durable Object)
+
+The **Camp chat** block on the homepage talks to **`/api/chat`** over **WebSockets**. That route is implemented by **`functions/api/chat.js`** and a **Durable Object** class **`TripChatRoom`** (see **`functions/trip-chat-room.js`**).
+
+**Repo config:** **`wrangler.toml`** at the site root defines:
+
+- **`[[durable_objects.bindings]]`** — `CHAT_ROOM` → `TripChatRoom`
+- **`[[migrations]]`** — first deploy must apply **`new_classes = ["TripChatRoom"]`**
+
+**Cloudflare dashboard:** For each Pages project (**prod** and **staging** if you use `dev`), open the project → **Settings** → **Functions** and confirm **Durable Objects** / bindings match what you expect after the first deploy. If chat returns **500** about a missing binding, the project either has not picked up **`wrangler.toml`** or the binding name **`CHAT_ROOM`** does not match **`context.env.CHAT_ROOM`** in code.
+
+**After the first successful migration:** You can leave **`[[migrations]]`** in place (harmless) or remove that block if your team prefers; do **not** re-run the same `new_classes` migration on a class that already exists.
+
+**Local preview:**
+
+```bash
+npx wrangler pages dev .
+```
+
+Then open the printed URL and use the **Camp chat** section; the dev server proxies **`/api/chat`** to the same Functions + DO bundle.
+
+---
+
 ## Quick checklist
 
 - [x] **Project 1 (prod):** already done — `main` → `ranchgolftrips.com`.
