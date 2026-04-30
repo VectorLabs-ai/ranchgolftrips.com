@@ -506,9 +506,9 @@
 
     .schedule-courses > li.course-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
-      gap: clamp(16px, 3vw, 28px);
-      align-items: center;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, min(46vw, 520px));
+      gap: clamp(20px, 3.5vw, 32px);
+      align-items: start;
       margin-bottom: clamp(14px, 2vw, 22px);
     }
 
@@ -518,20 +518,28 @@
 
     .schedule-courses > li.course-row .course-row-text {
       min-width: 0;
+      padding-top: 2px;
     }
 
     .schedule-courses > li.course-row figure.course-row-art {
       margin: 0;
+      position: relative;
+      align-self: start;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 14px;
+      padding: 6px;
+      box-sizing: border-box;
     }
 
     .schedule-courses > li.course-row .course-row-art img {
       display: block;
       width: 100%;
+      max-width: 520px;
       height: auto;
-      aspect-ratio: 1;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 2px solid rgba(231, 191, 95, 0.5);
       box-shadow:
         0 14px 36px rgba(0, 0, 0, 0.5),
@@ -544,9 +552,13 @@
       }
 
       .schedule-courses > li.course-row .course-row-art {
-        max-width: min(100%, 400px);
+        max-width: min(100%, 560px);
         margin-left: auto;
         margin-right: auto;
+      }
+
+      .schedule-courses > li.course-row .course-row-art img {
+        max-width: 100%;
       }
     }
 
