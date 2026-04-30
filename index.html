@@ -318,6 +318,39 @@
       color: #e8e8e8;
     }
 
+    .roster-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .roster-list > li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 72px;
+      margin: 0;
+      border-left: 4px solid var(--gold);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .roster-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px dashed rgba(244, 196, 48, 0.9);
+      background: rgba(0, 0, 0, 0.25);
+      flex: 0 0 48px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .roster-name {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: #fff;
+    }
+
     .stack-list > li:last-child {
       margin-bottom: 0;
     }
@@ -427,11 +460,9 @@
     <div class="sponsor-bar">
       <div class="sponsor-title">TOURNAMENT SPONSORS</div>
       <div class="sponsor-logos">
-        <a href="https://casinos.ballys.com/shreveport/" target="_blank" rel="noopener noreferrer"><img src="archive/Ballys-Logo.png" alt="Bally's Shreveport" /></a>
         <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
         <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="archive/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf" /></a>
         <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="archive/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" /></a>
-        <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
         <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="archive/HouseOfCarts-Logo.webp" alt="House of Carts" /></a>
       </div>
     </div>
@@ -484,8 +515,24 @@
       </div>
       <p class="section-lead-felt">Confirmed players and guests will be listed here.</p>
       <div class="format-box">
-        <!-- Roster: add <li>Name</li> inside the ul -->
-        <ul class="stack-list roster-list" aria-label="Tournament roster"></ul>
+        <ul class="stack-list roster-list" aria-label="Tournament roster">
+          <li><img class="roster-avatar" src="CoreyKlessig-player.png" alt="Corey Klessig" /><span class="roster-name">Corey Klessig</span></li>
+          <li><img class="roster-avatar" src="JeffWatts-player.png" alt="Jeff Watts" /><span class="roster-name">Jeff Watts</span></li>
+          <li><img class="roster-avatar" src="LlynalCarey-player.png" alt="Llynal Carey" /><span class="roster-name">Llynal Carey</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 4</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 5</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 6</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 7</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 8</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 9</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 10</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 11</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 12</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 13</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 14</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 15</span></li>
+          <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 16</span></li>
+        </ul>
       </div>
     </div>
 
