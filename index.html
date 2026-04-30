@@ -4,57 +4,129 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mountain Man Invitational</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0b1720;
-      --panel: #102636;
-      --text: #e9f2f8;
-      --muted: #b6cad8;
-      --accent: #5dc2ff;
-      --accent-2: #8cf0b2;
+      --felt-green: #1a472a;
+      --bright-green: #2e7d32;
+      --gold: #f4c430;
+      --wood: #5d4037;
+      --card-white: #fdfdfd;
+      --text-dark: #222;
+      --red-accent: #b71c1c;
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 76px;
+    }
+
     body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--wood);
+      font-family: "Roboto", sans-serif;
+      color: var(--text-dark);
+      background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
       line-height: 1.65;
-      background: linear-gradient(160deg, #081017 0%, var(--bg) 45%, #143349 100%);
-      color: var(--text);
-      min-height: 100vh;
     }
 
-    .hero {
-      margin: 0;
-      padding: 20px 16px 0;
-      text-align: center;
-      background: #0a141c;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    h1,
+    h2,
+    h3 {
+      font-family: "Rye", serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .hero-inner {
-      max-width: 920px;
+    .wrapper {
+      max-width: 1200px;
       margin: 0 auto;
+      background-color: var(--felt-green);
+      background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      min-height: 100vh;
+      border-left: 15px solid #3e2723;
+      border-right: 15px solid #3e2723;
+    }
+
+    .container {
+      padding: 0 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-padding {
+      padding: 50px 0 60px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* --- NAVIGATION (matches archive) --- */
+    nav {
+      background: #111;
+      border-bottom: 4px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .nav-logo {
+      color: var(--gold);
+      font-family: "Rye", serif;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: #050d12;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      flex-wrap: wrap;
+      gap: 4px 0;
     }
 
-    .hero__banner {
-      display: block;
-      max-width: 100%;
-      max-height: min(300px, 36vh);
-      width: auto;
+    .nav-links a {
+      color: #fff;
+      margin-left: 18px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* --- HERO & BANNER (matches archive) --- */
+    .hero-section {
+      text-align: center;
+      background: #000;
+      position: relative;
+      line-height: 0;
+      border-bottom: 5px solid var(--gold);
+      overflow: hidden;
+    }
+
+    .banner-img {
+      width: 100%;
       height: auto;
-      vertical-align: top;
+      display: block;
     }
 
     .visually-hidden {
@@ -69,31 +141,165 @@
       border: 0;
     }
 
-    main {
-      width: min(920px, calc(100% - 32px));
-      margin: 30px auto 50px;
+    /* --- SPONSOR BAR --- */
+    .sponsor-bar {
+      width: 100%;
+      background-color: var(--felt-green);
+      color: var(--gold);
+      text-align: center;
+      padding: 20px;
+      border-top: 3px solid var(--gold);
+      border-bottom: 3px solid var(--gold);
     }
 
-    main > .card + .card {
-      margin-top: 24px;
+    .sponsor-title {
+      font-family: "Rye", serif;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
     }
 
-    .section-lead {
+    .sponsor-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 24px 32px;
+    }
+
+    .sponsor-logos a {
+      display: flex;
+      align-items: center;
+      transition: opacity 0.2s;
+    }
+
+    .sponsor-logos a:hover {
+      opacity: 0.85;
+    }
+
+    .sponsor-logos img {
+      height: 48px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    /* --- SECTION TITLES --- */
+    .section-title {
+      text-align: center;
+      color: var(--gold);
+      text-shadow: 2px 2px 4px #000;
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      margin-bottom: 28px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid var(--gold);
+    }
+
+    /* --- LETTER / TRIP BLOCK --- */
+    .letter-section {
+      background-color: #fdfdfd;
+      padding: 50px 32px;
+      margin: 0 0 20px;
+      border: 1px solid #ccc;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .letter-section::before {
+      content: "TRIP NEWS & RSVP";
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red-accent);
+      color: white;
+      padding: 5px 20px;
+      font-weight: bold;
+      font-family: "Rye", serif;
+      border: 2px solid white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    .letter-content {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-dark);
+    }
+
+    .letter-content p {
+      margin: 0 0 14px;
+    }
+
+    .payment-box {
+      background: #fff3cd;
+      border: 2px dashed var(--gold);
+      padding: 18px 20px;
+      margin: 20px 0 22px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: #444;
+      font-style: italic;
+    }
+
+    /* --- ROSTER HEADER (archive style) --- */
+    .roster-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+    }
+
+    .roster-title {
+      color: var(--gold);
+      font-family: "Rye", serif;
+      font-size: clamp(1.25rem, 3.5vw, 1.85rem);
+      text-shadow: 2px 2px 4px #000;
+      margin: 0;
+    }
+
+    .section-lead-felt {
       margin: 0 0 16px;
-      color: var(--muted);
+      color: #e0e0e0;
       font-size: 0.98rem;
     }
 
-    .schedule-subhead {
-      margin: 22px 0 10px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
+    /* --- FORMAT BOX (dark panels on felt — archive) --- */
+    .format-box {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: 2px dashed var(--gold);
+      padding: 26px 24px;
+      margin-bottom: 20px;
+      border-radius: 10px;
     }
 
-    .schedule-subhead:first-of-type {
+    .format-box h3 {
+      color: var(--gold);
+      margin: 22px 0 10px;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+    }
+
+    .format-box h3:first-of-type {
       margin-top: 0;
     }
 
@@ -106,9 +312,10 @@
     .stack-list > li {
       padding: 12px 16px;
       margin-bottom: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      border-left: 3px solid var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+      color: #e8e8e8;
     }
 
     .stack-list > li:last-child {
@@ -118,11 +325,11 @@
     .stack-list:empty::after {
       display: block;
       padding: 14px 16px;
-      color: var(--muted);
+      color: #bbb;
       font-style: italic;
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 10px;
-      border: 1px dashed rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
     }
 
     .roster-list:empty::after {
@@ -137,110 +344,176 @@
       content: "Evening events TBD.";
     }
 
-    .card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 28px 22px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    }
-
-    .card h2 {
-      margin: 0 0 14px;
-      font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-      color: var(--accent-2);
-    }
-
-    .callout {
-      margin: 0 0 18px;
-      padding: 12px 14px;
-      border-left: 4px solid var(--accent-2);
-      background: rgba(140, 240, 178, 0.08);
+    .play-format-callout {
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      padding: 18px 24px;
+      border: 2px solid var(--gold);
       border-radius: 8px;
-      font-weight: 600;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
-    p {
-      margin: 0 0 14px;
+    .play-format-callout .play-format-title {
+      font-family: "Rye", serif;
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: var(--gold);
     }
 
-    .footer-note {
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 0.95rem;
+    .play-format-callout p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 24px 16px 40px;
+      color: var(--gold);
+      font-size: 0.85rem;
+      border-top: 2px solid rgba(244, 196, 48, 0.35);
+      margin-top: 10px;
+    }
+
+    .site-footer a {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .nav-links a {
+        margin: 4px 10px;
+      }
+
+      .letter-section {
+        padding: 40px 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-inner">
+  <div class="wrapper">
+    <nav>
+      <div class="nav-inner container">
+        <a class="nav-logo" href="#">MOUNTAIN MAN '26</a>
+        <div class="nav-links">
+          <a href="#trip-update">Trip / RSVP</a>
+          <a href="#roster">Roster</a>
+          <a href="#schedule">Schedule</a>
+          <a href="archive/index.html">Past event</a>
+          <a href="archive/gallery.html">Photo gallery</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero-section">
       <h1 class="visually-hidden">Mountain Man Invitational — July 10–13, 2026, Ruidoso, New Mexico</h1>
       <img
-        class="hero__banner"
+        class="banner-img"
         src="mountain-man-banner.png"
         alt="Mountainman Invitational. July 10–13, 2026. Ruidoso, New Mexico. RanchGolfTrips.com"
         width="1024"
         height="682"
       />
     </div>
-  </header>
 
-  <main>
-    <section class="card">
-      <h2>Trip Update & RSVP</h2>
-      <p class="callout">Please let me know by Friday of this week whether you can go or not.</p>
+    <div class="sponsor-bar">
+      <div class="sponsor-title">TOURNAMENT SPONSORS</div>
+      <div class="sponsor-logos">
+        <a href="https://casinos.ballys.com/shreveport/" target="_blank" rel="noopener noreferrer"><img src="archive/Ballys-Logo.png" alt="Bally's Shreveport" /></a>
+        <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
+        <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="archive/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf" /></a>
+        <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="archive/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" /></a>
+        <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
+        <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="archive/HouseOfCarts-Logo.webp" alt="House of Carts" /></a>
+      </div>
+    </div>
 
-      <p>
-        We have had a few have some trips, injuries, and other issues for this year's Mountain Man
-        Invitational.
-      </p>
-      <p>
-        The lodging arrangements will be like last year. If you stayed with Dale or Llynal, you are welcome to
-        stay with them once again. I have Dennis (if he is going) and one other bedroom available.
-      </p>
-      <p>
-        Therefore, the others will need to find an Air BNB or hotel rooms. Inn of the Mountain Gods has a new
-        look and is redoing their greens. I believe it may be playable this year if we want to. If not, we will
-        play Alto CC, The Outlaw at Alto, and Rainmakers.
-      </p>
-      <p>
-        If you are taking your wife (and they are certainly welcome), I would suggest staying at the Inn of the
-        Mountain Gods. It is nice and has a large casino.
-      </p>
-      <p>
-        We look to take 16 people with us, so I will have room for a few more. Llynal is working on that. Dale
-        will be in charge of the closing dinner arrangements in Alto (like last year). Llynal will be in charge
-        of securing all tee times, with Dale's help.
-      </p>
-      <p>
-        Lets go, its fun, and a good time for all. Also, let me know if your wife is coming (or partner or
-        significant other). We will plan a few things for them to do, mostly shopping, lunch, and casino.
-      </p>
+    <div class="container section-padding" id="trip-update">
+      <h2 class="section-title text-center">♦ Trip Update &amp; RSVP ♦</h2>
+      <div class="letter-section">
+        <div class="letter-content">
+          <div class="payment-box">
+            Please let me know by Friday of this week whether you can go or not.
+          </div>
 
-      <p class="footer-note">
-        Roster and schedule sections below will be updated as players confirm and tee times are set.
-      </p>
-    </section>
+          <p>
+            We have had a few have some trips, injuries, and other issues for this year's Mountain Man
+            Invitational.
+          </p>
+          <p>
+            The lodging arrangements will be like last year. If you stayed with Dale or Llynal, you are welcome to
+            stay with them once again. I have Dennis (if he is going) and one other bedroom available.
+          </p>
+          <p>
+            Therefore, the others will need to find an Air BNB or hotel rooms. Inn of the Mountain Gods has a new
+            look and is redoing their greens. I believe it may be playable this year if we want to. If not, we will
+            play Alto CC, The Outlaw at Alto, and Rainmakers.
+          </p>
+          <p>
+            If you are taking your wife (and they are certainly welcome), I would suggest staying at the Inn of the
+            Mountain Gods. It is nice and has a large casino.
+          </p>
+          <p>
+            We look to take 16 people with us, so I will have room for a few more. Llynal is working on that. Dale
+            will be in charge of the closing dinner arrangements in Alto (like last year). Llynal will be in charge
+            of securing all tee times, with Dale's help.
+          </p>
+          <p>
+            Lets go, its fun, and a good time for all. Also, let me know if your wife is coming (or partner or
+            significant other). We will plan a few things for them to do, mostly shopping, lunch, and casino.
+          </p>
 
-    <section class="card" id="roster" aria-labelledby="roster-heading">
-      <h2 id="roster-heading">Roster</h2>
-      <p class="section-lead">Confirmed players and guests will be listed below.</p>
-      <!-- Roster: add <li>Name</li> inside the ul -->
-      <ul class="stack-list roster-list" aria-label="Tournament roster"></ul>
-    </section>
+          <p class="footer-note">
+            Roster and schedule sections below will be updated as players confirm and tee times are set.
+          </p>
+        </div>
+      </div>
+    </div>
 
-    <section class="card" id="schedule" aria-labelledby="schedule-heading">
-      <h2 id="schedule-heading">Schedule</h2>
-      <p class="section-lead">Courses, tee times, and evening plans will be posted below as they are finalized.</p>
+    <div class="container section-padding" id="roster">
+      <div class="roster-header-container">
+        <h2 class="roster-title">♣ The Field (Roster) ♣</h2>
+      </div>
+      <p class="section-lead-felt">Confirmed players and guests will be listed here.</p>
+      <div class="format-box">
+        <!-- Roster: add <li>Name</li> inside the ul -->
+        <ul class="stack-list roster-list" aria-label="Tournament roster"></ul>
+      </div>
+    </div>
 
-      <h3 class="schedule-subhead">Golf — courses</h3>
-      <!-- Schedule courses: add <li>...</li> inside the ul -->
-      <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds"></ul>
+    <div class="container section-padding" id="schedule">
+      <h2 class="section-title text-center">♠ Schedule &amp; Events ♠</h2>
+      <div class="play-format-callout">
+        <div class="play-format-title">At a glance</div>
+        <p>
+          Courses, tee times, and evening get-togethers will be filled in as we lock in Inn of the Mountain Gods vs
+          Alto / Outlaw / Rainmakers and social plans.
+        </p>
+      </div>
+      <div class="format-box">
+        <h3>Golf — courses</h3>
+        <!-- Schedule courses: add <li>...</li> inside the ul -->
+        <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds"></ul>
 
-      <h3 class="schedule-subhead">Evenings &amp; other events</h3>
-      <!-- Schedule events: add <li>...</li> inside the ul -->
-      <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
-    </section>
-  </main>
+        <h3>Evenings &amp; other events</h3>
+        <!-- Schedule events: add <li>...</li> inside the ul -->
+        <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      Ranch Golf Trips · <a href="https://ranchgolftrips.com">ranchgolftrips.com</a>
+    </footer>
+  </div>
 </body>
 </html>
