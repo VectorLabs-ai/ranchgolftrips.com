@@ -476,6 +476,80 @@
       text-transform: uppercase;
     }
 
+    .schedule-courses .course-lead {
+      margin: 0 0 6px;
+      font-size: 1.02rem;
+      color: #fff;
+    }
+
+    .schedule-courses .course-lead strong {
+      font-weight: 700;
+    }
+
+    .schedule-courses .course-blurb {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: rgba(223, 235, 230, 0.92);
+    }
+
+    .schedule-courses a {
+      color: var(--gold);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .schedule-courses a:hover {
+      color: #f5d47a;
+    }
+
+    .schedule-courses > li.course-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(200px, 340px);
+      gap: clamp(16px, 3vw, 28px);
+      align-items: center;
+      margin-bottom: clamp(14px, 2vw, 22px);
+    }
+
+    .schedule-courses > li.course-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .schedule-courses > li.course-row .course-row-text {
+      min-width: 0;
+    }
+
+    .schedule-courses > li.course-row figure.course-row-art {
+      margin: 0;
+    }
+
+    .schedule-courses > li.course-row .course-row-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 12px;
+      border: 2px solid rgba(231, 191, 95, 0.5);
+      box-shadow:
+        0 14px 36px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    @media (max-width: 720px) {
+      .schedule-courses > li.course-row {
+        grid-template-columns: 1fr;
+      }
+
+      .schedule-courses > li.course-row .course-row-art {
+        max-width: min(100%, 400px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
     .play-format-callout p {
       margin: 0;
       font-size: 0.98rem;
@@ -507,7 +581,7 @@
       <div class="nav-inner container">
         <a class="nav-logo" href="#">Mountain Man &rsquo;26</a>
         <div class="nav-links">
-          <a href="#trip-update">Trip / RSVP</a>
+          <a href="#trip-update">Trip Updates</a>
           <a href="#lodging">Lodging</a>
           <a href="#players">Players</a>
           <a href="#schedule">Schedule</a>
@@ -529,7 +603,7 @@
     </div>
 
     <div class="sponsor-bar">
-      <div class="sponsor-title">🤝 Tournament partners</div>
+      <div class="sponsor-title">🤝 Tournament Sponsors</div>
       <div class="sponsor-logos">
         <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
         <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
@@ -649,14 +723,77 @@
       <div class="play-format-callout">
         <div class="play-format-title"><span class="title-motif" aria-hidden="true">🗺</span> Trail notes</div>
         <p>
-          Courses, tee times, and evening get-togethers will be filled in as we lock in Inn of the Mountain Gods vs
-          Alto / Outlaw / Rainmakers and social plans.
+          We plan to rotate rounds across <strong>Alto Country Club</strong>, <strong>The Outlaw at Alto</strong>, and
+          <strong>Rainmakers</strong>. Tee sheets and pairings will post here once Llynal and Dale lock times.
+          Evening plans fill in as we go—check back or ping the group chat.
         </p>
       </div>
       <div class="format-box">
         <h3><span class="title-motif" aria-hidden="true">⛳</span> Golf — courses</h3>
-        <!-- Schedule courses: add <li>...</li> inside the ul -->
-        <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds"></ul>
+        <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds">
+          <li class="course-row">
+            <div class="course-row-text">
+              <p class="course-lead"><strong>Alto Country Club (Alto Lakes)</strong></p>
+              <p class="course-blurb">
+                The original 18 at <a href="https://www.altolakesgolf.com/Golf" target="_blank" rel="noopener noreferrer">Alto Lakes Golf &amp; Country Club</a>—think mountain air, pine-lined fairways, and plenty of wildlife.
+                The front nine plays more open and scorable; the back nine adds slope, smaller targets, and trickier greens.
+                It is the “country club” half of the Alto duo: straight golf in a cool summer setting.
+              </p>
+            </div>
+            <figure class="course-row-art">
+              <img
+                src="courses/course-alto-lakes.png"
+                alt="Edgy poster-style illustration: mountain-man golfer at Alto Lakes, typography with elevation and classic mountain eighteen specs."
+                width="720"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </li>
+          <li class="course-row">
+            <div class="course-row-text">
+              <p class="course-lead"><strong>The Outlaw at Alto</strong></p>
+              <p class="course-blurb">
+                The younger championship layout on the same club roster (opened 2011). Big elevation changes, native scrub,
+                and faster greens make distance control the story—fewer trees, more sky, and a little more bruising if you
+                get on the wrong side of a ridge. Official info lives with
+                <a href="https://www.altolakesgolf.com/Golf" target="_blank" rel="noopener noreferrer">Alto Lakes</a> under
+                The Outlaw at Alto Lakes.
+              </p>
+            </div>
+            <figure class="course-row-art">
+              <img
+                src="courses/course-outlaw-alto.png"
+                alt="Edgy outlaw-style poster illustration for The Outlaw at Alto with course taglines."
+                width="720"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </li>
+          <li class="course-row">
+            <div class="course-row-text">
+              <p class="course-lead"><strong>Rainmakers</strong></p>
+              <p class="course-blurb">
+                <a href="https://www.rainmakersusa.com/" target="_blank" rel="noopener noreferrer">Rainmakers Resort &amp; Club</a>
+                in Alto—a private club feel with knockout Sierra Blanca views and strong conditioning. Guests play by
+                arrangement; book early and confirm cart and hospitality details with the pro shop when your tee is firm.
+              </p>
+            </div>
+            <figure class="course-row-art">
+              <img
+                src="courses/course-rainmakers.png"
+                alt="Edgy resort poster illustration for Rainmakers private club and Sierra views."
+                width="720"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </li>
+        </ul>
 
         <h3><span class="title-motif" aria-hidden="true">🔥</span> Evenings &amp; campfire</h3>
         <!-- Schedule events: add <li>...</li> inside the ul -->
