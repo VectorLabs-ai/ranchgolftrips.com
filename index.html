@@ -273,8 +273,23 @@
       color: var(--text-dark);
     }
 
-    .letter-content p {
-      margin: 0 0 14px;
+    .letter-section--no-ribbon::before {
+      display: none;
+    }
+
+    .letter-section--no-ribbon {
+      padding-top: 36px;
+    }
+
+    .letter-content a {
+      color: #1c5247;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .letter-content a:hover {
+      color: #0f342d;
     }
 
     .rsvp-callout {
@@ -475,6 +490,7 @@
         <a class="nav-logo" href="#">Mountain Man &rsquo;26</a>
         <div class="nav-links">
           <a href="#trip-update">Trip / RSVP</a>
+          <a href="#lodging">Lodging</a>
           <a href="#roster">Roster</a>
           <a href="#schedule">Schedule</a>
         </div>
@@ -541,6 +557,41 @@
 
           <p class="footer-note">
             Roster and schedule sections below will be updated as players confirm and tee times are set.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container section-padding" id="lodging">
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏕</span> Lodging <span class="title-motif" aria-hidden="true">🏕</span></h2>
+      <div class="letter-section letter-section--no-ribbon">
+        <div class="letter-content">
+          <p>
+            <strong>Inn of the Mountain Gods Resort &amp; Casino</strong> sits in the Sierra Blanca foothills near
+            Ruidoso on the Mescalero Apache Reservation. It is a full-service resort: hotel rooms and suites, casino,
+            several restaurants and bars, and regular entertainment — a comfortable base if you are bringing a spouse
+            or partner (shopping and dining in Ruidoso are a short drive away).
+          </p>
+          <p>
+            <strong>Casino:</strong> Large gaming floor with slots and table games — plenty of room to unwind after
+            golf.
+          </p>
+          <p>
+            <strong>Dining:</strong> Multiple on-property venues from casual to sit-down; good for group meals or a
+            quick bite between tee times and evening plans.
+          </p>
+          <p>
+            <strong>Golf:</strong> The resort has its own course; the property has been refreshing the product and
+            working on the greens. Whether we play Inn of the Mountain Gods during the trip will be confirmed as tee
+            times and conditions are finalized — otherwise we focus on Alto Country Club, The Outlaw at Alto, and
+            Rainmakers (see the schedule section when it is posted).
+          </p>
+          <p>
+            <strong>Booking:</strong> Reserve through the resort site or your preferred booking channel. Book early
+            for July weekends around our dates (<strong>July 10–13, 2026</strong>).
+          </p>
+          <p>
+            <a href="https://www.innofthemountaingods.com/" target="_blank" rel="noopener noreferrer">Inn of the Mountain Gods — official website</a>
           </p>
         </div>
       </div>
