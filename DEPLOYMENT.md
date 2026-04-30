@@ -1,64 +1,58 @@
-# Deployments: production vs dev
+# Deployments (Cloudflare)
 
-| Environment | URL | Source branch | Host |
-|-------------|-----|---------------|------|
-| **Production** | https://ranchgolftrips.com | `main` | GitHub Pages (this repo) |
-| **Staging / dev** | https://dev.ranchgolftrips.com | `dev` | Cloudflare Pages or Netlify (see below) |
+All hosting below assumes **Cloudflare Pages** + **DNS on Cloudflare** for `ranchgolftrips.com`.
 
-GitHub Pages only publishes **one** site per repository. Production stays on **`main`**. To get **`dev.ranchgolftrips.com`** on a **different** branch, use a second static host wired to the **`dev`** branch.
+| Environment | URL | Branch | Typical setup |
+|-------------|-----|--------|----------------|
+| **Production** | https://ranchgolftrips.com | `main` | Cloudflare Pages project A — production branch `main` |
+| **Staging** | https://dev.ranchgolftrips.com | `dev` | Cloudflare Pages project B — production branch `dev` |
 
-## Recommended workflow
-
-1. Work on a feature branch, open a **pull request into `dev`**.
-2. After review, **merge to `dev`** → staging site updates automatically.
-3. When staging looks good, open a **pull request `dev` → `main`** (production approval).
-4. Merge to **`main`** → **ranchgolftrips.com** updates (GitHub Pages).
-
-Optional: protect `main` in GitHub (**Settings → Branches → Branch protection**) so merges require approvals.
+Use **two separate Pages projects** connected to the **same GitHub repo**. Each project has its own production branch and custom domain. (One project cannot attach `ranchgolftrips.com` to `main` and `dev.ranchgolftrips.com` to `dev` at the same time.)
 
 ---
 
-## Option A — Cloudflare Pages (recommended if you use Cloudflare DNS)
+## 1. Production project (if not already set)
 
-1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. Authorize GitHub and select this repo (`VectorLabs-ai/ranchgolftrips.com`).
-3. **Configure build:**
-   - **Production branch:** `dev` (not `main`).
-   - **Framework preset:** None.
-   - **Build command:** leave empty.
-   - **Build output directory:** `/` (root).
-4. Save and deploy. Cloudflare assigns a `*.pages.dev` URL; confirm the site loads.
-5. **Custom domains** on the Pages project → **Set up** → enter `dev.ranchgolftrips.com`.
-6. **DNS:** If the domain uses Cloudflare nameservers, Cloudflare can add the CNAME for you. Otherwise add a **CNAME** at your DNS provider:
-   - **Name:** `dev`
-   - **Target:** the hostname Cloudflare shows (e.g. `ranchgolftrips-dev.pages.dev`).
-
-Do **not** change the repo’s `CNAME` file; it should remain `ranchgolftrips.com` for GitHub Pages production only.
+1. **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → this repo.
+2. **Production branch:** `main`.
+3. **Build:** Framework **None**, **build command** empty, **build output directory** `/` (repository root — static `index.html`).
+4. Deploy, then **Custom domains** → add `ranchgolftrips.com` (and `www` if you use it). Cloudflare will create or fix **DNS** in your zone automatically when the domain is active there.
 
 ---
 
-## Option B — Netlify
+## 2. Staging project (`dev.ranchgolftrips.com`)
 
-1. [Netlify](https://www.netlify.com/) → **Add new site** → **Import an existing project** → GitHub → this repo.
-2. **Branch to deploy:** set to **`dev`** (production context for this site).
-3. **Build settings:** publish directory **`.`**, no build command (or `echo` no-op).
-4. **Domain settings** → **Add domain** → `dev.ranchgolftrips.com`; add the **CNAME** Netlify gives you (`dev` → `something.netlify.app`).
-
-Keep your existing **apex** / **www** records pointing at GitHub Pages for production.
+1. **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → **same repo** again (second project).
+2. **Production branch:** `dev` (must exist on GitHub).
+3. Same build settings: **None** / empty command / output `/`.
+4. **Custom domains** → add `dev.ranchgolftrips.com` → approve the DNS record Cloudflare adds (usually a **CNAME** `dev` → your `*.pages.dev` hostname).
 
 ---
 
-## Branch setup
+## 3. Git workflow
 
-The `dev` branch should track the same history as `main` until you start merging features into `dev` first. Create it locally if needed:
+1. Feature branch → **PR into `dev`** → merge → staging rebuilds on the **dev** Pages project.
+2. When approved → **PR `dev` → `main`** → merge → production rebuilds on the **main** Pages project.
+
+Optional: GitHub **branch protection** on `main` with required reviewers.
+
+---
+
+## 4. About the `CNAME` file in this repo
+
+The **`CNAME`** file in the repo root is used by **GitHub Pages** only. **Cloudflare Pages** does not use it; domains are configured in the Cloudflare dashboard. You can **leave `CNAME` as-is** (harmless if you are not publishing via GitHub) or remove it later if the site is **only** on Cloudflare.
+
+---
+
+## 5. Branch commands
 
 ```bash
 git fetch origin
-git checkout -b dev origin/main   # first time only
+git checkout -b dev origin/main   # first-time dev branch
 git push -u origin dev
 ```
 
-To bring `dev` up to date with production without merging:
+Sync `dev` with production tip without a feature merge:
 
 ```bash
 git checkout dev
@@ -70,7 +64,6 @@ git push origin dev
 
 ## Quick checklist
 
-- [ ] `dev` branch exists on GitHub and builds on Cloudflare Pages / Netlify.
-- [ ] `dev.ranchgolftrips.com` CNAME points at the staging host (not GitHub).
-- [ ] Repo `CNAME` file stays `ranchgolftrips.com` for GitHub Pages.
-- [ ] `main` branch protection / required reviewers (optional but recommended).
+- [ ] Pages project **#1**: branch `main`, domain `ranchgolftrips.com` (± `www`).
+- [ ] Pages project **#2**: branch `dev`, domain `dev.ranchgolftrips.com`.
+- [ ] GitHub repo connected to both projects (Cloudflare prompts for app access).
