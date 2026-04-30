@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mountain Man Invitational</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --felt-green: #1a472a;
@@ -13,7 +13,8 @@
       --wood: #5d4037;
       --card-white: #fdfdfd;
       --text-dark: #222;
-      --red-accent: #b71c1c;
+      --forest-dark: #1a3d35;
+      --forest-mid: #245247;
     }
 
     * {
@@ -29,7 +30,7 @@
 
     body {
       background-color: var(--wood);
-      font-family: "Roboto", sans-serif;
+      font-family: "Source Sans 3", sans-serif;
       color: var(--text-dark);
       background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
       line-height: 1.65;
@@ -38,9 +39,9 @@
     h1,
     h2,
     h3 {
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
     }
 
     .wrapper {
@@ -87,7 +88,7 @@
 
     .nav-logo {
       color: var(--gold);
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       font-size: 1.05rem;
       text-decoration: none;
     }
@@ -153,7 +154,7 @@
     }
 
     .sponsor-title {
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       font-size: 1rem;
       font-weight: bold;
       letter-spacing: 2px;
@@ -190,13 +191,28 @@
     .section-title {
       text-align: center;
       color: var(--gold);
-      text-shadow: 2px 2px 4px #000;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
       font-size: clamp(1.4rem, 4vw, 2.2rem);
       margin-bottom: 28px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid var(--gold);
+      background:
+        linear-gradient(180deg, rgba(40, 87, 76, 0.9), rgba(20, 47, 40, 0.95)),
+        url("https://www.transparenttextures.com/patterns/felt.png");
+      padding: 14px 16px;
+      border-radius: 8px;
+      border-top: 2px solid rgba(244, 196, 48, 0.9);
+      border-bottom: 2px solid rgba(244, 196, 48, 0.9);
+    }
+
+    .section-banner-img {
+      display: block;
+      width: 100%;
+      max-width: 1024px;
+      height: auto;
+      margin: 0 auto 28px;
+      border-top: 2px solid rgba(244, 196, 48, 0.9);
+      border-bottom: 2px solid rgba(244, 196, 48, 0.9);
+      border-radius: 6px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     }
 
     /* --- LETTER / TRIP BLOCK --- */
@@ -210,16 +226,16 @@
     }
 
     .letter-section::before {
-      content: "TRIP NEWS & RSVP";
+      content: "MOUNTAIN MAN UPDATE";
       position: absolute;
       top: -15px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--red-accent);
+      background: linear-gradient(180deg, var(--forest-mid), var(--forest-dark));
       color: white;
       padding: 5px 20px;
       font-weight: bold;
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       border: 2px solid white;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       font-size: 0.85rem;
@@ -270,7 +286,7 @@
 
     .roster-title {
       color: var(--gold);
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       font-size: clamp(1.25rem, 3.5vw, 1.85rem);
       text-shadow: 2px 2px 4px #000;
       margin: 0;
@@ -388,7 +404,7 @@
     }
 
     .play-format-callout .play-format-title {
-      font-family: "Rye", serif;
+      font-family: "Anton", sans-serif;
       font-size: 1.05rem;
       font-weight: bold;
       margin-bottom: 8px;
@@ -458,17 +474,17 @@
     </div>
 
     <div class="sponsor-bar">
-      <div class="sponsor-title">TOURNAMENT SPONSORS</div>
+      <div class="sponsor-title">TOURNAMENT PARTNERS</div>
       <div class="sponsor-logos">
         <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
-        <a href="https://www.tylerclarkgolf.com/" target="_blank" rel="noopener noreferrer"><img src="archive/TylerClarkGolf-Logo.png" alt="Tyler Clark Golf" /></a>
+        <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
         <a href="https://vectorgolf.ai" target="_blank" rel="noopener noreferrer"><img src="archive/VectorGOLF-Logo-3.png" alt="VectorGOLF.ai" /></a>
         <a href="https://houseofcartsllc.com/" target="_blank" rel="noopener noreferrer"><img src="archive/HouseOfCarts-Logo.webp" alt="House of Carts" /></a>
       </div>
     </div>
 
     <div class="container section-padding" id="trip-update">
-      <h2 class="section-title text-center">♦ Trip Update &amp; RSVP ♦</h2>
+      <h2 class="section-title text-center">Trip Update &amp; RSVP</h2>
       <div class="letter-section">
         <div class="letter-content">
           <div class="payment-box">
@@ -511,7 +527,7 @@
 
     <div class="container section-padding" id="roster">
       <div class="roster-header-container">
-        <h2 class="roster-title">♣ The Field (Roster) ♣</h2>
+        <h2 class="roster-title">Player Roster</h2>
       </div>
       <p class="section-lead-felt">Confirmed players and guests will be listed here.</p>
       <div class="format-box">
@@ -537,7 +553,13 @@
     </div>
 
     <div class="container section-padding" id="schedule">
-      <h2 class="section-title text-center">♠ Schedule &amp; Events ♠</h2>
+      <img
+        class="section-banner-img"
+        src="schedule-events-banner.png"
+        alt="Schedule and events"
+        width="2048"
+        height="314"
+      />
       <div class="play-format-callout">
         <div class="play-format-title">At a glance</div>
         <p>
