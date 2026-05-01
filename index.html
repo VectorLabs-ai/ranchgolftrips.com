@@ -68,18 +68,18 @@
     }
 
     .section-padding {
-      padding: 50px 0 60px;
+      padding: 32px 0;
     }
 
-    /* Players → Schedule: avoid stacking format-box margin + two section paddings */
-    #players.section-padding .format-box {
+    /* Trim extra tail margin so gaps match section-padding only */
+    .container.section-padding > .letter-section:last-child {
       margin-bottom: 0;
     }
-    #players.section-padding {
-      padding-bottom: 36px;
+    .container.section-padding > .format-box:last-child {
+      margin-bottom: 0;
     }
-    #players.section-padding + #schedule.section-padding {
-      padding-top: 36px;
+    .players-inner > .format-box:last-child {
+      margin-bottom: 0;
     }
 
     .text-center {
@@ -222,7 +222,7 @@
       font-size: clamp(1.65rem, 3.6vw, 2.35rem);
       font-weight: 700;
       letter-spacing: 0.09em;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
       background: linear-gradient(180deg, #214a40, #193a33);
       padding: 16px 22px;
       border-radius: 10px;
@@ -252,7 +252,7 @@
     .letter-section {
       background-color: var(--paper-cream);
       padding: 50px 32px;
-      margin: 0 0 20px;
+      margin: 0 auto 0;
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
       border-radius: 12px;
@@ -355,6 +355,23 @@
     }
 
     /* --- ROSTER HEADER (archive style) --- */
+    /* Players: align with Trip Updates letter column (800px), centered grid */
+    .players-inner {
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #players .roster-header-container {
+      justify-content: center;
+      margin-top: 0;
+    }
+
+    #players .roster-list {
+      grid-template-columns: repeat(auto-fit, minmax(208px, 260px));
+      justify-content: center;
+    }
+
     .roster-header-container {
       display: flex;
       justify-content: space-between;
@@ -487,7 +504,7 @@
       padding: 18px 24px;
       border: 1px solid var(--line);
       border-radius: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       line-height: 1.5;
     }
 
@@ -797,7 +814,7 @@
       <div class="letter-section">
         <div class="letter-content">
           <div class="rsvp-callout">
-            Please let me know by Friday of this week whether you can go or not.
+            If you're planning to play, let Jeff Watts know - he's collecting who's in for this year's trip.
           </div>
 
           <p>
@@ -826,15 +843,16 @@
     </div>
 
     <div class="container section-padding" id="players">
-      <div class="roster-header-container">
-        <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
-      </div>
-      <p class="section-lead-felt">Confirmed players and guests will be listed here.</p>
-      <div class="format-box">
+      <div class="players-inner">
+        <div class="roster-header-container">
+          <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
+        </div>
+        <div class="format-box">
         <ul class="stack-list roster-list" aria-label="Tournament players">
           <li><img class="roster-avatar" src="LlynalCarey-player.png" alt="Llynal Carey" /><span class="roster-name">Llynal Carey</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Scott Davies</span></li>
           <li><img class="roster-avatar" src="JohnnyEason-player.png" alt="Johnny Eason" /><span class="roster-name">Johnny Eason</span></li>
+          <li><img class="roster-avatar" src="DaveEmerton-player.png" alt="Dave Emerton" /><span class="roster-name">Dave Emerton</span></li>
           <li><img class="roster-avatar" src="HarleyFinnel-player.png" alt="Harley Finnel" /><span class="roster-name">Harley Finnel</span></li>
           <li><img class="roster-avatar" src="DoyleHicks-player.png" alt="Doyle Hicks" /><span class="roster-name">Doyle Hicks</span></li>
           <li><img class="roster-avatar" src="TimHughes-player.png" alt="Tim Hughes" /><span class="roster-name">Tim Hughes</span></li>
@@ -849,6 +867,7 @@
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 15</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 16</span></li>
         </ul>
+        </div>
       </div>
     </div>
 
