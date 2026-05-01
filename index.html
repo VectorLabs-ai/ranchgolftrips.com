@@ -743,6 +743,18 @@
       color: #dfece7;
     }
 
+    .trip-chat-nick-hint {
+      margin: 0 0 14px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: rgba(223, 236, 231, 0.88);
+      max-width: 42em;
+    }
+
+    .trip-chat-nick-hint[hidden] {
+      display: none !important;
+    }
+
     .trip-chat-toolbar input[type="text"]#trip-chat-nick {
       width: min(100%, 220px);
       padding: 8px 12px;
@@ -1134,12 +1146,15 @@
       <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🔥</span> Camp chat <span class="title-motif" aria-hidden="true">🔥</span></h2>
       <div class="format-box trip-chat-panel">
         <p class="section-lead-felt">
-          Live on this page — questions, answers, and tasteful smack talk. Pick a nickname; messages stick around for the next time you visit.
+          Live on this page — questions, answers, and tasteful smack talk. Messages stick around for the next visit.
         </p>
         <div class="trip-chat-toolbar">
-          <label for="trip-chat-nick">Nickname <input id="trip-chat-nick" type="text" maxlength="40" placeholder="Your handle" autocomplete="nickname" /></label>
+          <label for="trip-chat-nick">Nickname <input id="trip-chat-nick" type="text" maxlength="40" placeholder="e.g. MulliganMike" autocomplete="nickname" /></label>
           <span id="trip-chat-status" class="trip-chat-status" data-state="bad">Offline</span>
         </div>
+        <p id="trip-chat-nick-hint" class="trip-chat-nick-hint">
+          Pick a nickname so the group knows who’s talking. It’s saved on <strong>this device</strong> (browser storage, not a login). You can change it anytime.
+        </p>
         <div id="trip-chat-log" class="trip-chat-log" aria-label="Trip chat messages" tabindex="0"></div>
         <div class="trip-chat-compose">
           <input id="trip-chat-input" type="text" maxlength="500" placeholder="Roast a swing, ask about carts, share a tee time…" autocomplete="off" />
@@ -1160,6 +1175,7 @@
       var NICK_KEY = "tripChatNick";
       var logEl = document.getElementById("trip-chat-log");
       var nickEl = document.getElementById("trip-chat-nick");
+      var nickHintEl = document.getElementById("trip-chat-nick-hint");
       var inputEl = document.getElementById("trip-chat-input");
       var sendBtn = document.getElementById("trip-chat-send");
       var statusEl = document.getElementById("trip-chat-status");
@@ -1173,6 +1189,44 @@
         statusEl.setAttribute("data-state", ok ? "ok" : "bad");
       }
 
+      function nickRaw() {
+        return ((nickEl && nickEl.value) || "").replace(/[\u0000-\u001F\u007F]/g, "");
+      }
+
+      function nickIsSet() {
+        return nickRaw().trim().length > 0;
+      }
+
+      /** Display name for chat payloads and status (falls back only for legacy paths). */
+      function nick() {
+        var n = nickRaw().trim().slice(0, 40);
+        return n || "anon";
+      }
+
+      function toggleNickHint() {
+        if (nickHintEl) nickHintEl.hidden = !!nickIsSet();
+      }
+
+      function refreshChatStatus() {
+        if (!statusEl || !ws || ws.readyState !== WebSocket.OPEN) return;
+        if (!nickIsSet()) {
+          setStatus(true, "Connected — pick a nickname to send");
+        } else {
+          var disp = nick();
+          if (disp === "anon") {
+            setStatus(true, "Connected — pick a nickname to send");
+            return;
+          }
+          setStatus(true, 'Connected as "' + disp + '"');
+        }
+      }
+
+      function updateSendEnabled() {
+        if (sendBtn) {
+          sendBtn.disabled = !(ws && ws.readyState === WebSocket.OPEN && nickIsSet());
+        }
+      }
+
       function formatTime(ts) {
         var d = new Date(ts);
         if (isNaN(d.getTime())) return "";
@@ -1184,13 +1238,13 @@
         });
       }
 
-      function appendChat(nick, text, ts) {
+      function appendChat(nickName, text, ts) {
         if (!logEl) return;
         var row = document.createElement("div");
         row.className = "trip-chat-msg";
         var meta = document.createElement("div");
         meta.className = "trip-chat-msg-meta";
-        meta.textContent = (nick || "anon") + " · " + formatTime(ts);
+        meta.textContent = (nickName || "anon") + " · " + formatTime(ts);
         var body = document.createElement("div");
         body.className = "trip-chat-msg-body";
         body.textContent = text;
@@ -1204,14 +1258,9 @@
         if (logEl) logEl.textContent = "";
       }
 
-      function nick() {
-        var n = (nickEl && nickEl.value) || "anon";
-        n = n.replace(/[\u0000-\u001F\u007F]/g, "").trim().slice(0, 40);
-        return n || "anon";
-      }
-
       function send() {
         if (!ws || ws.readyState !== WebSocket.OPEN) return;
+        if (!nickIsSet()) return;
         var t = (inputEl && inputEl.value) || "";
         t = t.trim().slice(0, 500);
         if (!t) return;
@@ -1250,11 +1299,11 @@
         }
         setStatus(false, "Connecting…");
         if (reconnectWrap) reconnectWrap.hidden = true;
-        if (sendBtn) sendBtn.disabled = true;
+        updateSendEnabled();
 
         ws.onopen = function () {
-          setStatus(true, "Connected");
-          if (sendBtn) sendBtn.disabled = false;
+          refreshChatStatus();
+          updateSendEnabled();
         };
 
         ws.onmessage = function (ev) {
@@ -1268,8 +1317,7 @@
             clearLog();
             for (var i = 0; i < data.messages.length; i++) {
               var m = data.messages[i];
-              if (m && typeof m.text === "string")
-                appendChat(m.nick, m.text, m.ts);
+              if (m && typeof m.text === "string") appendChat(m.nick, m.text, m.ts);
             }
             return;
           }
@@ -1292,18 +1340,31 @@
         };
       }
 
+      function persistNick() {
+        try {
+          localStorage.setItem(NICK_KEY, nickRaw().slice(0, 40));
+        } catch (e) {}
+        toggleNickHint();
+        refreshChatStatus();
+        updateSendEnabled();
+      }
+
       if (nickEl) {
         try {
           var saved = localStorage.getItem(NICK_KEY);
           if (saved) nickEl.value = saved;
         } catch (e) {}
-        function persistNick() {
-          try {
-            localStorage.setItem(NICK_KEY, nickEl.value.slice(0, 40));
-          } catch (e) {}
-        }
+        toggleNickHint();
+        nickEl.addEventListener("input", persistNick);
         nickEl.addEventListener("change", persistNick);
         nickEl.addEventListener("blur", persistNick);
+        nickEl.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            nickEl.blur();
+            if (inputEl && nickIsSet()) inputEl.focus();
+          }
+        });
       }
 
       if (sendBtn) sendBtn.addEventListener("click", send);
