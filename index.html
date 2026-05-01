@@ -78,9 +78,6 @@
     .container.section-padding > .format-box:last-child {
       margin-bottom: 0;
     }
-    .players-inner > .format-box:last-child {
-      margin-bottom: 0;
-    }
 
     .text-center {
       text-align: center;
@@ -355,13 +352,7 @@
     }
 
     /* --- ROSTER HEADER (archive style) --- */
-    /* Players: align with Trip Updates letter column (800px), centered grid */
-    .players-inner {
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
+    /* Players: full container width like other sections; 4-column grid */
     #players .roster-header-container {
       justify-content: center;
       margin-top: 0;
@@ -369,73 +360,60 @@
 
     #players .roster-list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       grid-auto-rows: minmax(72px, auto);
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 900px) {
+      #players .roster-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
       #players .roster-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 400px) {
       #players .roster-list {
         grid-template-columns: 1fr;
       }
     }
 
-    .commissioner-spotlight {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      margin: 0 auto 22px;
-      width: 100%;
-      max-width: 380px;
+    /* Commissioner (archive-style: red frame + badge, dark panel variant) */
+    #players .roster-list > li.commissioner {
+      border-left: 6px solid #c62828;
+      border-top: 1px solid rgba(229, 57, 53, 0.45);
+      border-right: 1px solid rgba(229, 57, 53, 0.45);
+      border-bottom: 1px solid rgba(229, 57, 53, 0.45);
+      background: rgba(198, 40, 40, 0.12);
+      box-shadow: 0 0 0 1px rgba(229, 57, 53, 0.25);
     }
 
-    .commissioner-stamp {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+    #players .roster-list > li.commissioner .roster-name-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .commish-badge {
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: #2a1810;
-      background: linear-gradient(160deg, #f5e6b8, #d4a84b);
-      border: 2px solid rgba(101, 62, 28, 0.85);
-      padding: 8px 16px;
-      border-radius: 6px;
-      transform: rotate(-6deg);
-      box-shadow:
-        0 2px 0 rgba(255, 255, 255, 0.35) inset,
-        0 4px 14px rgba(0, 0, 0, 0.35);
-      text-align: center;
-    }
-
-    .commissioner-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      width: 100%;
-      padding: 16px 20px;
-      min-height: 76px;
-      border-radius: 12px;
-      border: 2px solid var(--gold);
-      background: linear-gradient(180deg, rgba(36, 72, 62, 0.95), rgba(14, 34, 29, 0.98));
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
-    }
-
-    .commissioner-card .roster-avatar {
-      width: 56px;
-      height: 56px;
-      flex: 0 0 56px;
-    }
-
-    .commissioner-card .roster-name {
-      font-size: 1.08rem;
+      letter-spacing: 0.08em;
+      color: #fff;
+      background: #c62828;
+      padding: 4px 9px;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+      flex-shrink: 0;
     }
 
     .roster-header-container {
@@ -905,19 +883,18 @@
     </div>
 
     <div class="container section-padding" id="players">
-      <div class="players-inner">
-        <div class="roster-header-container">
-          <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
-        </div>
-        <div class="format-box">
-          <div class="commissioner-spotlight" aria-label="Jeff Watts, Commissioner">
-            <span class="commissioner-stamp">Commissioner</span>
-            <div class="commissioner-card">
-              <img class="roster-avatar" src="JeffWatts-player.png" alt="Jeff Watts" width="56" height="56" />
+      <div class="roster-header-container">
+        <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
+      </div>
+      <div class="format-box">
+        <ul class="stack-list roster-list" aria-label="Tournament players">
+          <li class="commissioner" aria-label="Jeff Watts, Commissioner">
+            <img class="roster-avatar" src="JeffWatts-player.png" alt="Jeff Watts" />
+            <span class="roster-name-row">
               <span class="roster-name">Jeff Watts</span>
-            </div>
-          </div>
-          <ul class="stack-list roster-list" aria-label="Tournament players">
+              <span class="commish-badge">Commissioner</span>
+            </span>
+          </li>
           <li><img class="roster-avatar" src="LlynalCarey-player.png" alt="Llynal Carey" /><span class="roster-name">Llynal Carey</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Scott Davies</span></li>
           <li><img class="roster-avatar" src="JohnnyEason-player.png" alt="Johnny Eason" /><span class="roster-name">Johnny Eason</span></li>
@@ -933,8 +910,7 @@
           <li><img class="roster-avatar" src="DennisStewert-player.png" alt="Dennis Stewert" /><span class="roster-name">Dennis Stewert</span></li>
           <li><img class="roster-avatar" src="DaleValentine-player.png" alt="Dale Valentine" /><span class="roster-name">Dale Valentine</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 16</span></li>
-          </ul>
-        </div>
+        </ul>
       </div>
     </div>
 
