@@ -71,6 +71,17 @@
       padding: 50px 0 60px;
     }
 
+    /* Players → Schedule: avoid stacking format-box margin + two section paddings */
+    #players.section-padding .format-box {
+      margin-bottom: 0;
+    }
+    #players.section-padding {
+      padding-bottom: 36px;
+    }
+    #players.section-padding + #schedule.section-padding {
+      padding-top: 36px;
+    }
+
     .text-center {
       text-align: center;
     }
@@ -308,6 +319,20 @@
 
     .lodging-inline-title:first-of-type {
       margin-top: 0;
+    }
+
+    .lodging-art {
+      margin: 18px auto 26px;
+      max-width: 720px;
+    }
+
+    .lodging-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(31, 38, 36, 0.14);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
     }
 
     .rsvp-callout {
@@ -736,9 +761,9 @@
         <a class="nav-logo" href="#">Mountain Man &rsquo;26</a>
         <div class="nav-links">
           <a href="#trip-update">Trip Updates</a>
-          <a href="#lodging">Lodging</a>
           <a href="#players">Players</a>
           <a href="#schedule">Schedule</a>
+          <a href="#lodging">Lodging</a>
           <a href="#trip-chat">Camp chat</a>
         </div>
       </div>
@@ -768,7 +793,7 @@
     </div>
 
     <div class="container section-padding" id="trip-update">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏔</span> Trip update &amp; RSVP <span class="title-motif" aria-hidden="true">🏔</span></h2>
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏔</span> Trip Updates <span class="title-motif" aria-hidden="true">🏔</span></h2>
       <div class="letter-section">
         <div class="letter-content">
           <div class="rsvp-callout">
@@ -781,7 +806,7 @@
           </p>
           <p>
             <strong>Where to stay:</strong> Hosting with Dale or Llynal, spare bedrooms, Airbnbs, hotels, and Inn of
-            the Mountain Gods are all spelled out in the <a href="#lodging">Lodging</a> section below.
+            the Mountain Gods are all spelled out in the <a href="#lodging">Lodging</a> section further down this page.
           </p>
           <p>
             We look to take 16 people with us, so I will have room for a few more. Llynal is working on that. Dale
@@ -797,76 +822,6 @@
             Players and schedule sections below will be updated as players confirm and tee times are set.
           </p>
         </div>
-      </div>
-    </div>
-
-    <div class="container section-padding" id="lodging">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏕</span> Lodging <span class="title-motif" aria-hidden="true">🏕</span></h2>
-      <div class="letter-section letter-section--no-ribbon">
-        <div class="letter-content">
-          <p class="lodging-inline-title">Trip lodging plan</p>
-          <p>
-            <strong>Host homes and spare bedrooms.</strong> Lodging will work like last year. If you stayed with
-            Dale or Llynal before, you are welcome to stay with them again. There is also limited space with Dennis
-            (if he makes the trip), plus one additional spare bedroom—first come, first served on those spots.
-          </p>
-          <p>
-            <strong>Everyone else.</strong> Plan on an Airbnb, another hotel, or a resort room. <strong>Inn of the Mountain Gods</strong> has a
-            fresh look and is redoing its golf greens; we may play there this year if conditions are
-            right. If not, our rounds will focus on <strong>Alto Country Club</strong>, <strong>The Outlaw at Alto</strong>,
-            and <strong>Rainmakers</strong> (tee sheets will be posted in <a href="#schedule">Schedule</a> when firm).
-          </p>
-          <p>
-            <strong>Partners and spouses.</strong> Wives, husbands, and significant others are absolutely welcome. For
-            couples, <strong>Inn of the Mountain Gods</strong> is an especially easy choice: full-service hotel,
-            dining, nightlife, and a large casino—great for guests while we are on the course.
-          </p>
-
-          <p class="lodging-inline-title">About Inn of the Mountain Gods</p>
-          <p>
-            <strong>Inn of the Mountain Gods Resort &amp; Casino</strong> sits in the Sierra Blanca foothills near
-            Ruidoso on the Mescalero Apache Reservation—a full-service resort with rooms and suites, casino, multiple
-            restaurants and bars, and entertainment. Ruidoso shopping and dining are a short drive away.
-          </p>
-          <p>
-            <strong>Casino:</strong> Large gaming floor with slots and table games—plenty of room to unwind after golf.
-          </p>
-          <p>
-            <strong>Dining:</strong> Several on-property venues from casual to sit-down; handy for group dinners or a
-            quick meal between golf and evening plans.
-          </p>
-          <p>
-            <strong>Booking:</strong> Reserve through the resort site or your preferred booking channel. July weekends
-            fill up—book early for our dates (<strong>July 20–24, 2026</strong>).
-          </p>
-          <p>
-            <a href="https://www.innofthemountaingods.com/" target="_blank" rel="noopener noreferrer">Inn of the Mountain Gods — official website</a>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="container section-padding" id="trip-chat">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🔥</span> Camp chat <span class="title-motif" aria-hidden="true">🔥</span></h2>
-      <div class="format-box trip-chat-panel">
-        <p class="section-lead-felt">
-          Live on this page — questions, answers, and tasteful smack talk. Pick a nickname; messages stick around for the next time you visit.
-        </p>
-        <div class="trip-chat-toolbar">
-          <label for="trip-chat-nick">Nickname <input id="trip-chat-nick" type="text" maxlength="40" placeholder="Your handle" autocomplete="nickname" /></label>
-          <span id="trip-chat-status" class="trip-chat-status" data-state="bad">Offline</span>
-        </div>
-        <div id="trip-chat-log" class="trip-chat-log" aria-label="Trip chat messages" tabindex="0"></div>
-        <div class="trip-chat-compose">
-          <input id="trip-chat-input" type="text" maxlength="500" placeholder="Roast a swing, ask about carts, share a tee time…" autocomplete="off" />
-          <button type="button" id="trip-chat-send" disabled>Send</button>
-        </div>
-        <div class="trip-chat-reconnect" hidden id="trip-chat-reconnect-wrap">
-          <button type="button" id="trip-chat-reconnect">Reconnect</button>
-        </div>
-        <p class="footer-note" style="margin-top: 14px; color: rgba(223, 235, 230, 0.75)">
-          <strong>Heads up:</strong> this is a shared room — don’t post private codes or anything you wouldn’t put in a group text. Runs on Cloudflare; trip hosts can’t moderate line-by-line unless we add tools later.
-        </p>
       </div>
     </div>
 
@@ -977,6 +932,86 @@
         <h3><span class="title-motif" aria-hidden="true">🔥</span> Evenings &amp; campfire</h3>
         <!-- Schedule events: add <li>...</li> inside the ul -->
         <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
+      </div>
+    </div>
+
+    <div class="container section-padding" id="lodging">
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏕</span> Lodging <span class="title-motif" aria-hidden="true">🏕</span></h2>
+      <div class="letter-section letter-section--no-ribbon">
+        <div class="letter-content">
+          <p class="lodging-inline-title">Trip lodging plan</p>
+          <p>
+            <strong>Host homes and spare bedrooms.</strong> Lodging will work like last year. If you stayed with
+            Dale or Llynal before, you are welcome to stay with them again. There is also limited space with Dennis
+            (if he makes the trip), plus one additional spare bedroom—first come, first served on those spots.
+          </p>
+          <p>
+            <strong>Everyone else.</strong> Plan on an Airbnb, another hotel, or a resort room. <strong>Inn of the Mountain Gods</strong> has a
+            fresh look and is redoing its golf greens; we may play there this year if conditions are
+            right. If not, our rounds will focus on <strong>Alto Country Club</strong>, <strong>The Outlaw at Alto</strong>,
+            and <strong>Rainmakers</strong> (tee sheets will be posted in <a href="#schedule">Schedule</a> when firm).
+          </p>
+          <p>
+            <strong>Partners and spouses.</strong> Wives, husbands, and significant others are absolutely welcome. For
+            couples, <strong>Inn of the Mountain Gods</strong> is an especially easy choice: full-service hotel,
+            dining, nightlife, and a large casino—great for guests while we are on the course.
+          </p>
+
+          <p class="lodging-inline-title">About Inn of the Mountain Gods</p>
+          <figure class="lodging-art">
+            <img
+              src="courses/inn-mountain-gods.png"
+              alt="Stylized poster illustration: Inn of the Mountain Gods resort, Sierra Blanca foothills, golf and casino resort vibes."
+              width="720"
+              height="480"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <p>
+            <strong>Inn of the Mountain Gods Resort &amp; Casino</strong> sits in the Sierra Blanca foothills near
+            Ruidoso on the Mescalero Apache Reservation—a full-service resort with rooms and suites, casino, multiple
+            restaurants and bars, and entertainment. Ruidoso shopping and dining are a short drive away.
+          </p>
+          <p>
+            <strong>Casino:</strong> Large gaming floor with slots and table games—plenty of room to unwind after golf.
+          </p>
+          <p>
+            <strong>Dining:</strong> Several on-property venues from casual to sit-down; handy for group dinners or a
+            quick meal between golf and evening plans.
+          </p>
+          <p>
+            <strong>Booking:</strong> Reserve through the resort site or your preferred booking channel. July weekends
+            fill up—book early for our dates (<strong>July 20–24, 2026</strong>).
+          </p>
+          <p>
+            <a href="https://www.innofthemountaingods.com/" target="_blank" rel="noopener noreferrer">Inn of the Mountain Gods — official website</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container section-padding" id="trip-chat">
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🔥</span> Camp chat <span class="title-motif" aria-hidden="true">🔥</span></h2>
+      <div class="format-box trip-chat-panel">
+        <p class="section-lead-felt">
+          Live on this page — questions, answers, and tasteful smack talk. Pick a nickname; messages stick around for the next time you visit.
+        </p>
+        <div class="trip-chat-toolbar">
+          <label for="trip-chat-nick">Nickname <input id="trip-chat-nick" type="text" maxlength="40" placeholder="Your handle" autocomplete="nickname" /></label>
+          <span id="trip-chat-status" class="trip-chat-status" data-state="bad">Offline</span>
+        </div>
+        <div id="trip-chat-log" class="trip-chat-log" aria-label="Trip chat messages" tabindex="0"></div>
+        <div class="trip-chat-compose">
+          <input id="trip-chat-input" type="text" maxlength="500" placeholder="Roast a swing, ask about carts, share a tee time…" autocomplete="off" />
+          <button type="button" id="trip-chat-send" disabled>Send</button>
+        </div>
+        <div class="trip-chat-reconnect" hidden id="trip-chat-reconnect-wrap">
+          <button type="button" id="trip-chat-reconnect">Reconnect</button>
+        </div>
+        <p class="footer-note" style="margin-top: 14px; color: rgba(223, 235, 230, 0.75)">
+          <strong>Heads up:</strong> this is a shared room — don’t post private codes or anything you wouldn’t put in a group text. Runs on Cloudflare; trip hosts can’t moderate line-by-line unless we add tools later.
+        </p>
       </div>
     </div>
 
