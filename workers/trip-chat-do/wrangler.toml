@@ -1,0 +1,15 @@
+# Standalone Worker: owns TripChatRoom + migrations.
+# Cloudflare Pages cannot host DO classes in-repo — Pages wrangler.toml binds with script_name.
+# Deploy: cd workers/trip-chat-do && npx wrangler deploy
+
+name = "ranchgolftrips-trip-chat"
+main = "src/index.js"
+compatibility_date = "2025-01-15"
+
+[[durable_objects.bindings]]
+name = "CHAT_ROOM"
+class_name = "TripChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["TripChatRoom"]

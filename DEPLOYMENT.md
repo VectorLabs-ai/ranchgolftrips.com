@@ -75,24 +75,33 @@ Cloudflare **does not** read it. It only mattered for GitHub Pages. Safe to leav
 
 ## Camp chat (`/api/chat`, Durable Object)
 
-The **Camp chat** block on the homepage talks to **`/api/chat`** over **WebSockets**. That route is implemented by **`functions/api/chat.js`** and a **Durable Object** class **`TripChatRoom`** (see **`functions/trip-chat-room.js`**).
+**Architecture:** Cloudflare Pages **cannot** host a Durable Object class in the Pages bundle. Trip chat uses:
 
-**Repo config:** **`wrangler.toml`** at the site root defines:
+1. **Worker** **`ranchgolftrips-trip-chat`** (folder **`workers/trip-chat-do/`**) — owns class **`TripChatRoom`** and storage migrations.
+2. **Pages** **`wrangler.toml`** — binds **`CHAT_ROOM`** with **`script_name = "ranchgolftrips-trip-chat"`** so `/api/chat` ( **`functions/api/chat.js`** ) forwards WebSockets to that Worker’s namespace.
 
-- **`[[durable_objects.bindings]]`** — `CHAT_ROOM` → `TripChatRoom`
-- **`[[migrations]]`** — first deploy must apply **`new_classes = ["TripChatRoom"]`**
-
-**Cloudflare dashboard:** For each Pages project (**prod** and **staging** if you use `dev`), open the project → **Settings** → **Functions** and confirm **Durable Objects** / bindings match what you expect after the first deploy. If chat returns **500** about a missing binding, the project either has not picked up **`wrangler.toml`** or the binding name **`CHAT_ROOM`** does not match **`context.env.CHAT_ROOM`** in code.
-
-**After the first successful migration:** You can leave **`[[migrations]]`** in place (harmless) or remove that block if your team prefers; do **not** re-run the same `new_classes` migration on a class that already exists.
-
-**Local preview:**
+**One-time / when changing the DO class:** deploy the Worker first, then redeploy Pages (Git push or dashboard).
 
 ```bash
-npx wrangler pages dev .
+cd workers/trip-chat-do
+npx wrangler deploy
 ```
 
-Then open the printed URL and use the **Camp chat** section; the dev server proxies **`/api/chat`** to the same Functions + DO bundle.
+That account only needs **one** deploy of this Worker. **Production and staging Pages** both use the same `script_name`, so they share the **same** chat history (same `idFromName("mountain-man-2026")` storage).
+
+**Repo root `wrangler.toml`:** must **not** include `[[migrations]]` (Pages rejects that). Migrations live only in **`workers/trip-chat-do/wrangler.toml`**.
+
+**Local preview:** run the DO Worker and Pages together (see [Durable Objects bindings](https://developers.cloudflare.com/pages/functions/bindings/#durable-objects)), e.g.:
+
+```bash
+# Terminal A
+cd workers/trip-chat-do && npx wrangler dev
+
+# Terminal B — repo root; class@worker matches folder worker name
+npx wrangler pages dev . --do CHAT_ROOM=TripChatRoom@ranchgolftrips-trip-chat
+```
+
+(Or use multi-config `wrangler pages dev -c wrangler.toml -c workers/trip-chat-do/wrangler.toml` if you standardize on that flow.)
 
 ---
 

@@ -1,14 +1,12 @@
-# Cloudflare Pages + Functions + Durable Objects (trip chat at /api/chat)
+# Cloudflare Pages — trip chat proxies to Worker ranchgolftrips-trip-chat (Durable Object).
 # https://developers.cloudflare.com/pages/functions/wrangler-configuration/
 
 name = "ranchgolftrips"
 pages_build_output_dir = "."
 compatibility_date = "2025-01-15"
 
+# script_name must match workers/trip-chat-do/wrangler.toml `name` (deploy that Worker first).
 [[durable_objects.bindings]]
 name = "CHAT_ROOM"
 class_name = "TripChatRoom"
-
-[[migrations]]
-tag = "v1"
-new_classes = ["TripChatRoom"]
+script_name = "ranchgolftrips-trip-chat"

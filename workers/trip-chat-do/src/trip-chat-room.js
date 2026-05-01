@@ -1,5 +1,6 @@
 /**
  * Durable Object: single trip chat room + persisted scrollback.
+ * Deployed as a standalone Worker; Pages binds via script_name.
  */
 export class TripChatRoom {
   constructor(state, env) {
@@ -10,7 +11,7 @@ export class TripChatRoom {
   async fetch(request) {
     if (request.headers.get("Upgrade") !== "websocket") {
       return new Response(
-        "Trip chat uses a WebSocket. Open ranchgolftrips.com in a modern browser.",
+        "Trip chat uses a WebSocket. Open the ranch site in a modern browser.",
         {
           status: 400,
           headers: { "Content-Type": "text/plain;charset=UTF-8" },
