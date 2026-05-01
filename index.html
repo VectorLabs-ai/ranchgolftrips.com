@@ -357,7 +357,7 @@
     /* --- ROSTER HEADER (archive style) --- */
     /* Players: align with Trip Updates letter column (800px), centered grid */
     .players-inner {
-      max-width: 800px;
+      max-width: 900px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -368,8 +368,74 @@
     }
 
     #players .roster-list {
-      grid-template-columns: repeat(auto-fit, minmax(208px, 260px));
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      grid-auto-rows: minmax(72px, auto);
+    }
+
+    @media (max-width: 520px) {
+      #players .roster-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 380px) {
+      #players .roster-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .commissioner-spotlight {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 22px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .commissioner-stamp {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #2a1810;
+      background: linear-gradient(160deg, #f5e6b8, #d4a84b);
+      border: 2px solid rgba(101, 62, 28, 0.85);
+      padding: 8px 16px;
+      border-radius: 6px;
+      transform: rotate(-6deg);
+      box-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.35) inset,
+        0 4px 14px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+
+    .commissioner-card {
+      display: flex;
+      align-items: center;
       justify-content: center;
+      gap: 14px;
+      width: 100%;
+      padding: 16px 20px;
+      min-height: 76px;
+      border-radius: 12px;
+      border: 2px solid var(--gold);
+      background: linear-gradient(180deg, rgba(36, 72, 62, 0.95), rgba(14, 34, 29, 0.98));
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .commissioner-card .roster-avatar {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+    }
+
+    .commissioner-card .roster-name {
+      font-size: 1.08rem;
     }
 
     .roster-header-container {
@@ -848,7 +914,14 @@
           <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
         </div>
         <div class="format-box">
-        <ul class="stack-list roster-list" aria-label="Tournament players">
+          <div class="commissioner-spotlight" aria-label="Jeff Watts, Commissioner">
+            <span class="commissioner-stamp">Commissioner</span>
+            <div class="commissioner-card">
+              <img class="roster-avatar" src="JeffWatts-player.png" alt="Jeff Watts" width="56" height="56" />
+              <span class="roster-name">Jeff Watts</span>
+            </div>
+          </div>
+          <ul class="stack-list roster-list" aria-label="Tournament players">
           <li><img class="roster-avatar" src="LlynalCarey-player.png" alt="Llynal Carey" /><span class="roster-name">Llynal Carey</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Scott Davies</span></li>
           <li><img class="roster-avatar" src="JohnnyEason-player.png" alt="Johnny Eason" /><span class="roster-name">Johnny Eason</span></li>
@@ -863,10 +936,9 @@
           <li><img class="roster-avatar" src="GarySmith-player.png" alt="Gary Smith" /><span class="roster-name">Gary Smith</span></li>
           <li><img class="roster-avatar" src="DennisStewert-player.png" alt="Dennis Stewert" /><span class="roster-name">Dennis Stewert</span></li>
           <li><img class="roster-avatar" src="DaleVantine-player.png" alt="Dale Vantine" /><span class="roster-name">Dale Vantine</span></li>
-          <li><img class="roster-avatar" src="JeffWatts-player.png" alt="Jeff Watts" /><span class="roster-name">Jeff Watts</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 15</span></li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 16</span></li>
-        </ul>
+          </ul>
         </div>
       </div>
     </div>
@@ -1029,7 +1101,7 @@
           <button type="button" id="trip-chat-reconnect">Reconnect</button>
         </div>
         <p class="footer-note" style="margin-top: 14px; color: rgba(223, 235, 230, 0.75)">
-          <strong>Heads up:</strong> this is a shared room — don’t post private codes or anything you wouldn’t put in a group text. Runs on Cloudflare; trip hosts can’t moderate line-by-line unless we add tools later.
+          <strong>Heads up:</strong> this is a shared room — don’t post private codes or anything you wouldn’t put in a group text.
         </p>
       </div>
     </div>
