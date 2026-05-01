@@ -135,7 +135,7 @@
       color: var(--gold);
     }
 
-    /* --- HERO & BANNER (matches archive) --- */
+    /* --- HERO & BANNER (full-width triptych asset) --- */
     .hero-section {
       text-align: center;
       background: #050908;
@@ -146,50 +146,15 @@
     }
 
     .hero-banner-wrap {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: center;
-      gap: clamp(8px, 1.8vw, 24px);
-      padding: 10px clamp(6px, 1.5vw, 20px) 0;
-      max-width: 1320px;
+      max-width: min(2048px, 100%);
       margin: 0 auto;
+      padding: clamp(6px, 1.2vw, 14px) clamp(8px, 2vw, 28px) 0;
       background: #050908;
+      box-sizing: border-box;
     }
 
     .hero-banner-main {
-      flex: 1 1 auto;
-      min-width: 0;
-      max-width: min(1024px, 100%);
-    }
-
-    .hero-mascot {
-      flex: 0 0 auto;
-      width: clamp(88px, 12vw, 168px);
-      margin: 0;
-      position: relative;
-      align-self: flex-end;
-      filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.7));
-    }
-
-    .hero-mascot img {
       width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .hero-mascot-caption {
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(0.62rem, 1.05vw, 0.8rem);
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-align: center;
-      margin: 10px 0 4px;
-      line-height: 1.25;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
     }
 
     .banner-img {
@@ -201,26 +166,7 @@
 
     @media (max-width: 720px) {
       .hero-banner-wrap {
-        flex-wrap: wrap;
-        padding-bottom: 6px;
-      }
-
-      .hero-banner-main {
-        flex: 1 1 100%;
-        width: 100%;
-        order: 1;
-      }
-
-      .hero-mascot--lion {
-        order: 2;
-      }
-
-      .hero-mascot--bear {
-        order: 3;
-      }
-
-      .hero-mascot {
-        width: clamp(76px, 32vw, 130px);
+        padding-bottom: 8px;
       }
     }
 
@@ -1133,39 +1079,17 @@
     <div class="hero-section">
       <h1 class="visually-hidden">Mountain Man Invitational — July 20–24, 2026, Ruidoso, New Mexico</h1>
       <div class="hero-banner-wrap">
-        <figure class="hero-mascot hero-mascot--lion">
-          <img
-            src="teams/mountain-lion-mascot.png"
-            alt=""
-            width="320"
-            height="400"
-            decoding="async"
-            fetchpriority="low"
-          />
-          <figcaption class="hero-mascot-caption">Mountain Lions</figcaption>
-        </figure>
         <div class="hero-banner-main">
           <img
             class="banner-img"
             src="mountain-man-banner.jpg"
-            alt="Mountainman Invitational. July 20–24, 2026. Ruidoso, New Mexico. RanchGolfTrips.com"
+            alt="Mountainman Invitational — Mountain Lions, Ruidoso mountain golf scene, and Bears. July 20–24, 2026. RanchGolfTrips.com"
             width="1024"
-            height="479"
+            height="326"
             decoding="async"
             fetchpriority="high"
           />
         </div>
-        <figure class="hero-mascot hero-mascot--bear">
-          <img
-            src="teams/bear-mascot.png"
-            alt=""
-            width="320"
-            height="400"
-            decoding="async"
-            fetchpriority="low"
-          />
-          <figcaption class="hero-mascot-caption">Bears</figcaption>
-        </figure>
       </div>
     </div>
 
@@ -1407,9 +1331,6 @@
       <div class="letter-section letter-section--no-ribbon">
         <div class="letter-content">
           <p class="lodging-inline-title">Mountain Man &rsquo;27 — lodging update</p>
-          <p>
-            Housing for next year&rsquo;s trip is set out below. If anything changes, we&rsquo;ll update this page and the group chat.
-          </p>
 
           <h3 class="letter-subhead">Host homes</h3>
           <ul class="letter-roles">
