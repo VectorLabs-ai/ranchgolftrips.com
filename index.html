@@ -145,11 +145,83 @@
       overflow: hidden;
     }
 
+    .hero-banner-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: center;
+      gap: clamp(8px, 1.8vw, 24px);
+      padding: 10px clamp(6px, 1.5vw, 20px) 0;
+      max-width: 1320px;
+      margin: 0 auto;
+      background: #050908;
+    }
+
+    .hero-banner-main {
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: min(1024px, 100%);
+    }
+
+    .hero-mascot {
+      flex: 0 0 auto;
+      width: clamp(88px, 12vw, 168px);
+      margin: 0;
+      position: relative;
+      align-self: flex-end;
+      filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.7));
+    }
+
+    .hero-mascot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .hero-mascot-caption {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(0.62rem, 1.05vw, 0.8rem);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin: 10px 0 4px;
+      line-height: 1.25;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+    }
+
     .banner-img {
       width: 100%;
       height: auto;
       display: block;
       max-width: 100%;
+    }
+
+    @media (max-width: 720px) {
+      .hero-banner-wrap {
+        flex-wrap: wrap;
+        padding-bottom: 6px;
+      }
+
+      .hero-banner-main {
+        flex: 1 1 100%;
+        width: 100%;
+        order: 1;
+      }
+
+      .hero-mascot--lion {
+        order: 2;
+      }
+
+      .hero-mascot--bear {
+        order: 3;
+      }
+
+      .hero-mascot {
+        width: clamp(76px, 32vw, 130px);
+      }
     }
 
     .visually-hidden {
@@ -875,6 +947,136 @@
       font-weight: 600;
     }
 
+    /* --- TEAMS (Mountain Lions vs Bears) --- */
+    #teams .section-lead-felt {
+      text-align: center;
+      max-width: 42em;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 22px;
+    }
+
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(18px, 3vw, 32px);
+      align-items: stretch;
+    }
+
+    .team-card {
+      background: linear-gradient(180deg, rgba(12, 28, 24, 0.92), rgba(9, 22, 19, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-card--lions {
+      border-top: 3px solid var(--gold);
+    }
+
+    .team-card--bears {
+      border-top: 3px solid #c62828;
+    }
+
+    .team-card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: rgba(0, 0, 0, 0.28);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .team-card-mascot {
+      width: clamp(76px, 15vw, 118px);
+      flex-shrink: 0;
+    }
+
+    .team-card-mascot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid rgba(231, 191, 95, 0.35);
+      box-shadow:   
+        0 8px 22px rgba(0, 0, 0, 0.45);
+    }
+
+    .team-card-title {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.2rem, 2.6vw, 1.65rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .team-card-body {
+      padding: 18px 20px 24px;
+      flex: 1;
+    }
+
+    .team-role-label {
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(231, 191, 95, 0.88);
+      margin: 0 0 10px;
+    }
+
+    .team-roster-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .team-roster-list li {
+      padding: 11px 14px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-left: 3px solid var(--gold);
+      color: #e8ece9;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    .team-roster-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .team-roster-list li.team-slot--captain {
+      background: rgba(231, 191, 95, 0.1);
+      border-left-width: 4px;
+    }
+
+    .team-card--bears .team-roster-list li.team-slot--captain {
+      border-left-color: #e57373;
+    }
+
+    .team-card--bears .team-roster-list li {
+      border-left-color: rgba(229, 115, 115, 0.75);
+    }
+
+    .team-slot-placeholder {
+      color: rgba(223, 235, 230, 0.58);
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    @media (max-width: 760px) {
+      .teams-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-inner {
         flex-direction: column;
@@ -903,6 +1105,7 @@
         <div class="nav-links">
           <a href="#trip-update">Trip Updates</a>
           <a href="#players">Players</a>
+          <a href="#teams">Teams</a>
           <a href="#schedule">Schedule</a>
           <a href="#lodging">Lodging</a>
           <a href="#trip-chat">Camp chat</a>
@@ -912,15 +1115,41 @@
 
     <div class="hero-section">
       <h1 class="visually-hidden">Mountain Man Invitational — July 20–24, 2026, Ruidoso, New Mexico</h1>
-      <img
-        class="banner-img"
-        src="mountain-man-banner.jpg"
-        alt="Mountainman Invitational. July 20–24, 2026. Ruidoso, New Mexico. RanchGolfTrips.com"
-        width="1024"
-        height="479"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <div class="hero-banner-wrap">
+        <figure class="hero-mascot hero-mascot--lion">
+          <img
+            src="teams/mountain-lion-mascot.png"
+            alt=""
+            width="320"
+            height="400"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <figcaption class="hero-mascot-caption">Mountain Lions</figcaption>
+        </figure>
+        <div class="hero-banner-main">
+          <img
+            class="banner-img"
+            src="mountain-man-banner.jpg"
+            alt="Mountainman Invitational. July 20–24, 2026. Ruidoso, New Mexico. RanchGolfTrips.com"
+            width="1024"
+            height="479"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+        <figure class="hero-mascot hero-mascot--bear">
+          <img
+            src="teams/bear-mascot.png"
+            alt=""
+            width="320"
+            height="400"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <figcaption class="hero-mascot-caption">Bears</figcaption>
+        </figure>
+      </div>
     </div>
 
     <div class="sponsor-bar">
@@ -1000,6 +1229,79 @@
           </li>
           <li><img class="roster-avatar" src="" alt="" /><span class="roster-name">Player 16</span></li>
         </ul>
+      </div>
+    </div>
+
+    <div class="container section-padding" id="teams">
+      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🦁</span> Teams <span class="title-motif" aria-hidden="true">🐻</span></h2>
+      <p class="section-lead-felt">
+        Mountain Man is a two-team draft: <strong>Mountain Lions</strong> vs <strong>Bears</strong>. Each side needs a captain and eight players (names coming soon).
+      </p>
+      <div class="teams-grid">
+        <article class="team-card team-card--lions" aria-labelledby="team-lions-heading">
+          <div class="team-card-header">
+            <div class="team-card-mascot">
+              <img
+                src="teams/mountain-lion-mascot.png"
+                alt=""
+                width="200"
+                height="250"
+                decoding="async"
+                loading="lazy"
+              />
+            </div>
+            <h3 id="team-lions-heading" class="team-card-title">Mountain Lions</h3>
+          </div>
+          <div class="team-card-body">
+            <p class="team-role-label" id="lions-captain-label">Captain</p>
+            <ul class="team-roster-list" aria-labelledby="lions-captain-label">
+              <li class="team-slot--captain"><span class="team-slot-placeholder">Captain — TBD</span></li>
+            </ul>
+            <p class="team-role-label" id="lions-players-label" style="margin-top: 1.25rem">Players</p>
+            <ul class="team-roster-list" aria-labelledby="lions-players-label">
+              <li><span class="team-slot-placeholder">Player 1 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 2 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 3 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 4 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 5 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 6 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 7 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 8 — TBD</span></li>
+            </ul>
+          </div>
+        </article>
+        <article class="team-card team-card--bears" aria-labelledby="team-bears-heading">
+          <div class="team-card-header">
+            <div class="team-card-mascot">
+              <img
+                src="teams/bear-mascot.png"
+                alt=""
+                width="200"
+                height="250"
+                decoding="async"
+                loading="lazy"
+              />
+            </div>
+            <h3 id="team-bears-heading" class="team-card-title">Bears</h3>
+          </div>
+          <div class="team-card-body">
+            <p class="team-role-label" id="bears-captain-label">Captain</p>
+            <ul class="team-roster-list" aria-labelledby="bears-captain-label">
+              <li class="team-slot--captain"><span class="team-slot-placeholder">Captain — TBD</span></li>
+            </ul>
+            <p class="team-role-label" id="bears-players-label" style="margin-top: 1.25rem">Players</p>
+            <ul class="team-roster-list" aria-labelledby="bears-players-label">
+              <li><span class="team-slot-placeholder">Player 1 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 2 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 3 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 4 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 5 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 6 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 7 — TBD</span></li>
+              <li><span class="team-slot-placeholder">Player 8 — TBD</span></li>
+            </ul>
+          </div>
+        </article>
       </div>
     </div>
 
