@@ -285,36 +285,30 @@
 
     /* --- SECTION TITLES --- */
     .section-title {
+      position: relative;
       text-align: center;
       color: var(--gold);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-      font-size: clamp(1.65rem, 3.6vw, 2.35rem);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
       font-weight: 700;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
       margin-bottom: 22px;
-      background: linear-gradient(180deg, #214a40, #193a33);
-      padding: 16px 22px;
-      border-radius: 10px;
+      background: linear-gradient(180deg, #1a3d35, #122924);
+      padding: 18px 22px 20px;
+      border-radius: 2px;
       border: 1px solid var(--line);
+      border-left: 3px solid #b8922e;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
-    .title-motif {
-      display: inline-block;
-      margin: 0 0.4em;
-      font-size: 0.82em;
-      line-height: 1;
-      vertical-align: middle;
-      opacity: 0.92;
-      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-    }
-
-    .format-box h3 .title-motif {
-      margin: 0 0.35em 0 0;
-      font-size: 0.95em;
-    }
-
-    .play-format-callout .title-motif {
-      margin-right: 0.35em;
+    .section-title::before {
+      content: "";
+      display: block;
+      width: min(96px, 28vw);
+      height: 2px;
+      margin: 0 auto 14px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.95), transparent);
     }
 
     /* --- LETTER / TRIP BLOCK --- */
@@ -329,21 +323,21 @@
     }
 
     .letter-section::before {
-      content: "🔥 Word from camp";
+      content: "Word from camp";
       position: absolute;
-      top: -15px;
+      top: -14px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, #2a5b4e, #1c4037);
-      color: white;
-      padding: 6px 18px;
+      background: linear-gradient(180deg, #1f4a3f, #142f28);
+      color: rgba(255, 255, 255, 0.94);
+      padding: 6px 16px;
       font-weight: 600;
       font-family: "Source Sans 3", sans-serif;
-      border: 2px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      border-radius: 999px;
+      border: 1px solid rgba(184, 146, 46, 0.45);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      border-radius: 2px;
       white-space: nowrap;
       text-transform: uppercase;
     }
@@ -463,6 +457,22 @@
       max-width: 720px;
     }
 
+    .letter-content .lodging-cost-note {
+      background: linear-gradient(180deg, rgba(255, 248, 230, 0.96), rgba(255, 241, 198, 0.94));
+      border: 1px solid rgba(184, 146, 46, 0.45);
+      padding: 16px 18px;
+      margin: 1.35rem 0 1.85rem;
+      border-radius: 4px;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      max-width: 40em;
+      color: var(--text-dark);
+    }
+
+    .letter-content .lodging-cost-note strong {
+      font-weight: 700;
+    }
+
     .lodging-art img {
       display: block;
       width: 100%;
@@ -562,20 +572,22 @@
       align-items: center;
       margin-bottom: 16px;
       margin-top: 10px;
-      padding: 10px;
-      background: linear-gradient(180deg, #214a40, #18352f);
-      border-radius: 10px;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, #1a3d35, #122924);
+      border-radius: 2px;
       border: 1px solid var(--line);
+      border-left: 3px solid #b8922e;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     .roster-title {
       color: var(--gold);
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-size: clamp(1.45rem, 3vw, 2rem);
       font-weight: 700;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
       margin: 0;
     }
 
@@ -597,11 +609,14 @@
 
     .format-box h3 {
       color: var(--gold);
-      margin: 22px 0 10px;
-      font-size: 1.08rem;
+      margin: 22px 0 12px;
+      font-size: 1.02rem;
       font-family: "Cormorant Garamond", Georgia, serif;
       font-weight: 700;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(184, 146, 46, 0.35);
     }
 
     .format-box h3:first-of-type {
@@ -694,10 +709,12 @@
 
     .play-format-callout .play-format-title {
       font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 0.07em;
-      margin-bottom: 8px;
+      letter-spacing: 0.11em;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(184, 146, 46, 0.35);
       color: var(--gold);
       text-transform: uppercase;
     }
@@ -1153,7 +1170,7 @@
     </div>
 
     <div class="sponsor-bar">
-      <div class="sponsor-title">🤝 Tournament Sponsors</div>
+      <div class="sponsor-title">Tournament sponsors</div>
       <div class="sponsor-logos">
         <a href="https://www.robsonranchgolfclub.com/" target="_blank" rel="noopener noreferrer"><img src="archive/Wildhorse-logo.webp" alt="Wildhorse" /></a>
         <a href="https://tangent.golf" target="_blank" rel="noopener noreferrer"><img src="archive/Tangent-Logo.png" alt="Tangent Golf" /></a>
@@ -1163,7 +1180,7 @@
     </div>
 
     <div class="container section-padding" id="trip-update">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏔</span> Trip Updates <span class="title-motif" aria-hidden="true">🏔</span></h2>
+      <h2 class="section-title text-center">Trip updates</h2>
       <div class="letter-section">
         <div class="letter-content">
           <div class="rsvp-callout">
@@ -1202,7 +1219,7 @@
 
     <div class="container section-padding" id="players">
       <div class="roster-header-container">
-        <h2 class="roster-title"><span class="title-motif" aria-hidden="true">🦅</span> Players <span class="title-motif" aria-hidden="true">🦅</span></h2>
+        <h2 class="roster-title">Players</h2>
       </div>
       <div class="format-box">
         <ul class="stack-list roster-list" aria-label="Tournament players">
@@ -1233,10 +1250,7 @@
     </div>
 
     <div class="container section-padding" id="teams">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🦁</span> Teams <span class="title-motif" aria-hidden="true">🐻</span></h2>
-      <p class="section-lead-felt">
-        Mountain Man is a two-team draft: <strong>Mountain Lions</strong> vs <strong>Bears</strong>. Each side needs a captain and eight players (names coming soon).
-      </p>
+      <h2 class="section-title text-center">Teams</h2>
       <div class="teams-grid">
         <article class="team-card team-card--lions" aria-labelledby="team-lions-heading">
           <div class="team-card-header">
@@ -1306,9 +1320,9 @@
     </div>
 
     <div class="container section-padding" id="schedule">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🌲</span> Schedule &amp; events <span class="title-motif" aria-hidden="true">🌲</span></h2>
+      <h2 class="section-title text-center">Schedule &amp; events</h2>
       <div class="play-format-callout">
-        <div class="play-format-title"><span class="title-motif" aria-hidden="true">🗺</span> Trail notes</div>
+        <div class="play-format-title">Trail notes</div>
         <p>
           We plan to rotate rounds across <strong>Alto Country Club</strong>, <strong>The Outlaw at Alto</strong>, and
           <strong>Rainmakers</strong>. Tee sheets and pairings will post here once Llynal and Dale lock times.
@@ -1316,7 +1330,7 @@
         </p>
       </div>
       <div class="format-box">
-        <h3><span class="title-motif" aria-hidden="true">⛳</span> Golf — courses</h3>
+        <h3>Golf — courses</h3>
         <ul class="stack-list schedule-courses" aria-label="Golf courses and rounds">
           <li class="course-row">
             <div class="course-row-text">
@@ -1382,32 +1396,42 @@
           </li>
         </ul>
 
-        <h3><span class="title-motif" aria-hidden="true">🔥</span> Evenings &amp; campfire</h3>
+        <h3>Evenings &amp; campfire</h3>
         <!-- Schedule events: add <li>...</li> inside the ul -->
         <ul class="stack-list schedule-events" aria-label="Evening and social events"></ul>
       </div>
     </div>
 
     <div class="container section-padding" id="lodging">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🏕</span> Lodging <span class="title-motif" aria-hidden="true">🏕</span></h2>
+      <h2 class="section-title text-center">Lodging</h2>
       <div class="letter-section letter-section--no-ribbon">
         <div class="letter-content">
-          <p class="lodging-inline-title">Trip lodging plan</p>
+          <p class="lodging-inline-title">Mountain Man &rsquo;27 — lodging update</p>
           <p>
-            <strong>Host homes and spare bedrooms.</strong> Lodging will work like last year. If you stayed with
-            Dale or Llynal before, you are welcome to stay with them again. There is also limited space with Dennis
-            (if he makes the trip), plus one additional spare bedroom—first come, first served on those spots.
+            Housing for next year&rsquo;s trip is set out below. If anything changes, we&rsquo;ll update this page and the group chat.
           </p>
+
+          <h3 class="letter-subhead">Host homes</h3>
+          <ul class="letter-roles">
+            <li><strong>Llynal Carey</strong> — Tim Hughes, Gary Smith, Scott Tefft</li>
+            <li><strong>Dale Valentine</strong> — Harley Finnel, Doyle Hicks</li>
+            <li><strong>Jeff Watts</strong> — Dave Emerton, Dennis Stewert</li>
+          </ul>
+
+          <h3 class="letter-subhead">Inn, VRBO, and local stays</h3>
+          <ul class="letter-roles">
+            <li><strong>Donny Reed</strong> — staying at his own home.</li>
+            <li><strong>Scott Davies</strong> — Inn of the Mountain Gods with his wife.</li>
+            <li><strong>Mike Miloser, Johnny Eason, Larry Hull, Corey Klessig</strong> — shared VRBO.</li>
+          </ul>
+
+          <div class="lodging-cost-note">
+            <strong>Split on paid lodging.</strong> Take the <strong>total VRBO cost</strong> plus <strong>Scott Davies&rsquo;s share</strong> of his room at the Inn. Divide that combined dollar amount by <strong>twelve players</strong> — everyone in that pool pays an equal share of the total.
+            <strong>Llynal Carey, Dale Valentine, Donny Reed, and Jeff Watts</strong> are not in that twelve (hosts / own house).
+          </div>
+
           <p>
-            <strong>Everyone else.</strong> Plan on an Airbnb, another hotel, or a resort room. <strong>Inn of the Mountain Gods</strong> has a
-            fresh look and is redoing its golf greens; we may play there this year if conditions are
-            right. If not, our rounds will focus on <strong>Alto Country Club</strong>, <strong>The Outlaw at Alto</strong>,
-            and <strong>Rainmakers</strong> (tee sheets will be posted in <a href="#schedule">Schedule</a> when firm).
-          </p>
-          <p>
-            <strong>Partners and spouses.</strong> Wives, husbands, and significant others are absolutely welcome. For
-            couples, <strong>Inn of the Mountain Gods</strong> is an especially easy choice: full-service hotel,
-            dining, nightlife, and a large casino—great for guests while we are on the course.
+            <strong>Partners and guests.</strong> Spouses and significant others are welcome. The Inn stays below are especially handy for couples who want full-service lodging while we&rsquo;re on the course.
           </p>
 
           <p class="lodging-inline-title">About Inn of the Mountain Gods</p>
@@ -1434,8 +1458,7 @@
             quick meal between golf and evening plans.
           </p>
           <p>
-            <strong>Booking:</strong> Reserve through the resort site or your preferred booking channel. July weekends
-            fill up—book early for our dates (<strong>July 20–24, 2026</strong>).
+            <strong>Booking:</strong> Reserve through the resort site or your preferred booking channel. Weekends around the trip fill fast — once <strong>Mountain Man &rsquo;27</strong> dates are locked, book early.
           </p>
           <p>
             <a href="https://www.innofthemountaingods.com/" target="_blank" rel="noopener noreferrer">Inn of the Mountain Gods — official website</a>
@@ -1445,7 +1468,7 @@
     </div>
 
     <div class="container section-padding" id="trip-chat">
-      <h2 class="section-title text-center"><span class="title-motif" aria-hidden="true">🔥</span> Camp chat <span class="title-motif" aria-hidden="true">🔥</span></h2>
+      <h2 class="section-title text-center">Camp chat</h2>
       <div class="format-box trip-chat-panel">
         <p class="section-lead-felt">
           Live on this page — questions, answers, and tasteful smack talk. Messages stick around for the next visit.
